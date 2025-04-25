@@ -95,7 +95,7 @@ public abstract class Usuario implements Serializable {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-
+// gay
     
     /**
      * Devuelve una representación en cadena del objeto Usuario.
