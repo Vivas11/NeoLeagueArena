@@ -36,6 +36,7 @@ public class ModelFacade {
 		String cadena = texto.replace("\n", "<br>");
 		return "<html><p>" + cadena + "</p></html>";
 	}
+	
 	public AdministradorDAO getAdministradorDAO() {
 		return administradorDAO;
 	}
