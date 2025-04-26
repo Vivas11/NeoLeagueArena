@@ -79,6 +79,7 @@ public class PanelIniciarSesion extends JPanel {
 		btnRegistrarse.setBackground(new Color(0, 0, 0,0));
 		btnRegistrarse.setOpaque(false);
         btnRegistrarse.setBorderPainted(false);
+        btnRegistrarse.setContentAreaFilled(false); 
         btnRegistrarse.setBorder(null);
 		btnRegistrarse.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnRegistrarse);
@@ -92,6 +93,7 @@ public class PanelIniciarSesion extends JPanel {
 		btnIngresar.setBackground(new Color(0, 0, 0,0));
 		btnIngresar.setOpaque(false);
         btnIngresar.setBorderPainted(false);
+//        btnIngresar.setContentAreaFilled(false);  no borrar :)
         btnIngresar.setBorder(null);
 		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnIngresar);

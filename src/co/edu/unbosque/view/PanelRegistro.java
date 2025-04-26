@@ -83,11 +83,6 @@ public class PanelRegistro extends JPanel {
 //        Image fdRedim = fd.getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
 //        fondo.setIcon(new ImageIcon(fdRedim));
 //        fondo.setBounds(0, 0, 1290, 750);
-    	ImageIcon icono = new ImageIcon("images/registro.png");
-		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-		fondo = new JLabel(new ImageIcon(imagen));
-		fondo.setBounds(0, 0, 1290, 750);
-		add(fondo);
 
 		btnVolver = new JButton();
 		btnVolver.setBounds(1070, 45, 150, 60);
@@ -98,32 +93,60 @@ public class PanelRegistro extends JPanel {
 		btnVolver.setBackground(new Color(0, 0, 0,0));
 		btnVolver.setOpaque(false);
         btnVolver.setBorderPainted(false);
+        btnVolver.setContentAreaFilled(false); 
         btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
 
         btnIngresar = new JButton();
-        btnIngresar.setBounds(480, 600, 320, 50);
+        btnIngresar.setBounds(305, 610, 150, 50);
 //        btnIngresar.setText(prop.getProperty("archivospropiedad.boton.ingresar"));
         btnIngresar.setFocusable(false);
+        btnIngresar.setContentAreaFilled(false); 
         btnIngresar.setForeground(Color.black);
-        btnIngresar.setBackground(new Color(235, 219, 79));
+        btnIngresar.setBackground(new Color(00, 150, 50));
         btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
         add(btnIngresar);
 
         nombreUsuario = new JTextField();
-        nombreUsuario.setBounds(480, 300, 490, 60);
-        nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 26));
+        nombreUsuario.setBounds(250, 210, 400, 50);
+        nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
         add(nombreUsuario);
+        
+        txtCiudad = new JTextField();
+        txtCiudad.setBounds(250, 270, 400, 50);
+        txtCiudad.setFont(new Font("Baloo", Font.BOLD, 20));
+        add(txtCiudad);
+        //
+        txtPais = new JTextField();
+        txtPais.setBounds(250, 325, 400, 50);
+        txtPais.setFont(new Font("Baloo", Font.BOLD, 20));
+        add(txtPais);
+        //
+        txtCorreo = new JTextField();
+        txtCorreo.setBounds(250, 390, 400, 50);
+        txtCorreo.setFont(new Font("Baloo", Font.BOLD, 20));
+        add(txtCorreo);
+        
+        String[] usuario = {"Tipo de usuario", "Administrador", "Jugador", "Entrenador"};
+
+        cbxTipoUsuario = new JComboBox<>(usuario);
+        cbxTipoUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
+//        cbxTipoUsuario.setBackground(Color.white);
+        cbxTipoUsuario.setBounds(250, 445, 400, 50);
+
+        cbxTipoUsuario.setSelectedIndex(0);
+        add(cbxTipoUsuario);
+
 
         contrasena1 = new JPasswordField();
-        contrasena1.setBounds(480, 400, 490, 60);
-        contrasena1.setFont(new Font("Baloo", Font.BOLD, 26));
+        contrasena1.setBounds(250, 500, 400, 50);
+        contrasena1.setFont(new Font("Baloo", Font.BOLD, 20));
         add(contrasena1);
 
         contrasena2 = new JPasswordField();
-        contrasena2.setBounds(480, 500, 490, 60);
-        contrasena2.setFont(new Font("Baloo", Font.BOLD, 26));
+        contrasena2.setBounds(250, 555, 400, 50);
+        contrasena2.setFont(new Font("Baloo", Font.BOLD, 20));
         add(contrasena2);
 
         textNombre = new JLabel();
@@ -135,7 +158,7 @@ public class PanelRegistro extends JPanel {
         textContra1 = new JLabel();
         textContra1.setBounds(324, 400, 400, 60);
 //        textContra1.setText(prop.getProperty("archivospropiedad.texto.contrasena"));
-        textContra1.setFont(new Font("Baloo", Font.BOLD, 26));
+        textContra1.setFont(new Font("Baloo", Font.BOLD, 20));
         mostrarContrasena = new JCheckBox();
         mostrarContrasena.setBounds(980, 420, 20, 20);
         mostrarContrasena.setOpaque(false);
@@ -170,14 +193,13 @@ public class PanelRegistro extends JPanel {
         textEstandarContra.setFont(new Font("Baloo", Font.BOLD, 10));
         add(textEstandarContra);
 
-		String[] usuario = { "Administrador","Jugador","Entrenador" };
+        
+    	ImageIcon icono = new ImageIcon("images/registro.png");
+		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
+		fondo = new JLabel(new ImageIcon(imagen));
+		fondo.setBounds(0, 0, 1290, 750);
+		add(fondo);
 
-		cbxTipoUsuario = new JComboBox<>(usuario);
-		cbxTipoUsuario.setFont(new Font("Baloo", Font.BOLD, 26));
-		cbxTipoUsuario.setForeground(Color.black);
-		cbxTipoUsuario.setBounds(0, 40, 200, 50);
-
-		add(cbxTipoUsuario);
     }
 
     /**
