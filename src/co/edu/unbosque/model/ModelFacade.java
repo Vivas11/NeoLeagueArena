@@ -26,6 +26,16 @@ public class ModelFacade {
 		torneoDAO = new TorneoDAO();
 	}
 
+	/**
+	 * Convierte un texto en formato HTML.
+	 * 
+	 * @param texto Texto a convertir.
+	 * @return Texto en formato HTML.
+	 */
+	public String convertirAHtml(String texto) {
+		String cadena = texto.replace("\n", "<br>");
+		return "<html><p>" + cadena + "</p></html>";
+	}
 	public AdministradorDAO getAdministradorDAO() {
 		return administradorDAO;
 	}
