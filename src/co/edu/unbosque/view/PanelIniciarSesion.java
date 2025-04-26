@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -41,6 +42,8 @@ public class PanelIniciarSesion extends JPanel {
 	private JCheckBox mostrarContrasena;
 	/** Propiedades para la configuración del panel. */
 	private Properties prop;
+	
+	private JButton btnRegistrarse;
 
 	/**
 	 * Constructor que inicializa el panel para iniciar sesión.
@@ -56,54 +59,95 @@ public class PanelIniciarSesion extends JPanel {
 		fondo.setBounds(0, 0, 1290, 750);
 
 		btnVolver = new JButton();
-		btnVolver.setBounds(800, 530, 170, 50);
-		btnVolver.setText("volver");
+		btnVolver.setBounds(1070, 45, 150, 60);
+		
+//		btnVolver.setText("volver");
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
-		btnVolver.setBackground(new Color(246, 86, 86));
+		btnVolver.setBackground(new Color(0, 0, 0,0));
+		btnVolver.setOpaque(false);
+        btnVolver.setBorderPainted(false);
+        btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
+		
+		btnRegistrarse = new JButton();
+		btnRegistrarse.setBounds(870, 45, 150, 60);
+//		btnRegistrarse.setText("Registrarse");
+		btnRegistrarse.setFocusable(false);
+		btnRegistrarse.setForeground(Color.black);
+		btnRegistrarse.setBackground(new Color(0, 0, 0,0));
+		btnRegistrarse.setOpaque(false);
+        btnRegistrarse.setBorderPainted(false);
+        btnRegistrarse.setBorder(null);
+		btnRegistrarse.setFont(new Font("Baloo", Font.BOLD, 26));
+		add(btnRegistrarse);
+
 
 		btnIngresar = new JButton();
-		btnIngresar.setBounds(480, 530, 320, 50);
-		btnIngresar.setText("ingresar");
+		btnIngresar.setBounds(910, 505, 150, 50);
+//		btnIngresar.setText("ingresar");
 		btnIngresar.setFocusable(false);
 		btnIngresar.setForeground(Color.black);
-		btnIngresar.setBackground(new Color(235, 219, 79));
+		btnIngresar.setBackground(new Color(0, 0, 0,0));
+		btnIngresar.setOpaque(false);
+        btnIngresar.setBorderPainted(false);
+        btnIngresar.setBorder(null);
 		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnIngresar);
 
 		nombreUsuario = new JTextField();
-		nombreUsuario.setBounds(480, 300, 490, 60);
-		nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 26));
+		nombreUsuario.setBounds(850, 325, 350, 50);
+		nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(nombreUsuario);
 
 		contrasena = new JPasswordField();
-		contrasena.setBounds(480, 400, 490, 60);
-		contrasena.setFont(new Font("Baloo", Font.BOLD, 26));
+		contrasena.setBounds(850, 420, 350, 50);
+		contrasena.setFont(new Font("Baloo", Font.BOLD, 20));
 		mostrarContrasena = new JCheckBox();
-		mostrarContrasena.setBounds(980, 420, 20, 20);
+		mostrarContrasena.setBounds(1200, 430, 20, 20);
 		mostrarContrasena.setOpaque(false);
 		mostrarContrasena.setContentAreaFilled(false);
 		mostrarContrasena.setBorderPainted(false);
 		mostrarContrasena.setFocusPainted(false);
 		add(mostrarContrasena);
 		add(contrasena);
-
+	
 		textNombre = new JLabel();
 		textNombre.setBounds(340, 300, 400, 60);
-		textNombre.setText("ausuario");
+//		textNombre.setText("usuario");
 		textNombre.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(textNombre);
 
 		textContra = new JLabel();
 		textContra.setBounds(324, 400, 400, 60);
-		textContra.setText("archivospropiedad.texto.contrasena");
+//		textContra.setText("contrasena");
 		textContra.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(textContra);
 
+		ImageIcon icono = new ImageIcon("images/iniciarS.png");
+		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
+		fondo = new JLabel(new ImageIcon(imagen));
+		fondo.setBounds(0, 0, 1290, 750);
 		add(fondo);
 
+	}
+
+	/**
+	 * Obtiene el botón para registrarse .
+	 * 
+	 * @return Botón para resgistrarse.
+	 */
+	public JButton getBtnRegistrarse() {
+		return btnRegistrarse;
+	}
+	/**
+	 * Establece el botón para registrarse.
+	 * 
+	 * @param btnVolver Botón para registrarse.
+	 */
+	public void setBtnRegistrarse(JButton btnRegistrarse) {
+		this.btnRegistrarse = btnRegistrarse;
 	}
 
 	/**

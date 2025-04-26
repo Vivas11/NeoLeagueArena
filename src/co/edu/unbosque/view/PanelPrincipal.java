@@ -1,12 +1,10 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -37,8 +35,8 @@ public class PanelPrincipal extends JPanel {
 		btnIniciarS.setFocusable(false);
 		btnIniciarS.setOpaque(false);
 		btnIniciarS.setContentAreaFilled(false);
-//	        btnIniciarS.setBorderPainted(false);
-//	        btnIniciarS.setBorder(null);
+		btnIniciarS.setBorderPainted(false);
+		btnIniciarS.setBorder(null);
 
 		add(btnIniciarS);
 
@@ -60,18 +58,6 @@ public class PanelPrincipal extends JPanel {
 		add(btnVerT);
 
 		add(imagen1);
-	}
-
-	public static void main(String[] args) {
-		JFrame ventana = new JFrame("Prueba del Panel Principal");
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.setSize(1300, 780);
-		ventana.setLayout(null);
-
-		PanelPrincipal panel = new PanelPrincipal();
-		ventana.add(panel);
-
-		ventana.setVisible(true);
 	}
 
 	public JLabel getImagen() {
