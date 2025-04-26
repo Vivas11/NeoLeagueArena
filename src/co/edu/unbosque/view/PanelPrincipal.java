@@ -3,6 +3,7 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Image;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,24 +20,21 @@ public class PanelPrincipal extends JPanel {
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 
-//	        imagen = new JLabel();
-//	        imagen.setOpaque(true); 
-//	        imagen.setBackground(Color.BLACK);
-//	        imagen.setBounds(0, 0, 1290, 750);
-//	        imagen.setLayout(null);
-		ImageIcon icono = new ImageIcon("images/principal.png");
+		ImageIcon icono = new ImageIcon("images/image.png");
 		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
 		imagen1 = new JLabel(new ImageIcon(imagen));
 		imagen1.setBounds(0, 0, 1290, 750);
 		add(imagen1);
 
 		btnIniciarS = new JButton();
-		btnIniciarS.setBounds(1105, 45, 150, 60);
+		btnIniciarS.setBounds(1080, 45, 125, 60);
 		btnIniciarS.setFocusable(false);
 		btnIniciarS.setOpaque(false);
 		btnIniciarS.setContentAreaFilled(false);
-		btnIniciarS.setBorderPainted(false);
-		btnIniciarS.setBorder(null);
+		btnIniciarS.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255, 150))); 
+
+		add(btnIniciarS);
+
 
 		add(btnIniciarS);
 
@@ -50,7 +48,7 @@ public class PanelPrincipal extends JPanel {
 		add(btnCrearC);
 
 		btnVerT = new JButton();
-		btnVerT.setBounds(500, 500, 250, 100);
+		btnVerT.setBounds(555, 617, 180, 60);
 		btnVerT.setFocusable(false);
 		btnVerT.setBackground(Color.WHITE);
 		btnVerT.setBackground(new Color(153, 0, 0));
