@@ -114,7 +114,7 @@ public class PanelIniciarSesion extends JPanel {
 		textContra.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(textContra);
 
-		ImageIcon icono = new ImageIcon("images/iniciarS.png");
+		ImageIcon icono = new ImageIcon("images/sesion.png");
 		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
 		fondo = new JLabel(new ImageIcon(imagen));
 		fondo.setBounds(0, 0, 1290, 750);
