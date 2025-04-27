@@ -16,6 +16,8 @@ public class PanelEquipo extends JPanel {
 	private JButton btnVolver;
 	private JScrollPane scrollPane;
 	private JLabel imagen1;
+	private JPanel panelContenido;
+
 	
 	public PanelEquipo() {
 		setBounds(0, 0, 1290, 750);
@@ -37,11 +39,20 @@ public class PanelEquipo extends JPanel {
         btnVolver.setContentAreaFilled(false); 
         btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
+		
+		 JScrollPane scrollPrincipal = new JScrollPane(panelContenido);
+	        scrollPrincipal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	        scrollPrincipal.setBounds(25, 150, 700, 450);
+
+		
+		
+		
+		
 		add(btnVolver); 
 		 
 		
 		 
-		
+		add(scrollPrincipal); 
 		add(imagen1);
 		
 	}
