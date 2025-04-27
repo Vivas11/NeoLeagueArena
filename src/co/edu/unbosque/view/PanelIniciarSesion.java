@@ -42,8 +42,6 @@ public class PanelIniciarSesion extends JPanel {
 	private JCheckBox mostrarContrasena;
 	/** Propiedades para la configuración del panel. */
 	private Properties prop;
-	
-	
 
 	/**
 	 * Constructor que inicializa el panel para iniciar sesión.
@@ -60,28 +58,27 @@ public class PanelIniciarSesion extends JPanel {
 
 		btnVolver = new JButton();
 		btnVolver.setBounds(1070, 45, 150, 60);
-		
+
 //		btnVolver.setText("volver");
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
-		btnVolver.setBackground(new Color(0, 0, 0,0));
+		btnVolver.setBackground(new Color(0, 0, 0, 0));
 		btnVolver.setOpaque(false);
-        btnVolver.setBorderPainted(false);
-        btnVolver.setBorder(null);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
-		
-		
+
 		btnIngresar = new JButton();
 		btnIngresar.setBounds(910, 505, 150, 50);
 //		btnIngresar.setText("ingresar");
 		btnIngresar.setFocusable(false);
 		btnIngresar.setForeground(Color.black);
-		btnIngresar.setBackground(new Color(0, 0, 0,0));
+		btnIngresar.setBackground(new Color(0, 0, 0, 0));
 		btnIngresar.setOpaque(false);
-        btnIngresar.setBorderPainted(false);
+		btnIngresar.setBorderPainted(false);
 //        btnIngresar.setContentAreaFilled(false);  no borrar :)
-        btnIngresar.setBorder(null);
+		btnIngresar.setBorder(null);
 		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnIngresar);
 
@@ -101,7 +98,7 @@ public class PanelIniciarSesion extends JPanel {
 		mostrarContrasena.setFocusPainted(false);
 		add(mostrarContrasena);
 		add(contrasena);
-	
+
 		textNombre = new JLabel();
 		textNombre.setBounds(340, 300, 400, 60);
 //		textNombre.setText("usuario");
@@ -121,8 +118,6 @@ public class PanelIniciarSesion extends JPanel {
 		add(fondo);
 
 	}
-
-	
 
 	/**
 	 * Obtiene el fondo del panel.
