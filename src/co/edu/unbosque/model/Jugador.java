@@ -3,7 +3,6 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 
 public class Jugador extends Usuario implements Serializable {
-    private String nombre;
     private String pais;
     private String ciudad;
     private Equipo equipo;
@@ -11,13 +10,9 @@ public class Jugador extends Usuario implements Serializable {
     public Jugador() {
     	
 	}
-    
-    
-    
-    public Jugador(String nombre, String contrasena, String correo, String nombre2, String pais, String ciudad,
+    public Jugador(String nombre, String contrasena, String correo, String pais, String ciudad,
 			Equipo equipo) {
 		super(nombre, contrasena, correo);
-		nombre = nombre2;
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
@@ -32,28 +27,13 @@ public class Jugador extends Usuario implements Serializable {
 
 
 
-	public Jugador(String nombre, String pais, String ciudad, Equipo equipo) {
+	public Jugador(String pais, String ciudad, Equipo equipo) {
 		super();
-		this.nombre = nombre;
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
 	}
-
-
-
-	public String getNombre() {
-		return nombre;
-	}
-
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-
+	
 	public String getPais() {
         return pais;
     }

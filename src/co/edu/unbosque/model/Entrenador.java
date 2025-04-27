@@ -8,6 +8,8 @@ public class Entrenador extends Usuario implements Serializable {
     private String ciudad;
     private ArrayList<Equipo> equipos;
 
+    
+    
     public Entrenador() {
         super();
         this.equipos = new ArrayList<>();
