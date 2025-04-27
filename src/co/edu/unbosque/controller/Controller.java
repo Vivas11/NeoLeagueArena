@@ -32,11 +32,15 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnIniciarS().setActionCommand("btnIniciarS");
 		vf.getVp().getPnP().getBtnRegistrarse().addActionListener(this);
 		vf.getVp().getPnP().getBtnRegistrarse().setActionCommand("btnRegistrarse");
+		vf.getVp().getPnP().getBtnVerE().addActionListener(this);
+		vf.getVp().getPnP().getBtnVerE().setActionCommand("btnVerE");
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
 		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		
+		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolver");
+	 	
 		
 	}
 
@@ -70,6 +74,16 @@ public class Controller implements ActionListener {
 		case "btnRegistrarse":{
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlRegistro().setVisible(true);
+			break;
+		}
+		case "btnVerE":{
+			vf.getVp().getPnP().setVisible(false);
+			vf.getVp().getPnE().setVisible(true);
+			break;
+		}
+		case "btnVolver":{
+			vf.getVp().getPnE().setVisible(false);
+			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
 		}

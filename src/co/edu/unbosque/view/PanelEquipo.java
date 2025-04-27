@@ -37,10 +37,10 @@ public class PanelEquipo extends JPanel {
         btnVolver.setContentAreaFilled(false); 
         btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(btnVolver);
+		add(btnVolver); 
 		 
 		
-		
+		 
 		
 		add(imagen1);
 		

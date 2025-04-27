@@ -39,7 +39,7 @@ public class PanelPrincipal extends JPanel {
 		btnIniciarS.setContentAreaFilled(false); 
 		btnIniciarS.setBorderPainted(false);
 		btnIniciarS.setBorder(null);
-			add(btnIniciarS);
+			add(btnIniciarS); 
 		
 	
 
