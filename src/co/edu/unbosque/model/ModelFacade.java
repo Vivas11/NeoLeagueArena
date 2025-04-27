@@ -5,7 +5,9 @@ import co.edu.unbosque.model.persistence.EntrenadorDAO;
 import co.edu.unbosque.model.persistence.EquipoDAO;
 import co.edu.unbosque.model.persistence.JugadorDAO;
 import co.edu.unbosque.model.persistence.PartidaDAO;
-import co.edu.unbosque.model.persistence.TorneoDAO;
+import co.edu.unbosque.model.persistence.TorneoCompletoDAO;
+import co.edu.unbosque.model.persistence.TorneoLigaDAO;
+import co.edu.unbosque.model.persistence.TorneoLlaveDAO;
 
 public class ModelFacade {
 	
@@ -14,7 +16,9 @@ public class ModelFacade {
 	private EquipoDAO equipoDAO;
 	private JugadorDAO jugadorDAO;
 	private PartidaDAO partidaDAO;
-	private TorneoDAO torneoDAO;
+	private TorneoCompletoDAO torneoCompletoDAO;
+	private TorneoLigaDAO torneoLigaDAO;
+	private TorneoLlaveDAO torneoLlaveDAO;
 	
 	public ModelFacade() {
 
@@ -23,7 +27,9 @@ public class ModelFacade {
 		equipoDAO = new EquipoDAO();
 		jugadorDAO = new JugadorDAO();
 		partidaDAO = new PartidaDAO();
-		torneoDAO = new TorneoDAO();
+		torneoCompletoDAO = new TorneoCompletoDAO();
+		torneoLigaDAO = new TorneoLigaDAO();
+		torneoLlaveDAO = new TorneoLlaveDAO();
 	}
 
 	/**
@@ -77,13 +83,30 @@ public class ModelFacade {
 		this.partidaDAO = partidaDAO;
 	}
 
-	public TorneoDAO getTorneoDAO() {
-		return torneoDAO;
+	public TorneoCompletoDAO getTorneoCompletoDAO() {
+		return torneoCompletoDAO;
 	}
 
-	public void setTorneoDAO(TorneoDAO torneoDAO) {
-		this.torneoDAO = torneoDAO;
+	public void setTorneoCompletoDAO(TorneoCompletoDAO torneoCompletoDAO) {
+		this.torneoCompletoDAO = torneoCompletoDAO;
 	}
 
+	public TorneoLigaDAO getTorneoLigaDAO() {
+		return torneoLigaDAO;
+	}
+
+	public void setTorneoLigaDAO(TorneoLigaDAO torneoLigaDAO) {
+		this.torneoLigaDAO = torneoLigaDAO;
+	}
+
+	public TorneoLlaveDAO getTorneoLlaveDAO() {
+		return torneoLlaveDAO;
+	}
+
+	public void setTorneoLlaveDAO(TorneoLlaveDAO torneoLlaveDAO) {
+		this.torneoLlaveDAO = torneoLlaveDAO;
+	}
+	
+	
 
 }

@@ -2,10 +2,10 @@ package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 
-import co.edu.unbosque.model.Torneo;
-import co.edu.unbosque.model.TorneoDTO;
+import co.edu.unbosque.model.TorneoCompleto;
+import co.edu.unbosque.model.TorneoCompletoDTO;
 
-public class TorneoDAO implements OperacionDAO<TorneoDTO, Torneo>{
+public class TorneoCompletoDAO implements OperacionDAO<TorneoCompletoDTO, TorneoCompleto> {
 
 	@Override
 	public String showAll() {
@@ -14,32 +14,33 @@ public class TorneoDAO implements OperacionDAO<TorneoDTO, Torneo>{
 	}
 
 	@Override
-	public ArrayList<TorneoDTO> getAll() {
+	public ArrayList<TorneoCompletoDTO> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean add(TorneoDTO newData) {
+	public boolean add(TorneoCompletoDTO newData) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(TorneoDTO toDelete) {
+	public boolean delete(TorneoCompletoDTO toDelete) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Torneo find(Torneo toFind) {
+	public TorneoCompleto find(TorneoCompleto toFind) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean update(TorneoDTO previous, TorneoDTO newData) {
+	public boolean update(TorneoCompletoDTO previous, TorneoCompletoDTO newData) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
