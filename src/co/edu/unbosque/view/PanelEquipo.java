@@ -28,7 +28,7 @@ public class PanelEquipo extends JPanel {
 		
 		
 		
-		 
+		btnVolver = new JButton();
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
 		btnVolver.setBackground(new Color(0, 0, 0,0));
