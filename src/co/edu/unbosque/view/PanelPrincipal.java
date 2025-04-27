@@ -14,7 +14,10 @@ public class PanelPrincipal extends JPanel {
 	private JLabel imagen1;
 	private JButton btnVerT;
 	private JButton btnIniciarS;
-	private JButton btnCrearC;
+	private JButton btnVerE;
+	private JButton btnHistoriaP;
+	private JButton btnJugadoresD;
+	private JButton btnMejoresE;
 
 	public PanelPrincipal() {
 		setBounds(0, 0, 1290, 750);
@@ -30,40 +33,75 @@ public class PanelPrincipal extends JPanel {
 		btnIniciarS.setBounds(1080, 45, 125, 60);
 		btnIniciarS.setFocusable(false);
 		btnIniciarS.setOpaque(false);
-		btnIniciarS.setContentAreaFilled(false);
-		btnIniciarS.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255, 150))); 
+		btnIniciarS.setContentAreaFilled(false); 
+		btnIniciarS.setBorderPainted(false);
+		btnIniciarS.setBorder(null);
+		
 
 		add(btnIniciarS);
 
 
-		add(btnIniciarS);
+		btnVerE = new JButton();
+		btnVerE.setBounds(40, 45, 170, 50);
+		btnVerE.setFocusable(false);
+		btnVerE.setOpaque(false);
+		btnVerE.setContentAreaFilled(false);
+		btnVerE.setBorderPainted(false);
+		btnVerE.setBorder(null);
 
-		btnCrearC = new JButton();
-		btnCrearC.setBounds(500, 350, 250, 100);
-		btnCrearC.setFocusable(false);
-		btnCrearC.setBackground(Color.WHITE);
-		btnCrearC.setBackground(new Color(153, 0, 0));
-		btnCrearC.setContentAreaFilled(false);
-
-		add(btnCrearC);
+		add(btnVerE);
 
 		btnVerT = new JButton();
 		btnVerT.setBounds(555, 617, 180, 60);
 		btnVerT.setFocusable(false);
-		btnVerT.setBackground(Color.WHITE);
-		btnVerT.setBackground(new Color(153, 0, 0));
 		btnVerT.setContentAreaFilled(false);
+		btnVerT.setOpaque(false);
+		btnVerE.setBorderPainted(false);
+		btnVerE.setBorder(null);
+		
 		add(btnVerT);
+		
+		
+		btnHistoriaP = new JButton();
+		btnHistoriaP.setBounds(250, 45, 170, 60);
+		btnHistoriaP.setFocusable(false);
+		btnHistoriaP.setContentAreaFilled(false);
+		btnVerT.setOpaque(false);
+		btnVerE.setBorderPainted(false);
+		btnVerE.setBorder(null);
+		add(btnHistoriaP);
+		
+		
+		btnJugadoresD = new JButton();
+		btnJugadoresD.setBounds(450, 45, 170, 60);
+		btnJugadoresD.setFocusable(false);
+		btnJugadoresD.setContentAreaFilled(false);
+		btnVerT.setOpaque(false);
+		btnVerE.setBorderPainted(false);
+		btnVerE.setBorder(null);
+		
+		add(btnJugadoresD);
+		
+		
+		btnMejoresE = new JButton();
+		btnMejoresE.setBounds(650, 45, 160, 60);
+		btnMejoresE.setFocusable(false);
+		btnMejoresE.setContentAreaFilled(false);
+		btnVerT.setOpaque(false);
+		btnVerE.setBorderPainted(false);
+		btnVerE.setBorder(null);
+		
+		add(btnMejoresE);
 
 		add(imagen1);
 	}
 
-	public JLabel getImagen() {
+	public JLabel getImagen1() {
 		return imagen1;
 	}
 
-	public void setImagen(JLabel imagen) {
-		this.imagen1 = imagen;
+	public void setImagen1(JLabel imagen1) {
+		this.imagen1 = imagen1;
 	}
 
 	public JButton getBtnVerT() {
@@ -82,12 +120,38 @@ public class PanelPrincipal extends JPanel {
 		this.btnIniciarS = btnIniciarS;
 	}
 
-	public JButton getBtnCrearC() {
-		return btnCrearC;
+	public JButton getBtnVerE() {
+		return btnVerE;
 	}
 
-	public void setBtnCrearC(JButton btnCrearC) {
-		this.btnCrearC = btnCrearC;
+	public void setBtnVerE(JButton btnVerE) {
+		this.btnVerE = btnVerE;
 	}
+
+	public JButton getBtnHistoriaP() {
+		return btnHistoriaP;
+	}
+
+	public void setBtnHistoriaP(JButton btnHistoriaP) {
+		this.btnHistoriaP = btnHistoriaP;
+	}
+
+	public JButton getBtnJugadoresD() {
+		return btnJugadoresD;
+	}
+
+	public void setBtnJugadoresD(JButton btnJugadoresD) {
+		this.btnJugadoresD = btnJugadoresD;
+	}
+
+	public JButton getBtnMejoresE() {
+		return btnMejoresE;
+	}
+
+	public void setBtnMejoresE(JButton btnMejoresE) {
+		this.btnMejoresE = btnMejoresE;
+	}
+
+	
 
 }
