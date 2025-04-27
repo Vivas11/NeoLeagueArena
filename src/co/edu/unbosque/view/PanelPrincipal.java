@@ -56,8 +56,8 @@ public class PanelPrincipal extends JPanel {
 		btnVerT.setFocusable(false);
 		btnVerT.setContentAreaFilled(false);
 		btnVerT.setOpaque(false);
-		btnVerE.setBorderPainted(false);
-		btnVerE.setBorder(null);
+		btnVerT.setBorderPainted(false);
+		btnVerT.setBorder(null);
 		
 		add(btnVerT);
 		
@@ -66,9 +66,9 @@ public class PanelPrincipal extends JPanel {
 		btnHistoriaP.setBounds(250, 45, 170, 60);
 		btnHistoriaP.setFocusable(false);
 		btnHistoriaP.setContentAreaFilled(false);
-		btnVerT.setOpaque(false);
-		btnVerE.setBorderPainted(false);
-		btnVerE.setBorder(null);
+		btnHistoriaP.setOpaque(false);
+		btnHistoriaP.setBorderPainted(false);
+		btnHistoriaP.setBorder(null);
 		add(btnHistoriaP);
 		
 		
@@ -76,9 +76,9 @@ public class PanelPrincipal extends JPanel {
 		btnJugadoresD.setBounds(450, 45, 170, 60);
 		btnJugadoresD.setFocusable(false);
 		btnJugadoresD.setContentAreaFilled(false);
-		btnVerT.setOpaque(false);
-		btnVerE.setBorderPainted(false);
-		btnVerE.setBorder(null);
+		btnJugadoresD.setOpaque(false);
+		btnJugadoresD.setBorderPainted(false);
+		btnJugadoresD.setBorder(null);
 		
 		add(btnJugadoresD);
 		
@@ -87,9 +87,9 @@ public class PanelPrincipal extends JPanel {
 		btnMejoresE.setBounds(650, 45, 160, 60);
 		btnMejoresE.setFocusable(false);
 		btnMejoresE.setContentAreaFilled(false);
-		btnVerT.setOpaque(false);
-		btnVerE.setBorderPainted(false);
-		btnVerE.setBorder(null);
+		btnMejoresE.setOpaque(false);
+		btnMejoresE.setBorderPainted(false);
+		btnMejoresE.setBorder(null);
 		
 		add(btnMejoresE);
 
