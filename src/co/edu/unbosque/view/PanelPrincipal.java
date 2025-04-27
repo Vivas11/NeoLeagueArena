@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
@@ -18,27 +19,30 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnHistoriaP;
 	private JButton btnJugadoresD;
 	private JButton btnMejoresE;
+	private JButton btnRegistrarse;
+	
 
 	public PanelPrincipal() {
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 
-		ImageIcon icono = new ImageIcon("images/image.png");
+		ImageIcon icono = new ImageIcon("images/imageee.png");
 		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
 		imagen1 = new JLabel(new ImageIcon(imagen));
 		imagen1.setBounds(0, 0, 1290, 750);
 		add(imagen1);
 
 		btnIniciarS = new JButton();
-		btnIniciarS.setBounds(1080, 45, 125, 60);
+		btnIniciarS.setBounds(1020, 45, 125, 60);
 		btnIniciarS.setFocusable(false);
 		btnIniciarS.setOpaque(false);
 		btnIniciarS.setContentAreaFilled(false); 
 		btnIniciarS.setBorderPainted(false);
 		btnIniciarS.setBorder(null);
+			add(btnIniciarS);
 		
+	
 
-		add(btnIniciarS);
 
 
 		btnVerE = new JButton();
@@ -92,6 +96,25 @@ public class PanelPrincipal extends JPanel {
 		btnMejoresE.setBorder(null);
 		
 		add(btnMejoresE);
+		
+		
+		
+		btnRegistrarse = new JButton();
+		btnRegistrarse.setBounds(1150, 45, 120, 60);
+
+		btnRegistrarse.setFocusable(false);
+		btnRegistrarse.setForeground(Color.black);
+		btnRegistrarse.setBackground(new Color(0, 0, 0,0));
+		btnRegistrarse.setOpaque(false);
+        btnRegistrarse.setBorderPainted(false);
+        btnRegistrarse.setContentAreaFilled(false); 
+        btnRegistrarse.setBorder(null);
+		btnRegistrarse.setFont(new Font("Baloo", Font.BOLD, 26));
+		add(btnRegistrarse);
+		
+		
+		
+
 
 		add(imagen1);
 	}
@@ -150,6 +173,14 @@ public class PanelPrincipal extends JPanel {
 
 	public void setBtnMejoresE(JButton btnMejoresE) {
 		this.btnMejoresE = btnMejoresE;
+	}
+
+	public JButton getBtnRegistrarse() {
+		return btnRegistrarse;
+	}
+
+	public void setBtnRegistrarse(JButton btnRegistrarse) {
+		this.btnRegistrarse = btnRegistrarse;
 	}
 
 	

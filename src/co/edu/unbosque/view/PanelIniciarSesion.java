@@ -43,7 +43,7 @@ public class PanelIniciarSesion extends JPanel {
 	/** Propiedades para la configuración del panel. */
 	private Properties prop;
 	
-	private JButton btnRegistrarse;
+	
 
 	/**
 	 * Constructor que inicializa el panel para iniciar sesión.
@@ -71,20 +71,7 @@ public class PanelIniciarSesion extends JPanel {
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
 		
-		btnRegistrarse = new JButton();
-		btnRegistrarse.setBounds(870, 45, 150, 60);
-//		btnRegistrarse.setText("Registrarse");
-		btnRegistrarse.setFocusable(false);
-		btnRegistrarse.setForeground(Color.black);
-		btnRegistrarse.setBackground(new Color(0, 0, 0,0));
-		btnRegistrarse.setOpaque(false);
-        btnRegistrarse.setBorderPainted(false);
-        btnRegistrarse.setContentAreaFilled(false); 
-        btnRegistrarse.setBorder(null);
-		btnRegistrarse.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(btnRegistrarse);
-
-
+		
 		btnIngresar = new JButton();
 		btnIngresar.setBounds(910, 505, 150, 50);
 //		btnIngresar.setText("ingresar");
@@ -135,22 +122,7 @@ public class PanelIniciarSesion extends JPanel {
 
 	}
 
-	/**
-	 * Obtiene el botón para registrarse .
-	 * 
-	 * @return Botón para resgistrarse.
-	 */
-	public JButton getBtnRegistrarse() {
-		return btnRegistrarse;
-	}
-	/**
-	 * Establece el botón para registrarse.
-	 * 
-	 * @param btnVolver Botón para registrarse.
-	 */
-	public void setBtnRegistrarse(JButton btnRegistrarse) {
-		this.btnRegistrarse = btnRegistrarse;
-	}
+	
 
 	/**
 	 * Obtiene el fondo del panel.

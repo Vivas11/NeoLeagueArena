@@ -30,12 +30,13 @@ public class Controller implements ActionListener {
 	public void asignarLectores() {
 		vf.getVp().getPnP().getBtnIniciarS().addActionListener(this);
 		vf.getVp().getPnP().getBtnIniciarS().setActionCommand("btnIniciarS");
+		vf.getVp().getPnP().getBtnRegistrarse().addActionListener(this);
+		vf.getVp().getPnP().getBtnRegistrarse().setActionCommand("btnRegistrarse");
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
 		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnlIniciarS().getBtnRegistrarse().addActionListener(this);
-		vf.getVp().getPnlIniciarS().getBtnRegistrarse().setActionCommand("btnResgistro");
+		
 	}
 
 	/**
@@ -65,8 +66,8 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
-		case "btnResgistro":{
-			vf.getVp().getPnlIniciarS().setVisible(false);
+		case "btnRegistrarse":{
+			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlRegistro().setVisible(true);
 			break;
 		}
