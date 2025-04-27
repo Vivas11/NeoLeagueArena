@@ -21,14 +21,14 @@ public class PanelEquipo extends JPanel {
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 		
-		ImageIcon icono = new ImageIcon("images/imageee.png");
+		ImageIcon icono = new ImageIcon("images/registrados.png");
 		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
 		imagen1 = new JLabel(new ImageIcon(imagen));
 		imagen1.setBounds(0, 0, 1290, 750);
-		add(imagen1);
 		
 		
 		
+		 
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
 		btnVolver.setBackground(new Color(0, 0, 0,0));
@@ -38,9 +38,47 @@ public class PanelEquipo extends JPanel {
         btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
+		 
 		
+		
+		
+		add(imagen1);
 		
 	}
+
+	public JLabel getFondo() {
+		return fondo;
+	}
+
+	public void setFondo(JLabel fondo) {
+		this.fondo = fondo;
+	}
+
+	public JButton getBtnVolver() {
+		return btnVolver;
+	}
+
+	public void setBtnVolver(JButton btnVolver) {
+		this.btnVolver = btnVolver;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public JLabel getImagen1() {
+		return imagen1;
+	}
+
+	public void setImagen1(JLabel imagen1) {
+		this.imagen1 = imagen1;
+	}
+	
+	
 	
 	
 	

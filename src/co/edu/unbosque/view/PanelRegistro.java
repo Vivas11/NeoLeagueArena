@@ -97,7 +97,7 @@ public class PanelRegistro extends JPanel {
         btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
-
+ 
         btnIngresar = new JButton();
         btnIngresar.setBounds(305, 610, 150, 50);
 //        btnIngresar.setText(prop.getProperty("archivospropiedad.boton.ingresar"));
@@ -108,7 +108,7 @@ public class PanelRegistro extends JPanel {
         btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
         add(btnIngresar);
 
-        nombreUsuario = new JTextField();
+        nombreUsuario = new JTextField(); 
         nombreUsuario.setBounds(250, 210, 400, 50);
         nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
         add(nombreUsuario);

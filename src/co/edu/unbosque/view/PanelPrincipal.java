@@ -19,7 +19,7 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnHistoriaP;
 	private JButton btnJugadoresD;
 	private JButton btnMejoresE;
-	private JButton btnRegistrarse;
+	private JButton btnRegistrarse; 
 	
 
 	public PanelPrincipal() {

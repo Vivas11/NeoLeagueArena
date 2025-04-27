@@ -37,6 +37,7 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
 		
+		
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlIniciarS().setVisible(true);
 			break;
-		}
+		} 
 
 		case "btnVolverAInicio": {
 			vf.getVp().getPnlIniciarS().setVisible(false);
@@ -72,5 +73,5 @@ public class Controller implements ActionListener {
 			break;
 		}
 		}
-	}
+	} 
 }
