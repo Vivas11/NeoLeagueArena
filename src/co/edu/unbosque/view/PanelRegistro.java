@@ -160,7 +160,7 @@ public class PanelRegistro extends JPanel {
 //        textContra1.setText(prop.getProperty("archivospropiedad.texto.contrasena"));
         textContra1.setFont(new Font("Baloo", Font.BOLD, 20));
         mostrarContrasena = new JCheckBox();
-        mostrarContrasena.setBounds(980, 420, 20, 20);
+        mostrarContrasena.setBounds(660, 515, 20, 20);
         mostrarContrasena.setOpaque(false);
         mostrarContrasena.setContentAreaFilled(false);
         mostrarContrasena.setBorderPainted(false);
@@ -173,7 +173,7 @@ public class PanelRegistro extends JPanel {
 //        textContra2.setText(prop.getProperty("archivospropiedad.texto.repetircontrasena"));
         textContra2.setFont(new Font("Baloo", Font.BOLD, 26));
         mostrarContrasena2 = new JCheckBox();
-        mostrarContrasena2.setBounds(980, 520, 20, 20);
+        mostrarContrasena2.setBounds(660, 570, 20, 20);
         mostrarContrasena2.setOpaque(false);
         mostrarContrasena2.setContentAreaFilled(false);
         mostrarContrasena2.setBorderPainted(false);
