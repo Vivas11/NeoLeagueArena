@@ -34,18 +34,22 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnRegistrarse().setActionCommand("btnPanelRegistrarse");
 		vf.getVp().getPnP().getBtnVerE().addActionListener(this);
 		vf.getVp().getPnP().getBtnVerE().setActionCommand("btnVerE");
-		
+
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
-		
-		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		
+
+		vf.getVp().getPnlRegistroEntrenador().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnlRegistroEntrenador().getBtnVolver().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnlRegistroAdministrador().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnlRegistroAdministrador().getBtnVolver().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnlRegistroJugador().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnlRegistroJugador().getBtnVolver().setActionCommand("btnVolverAInicioR");
+
 		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolver");
-		
-		vf.getVp().getPnlRegistro().getCbxTipoUsuario().addActionListener(this);
-		vf.getVp().getPnlRegistro().getCbxTipoUsuario().setActionCommand("SeleccionCBXPanelRegistro");
+
+		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().addActionListener(this);
+		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().setActionCommand("SeleccionCBXRegistroEntrenador");
 
 	}
 
@@ -57,7 +61,6 @@ public class Controller implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 
-		Object cbxPanelRegistro = e.getSource();
 		switch (e.getActionCommand()) {
 
 		case "btnPanelIniciarS": {
@@ -73,29 +76,31 @@ public class Controller implements ActionListener {
 		}
 
 		case "btnVolverAInicioR": {
-			vf.getVp().getPnlRegistro().setVisible(false);
+			ocultarPanelesDeRegistro();
 			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
 		case "btnPanelRegistrarse": {
 			vf.getVp().getPnP().setVisible(false);
-			vf.getVp().getPnlRegistro().setVisible(true);
+			vf.getVp().getPnlRegistroEntrenador().setVisible(true);
 			break;
 		}
-		
-		case "SeleccionCBXPanelRegistro": {
-			if (cbxPanelRegistro == vf.getVp().getPnlRegistro().getCbxTipoUsuario()) {
-				String seleccion = (String)vf.getVp().getPnlRegistro().getCbxTipoUsuario().getSelectedItem();
-				
+
+		case "SeleccionCBXRegistroEntrenador": {
+			if (e.getSource() == vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario()) {
+				String seleccion = (String) vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().getSelectedItem();
+
+				ocultarPanelesDeRegistro();
 				if (seleccion.equals("Administrador")) {
-					vf.getVp().getPnlRegistro().setVisible(false);  // falta CREAR EL Panel de cada uno
-				} else if (seleccion.equals("Jugador")){
-					vf.getVp().getPnlRegistro().setVisible(false);  //falta CREAR EL Panel de cada uno
+					vf.getVp().getPnlRegistroAdministrador().setVisible(true);
+				} else if (seleccion.equals("Jugador")) {
+					vf.getVp().getPnlRegistroJugador().setVisible(true);
 				} else if (seleccion.equals("Entrenador")) {
-					vf.getVp().getPnlRegistro().setVisible(false);  //falta CREAR EL Panel de cada uno
+					vf.getVp().getPnlRegistroEntrenador().setVisible(true);
+
 				}
 			}
-			
+
 			break;
 		}
 		case "btnVerE": {
@@ -109,5 +114,11 @@ public class Controller implements ActionListener {
 			break;
 		}
 		}
+	}
+
+	public void ocultarPanelesDeRegistro() {
+		vf.getVp().getPnlRegistroAdministrador().setVisible(false);
+		vf.getVp().getPnlRegistroJugador().setVisible(false);
+		vf.getVp().getPnlRegistroEntrenador().setVisible(false);
 	}
 }

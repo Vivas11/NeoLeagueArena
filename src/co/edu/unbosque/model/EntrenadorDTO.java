@@ -27,6 +27,14 @@ public class EntrenadorDTO extends Usuario implements Serializable {
 		this.ciudad = ciudad;
 		this.equipos = equipos;
 	}
+    
+	public EntrenadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad,
+			ArrayList<Equipo> equipos) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = equipos;
+	}
 
 	public String getPais() {
         return pais;

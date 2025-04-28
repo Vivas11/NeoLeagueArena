@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  * Clase que representa el panel para crear un usuario.
  * Permite al usuario ingresar un nombre de usuario y establecer una contraseña.
  */
-public class PanelRegistro extends JPanel {
+public class PanelRegistroJugador extends JPanel {
     /** Fondo del panel. */
     private JLabel fondo;
     /** Campo de texto para el nombre de usuario. */
@@ -72,7 +72,7 @@ public class PanelRegistro extends JPanel {
      * @param prop Propiedades para configurar el panel.
      * @throws IOException Si ocurre un error al cargar las imágenes.
      */
-    public PanelRegistro(){
+    public PanelRegistroJugador(){
         this.prop = prop;
         setBounds(0, 0, 1290, 750);
         setLayout(null);

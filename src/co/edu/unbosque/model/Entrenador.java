@@ -29,6 +29,15 @@ public class Entrenador extends Usuario implements Serializable {
 		this.equipos = equipos;
 	}
 
+    
+	public Entrenador(String nombre, String contrasena, String correo, String pais, String ciudad,
+			ArrayList<Equipo> equipos) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = equipos;
+	}
+
 	public String getPais() {
         return pais;
     }

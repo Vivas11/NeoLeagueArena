@@ -7,16 +7,20 @@ public class VentanaPrincipal extends JFrame {
 	private PanelPrincipal pnP;
 	private PanelIniciarSesion pnlIniciarS;
 	private VentanaEmergente vemer;
-	private PanelRegistro pnlRegistro;
+	private PanelRegistroEntrenador pnlRegistroEntrenador;
+	private PanelRegistroAdministrador pnlRegistroAdministrador;
+	private PanelRegistroJugador pnlRegistroJugador;
 	private PanelEquipo pnE;
 
 	public VentanaPrincipal() {
-		pnlRegistro = new PanelRegistro();
+		pnlRegistroEntrenador = new PanelRegistroEntrenador();
+		pnlRegistroJugador = new PanelRegistroJugador();
+		pnlRegistroAdministrador = new PanelRegistroAdministrador();
 		vemer = new VentanaEmergente();
 		pnP = new PanelPrincipal();
 		pnlIniciarS = new PanelIniciarSesion();
 		pnE = new PanelEquipo();
- 
+
 		setBounds(150, 150, 1300, 750);
 		setTitle("Neo League Arena");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -26,37 +30,17 @@ public class VentanaPrincipal extends JFrame {
 
 		pnP.setVisible(true);
 		pnlIniciarS.setVisible(false);
-		pnlRegistro.setVisible(false);
+		pnlRegistroEntrenador.setVisible(false);
+		pnlRegistroAdministrador.setVisible(false);
+		pnlRegistroJugador.setVisible(false);
 		pnE.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
-		add(pnlRegistro);
+		add(pnlRegistroEntrenador);
+		add(pnlRegistroAdministrador);
+		add(pnlRegistroJugador);
 		add(pnE);
-	}
-
-	public PanelRegistro getPnlRegistro() {
-		return pnlRegistro;
-	}
-
-	public void setPnlRegistro(PanelRegistro pnlRegistro) {
-		this.pnlRegistro = pnlRegistro;
-	}
-
-	public VentanaEmergente getVemer() {
-		return vemer;
-	}
-
-	public void setVemer(VentanaEmergente vemer) {
-		this.vemer = vemer;
-	}
-
-	public PanelIniciarSesion getPnlIniciarS() {
-		return pnlIniciarS;
-	}
-
-	public void setPnlIniciarS(PanelIniciarSesion pnlIniciarS) {
-		this.pnlIniciarS = pnlIniciarS;
 	}
 
 	public PanelPrincipal getPnP() {
@@ -67,13 +51,52 @@ public class VentanaPrincipal extends JFrame {
 		this.pnP = pnP;
 	}
 
+	public PanelIniciarSesion getPnlIniciarS() {
+		return pnlIniciarS;
+	}
+
+	public void setPnlIniciarS(PanelIniciarSesion pnlIniciarS) {
+		this.pnlIniciarS = pnlIniciarS;
+	}
+
+	public VentanaEmergente getVemer() {
+		return vemer;
+	}
+
+	public void setVemer(VentanaEmergente vemer) {
+		this.vemer = vemer;
+	}
+
+	public PanelRegistroEntrenador getPnlRegistroEntrenador() {
+		return pnlRegistroEntrenador;
+	}
+
+	public void setPnlRegistroEntrenador(PanelRegistroEntrenador pnlRegistroEntrenador) {
+		this.pnlRegistroEntrenador = pnlRegistroEntrenador;
+	}
+
+	public PanelRegistroAdministrador getPnlRegistroAdministrador() {
+		return pnlRegistroAdministrador;
+	}
+
+	public void setPnlRegistroAdministrador(PanelRegistroAdministrador pnlRegistroAdministrador) {
+		this.pnlRegistroAdministrador = pnlRegistroAdministrador;
+	}
+
+	public PanelRegistroJugador getPnlRegistroJugador() {
+		return pnlRegistroJugador;
+	}
+
+	public void setPnlRegistroJugador(PanelRegistroJugador pnlRegistroJugador) {
+		this.pnlRegistroJugador = pnlRegistroJugador;
+	}
+
 	public PanelEquipo getPnE() {
 		return pnE;
 	}
 
 	public void setPnE(PanelEquipo pnE) {
-		this.pnE = pnE; 
+		this.pnE = pnE;
 	}
-	
 
 }
