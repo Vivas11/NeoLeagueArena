@@ -65,6 +65,7 @@ public class PanelIniciarSesion extends JPanel {
 		btnVolver.setBackground(new Color(0, 0, 0, 0));
 		btnVolver.setOpaque(false);
 		btnVolver.setBorderPainted(false);
+		btnVolver.setContentAreaFilled(false);
 		btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
