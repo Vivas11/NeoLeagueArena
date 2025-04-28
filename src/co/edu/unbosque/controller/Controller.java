@@ -43,6 +43,9 @@ public class Controller implements ActionListener {
 		
 		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolver");
+		
+		vf.getVp().getPnlRegistro().getCbxTipoUsuario().addActionListener(this);
+		vf.getVp().getPnlRegistro().getCbxTipoUsuario().setActionCommand("SeleccionCBXPanelRegistro");
 
 	}
 
@@ -54,6 +57,7 @@ public class Controller implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 
+		Object cbxPanelRegistro = e.getSource();
 		switch (e.getActionCommand()) {
 
 		case "btnPanelIniciarS": {
@@ -76,6 +80,22 @@ public class Controller implements ActionListener {
 		case "btnPanelRegistrarse": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlRegistro().setVisible(true);
+			break;
+		}
+		
+		case "SeleccionCBXPanelRegistro": {
+			if (cbxPanelRegistro == vf.getVp().getPnlRegistro().getCbxTipoUsuario()) {
+				String seleccion = (String)vf.getVp().getPnlRegistro().getCbxTipoUsuario().getSelectedItem();
+				
+				if (seleccion.equals("Administrador")) {
+					vf.getVp().getPnlRegistro().setVisible(false);  // falta CREAR EL Panel de cada uno
+				} else if (seleccion.equals("Jugador")){
+					vf.getVp().getPnlRegistro().setVisible(false);  //falta CREAR EL Panel de cada uno
+				} else if (seleccion.equals("Entrenador")) {
+					vf.getVp().getPnlRegistro().setVisible(false);  //falta CREAR EL Panel de cada uno
+				}
+			}
+			
 			break;
 		}
 		case "btnVerE": {

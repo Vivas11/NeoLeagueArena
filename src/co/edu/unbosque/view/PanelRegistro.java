@@ -221,6 +221,7 @@ public class PanelRegistro extends JPanel {
 //        textEstandarContra.setText(prop.getProperty("archivospropiedad.texto.reqcontrasena"));
 //    }
 
+    
     /**
      * Obtiene el fondo del panel.
      * 
@@ -230,7 +231,15 @@ public class PanelRegistro extends JPanel {
         return fondo;
     }
 
-    /**
+    public JComboBox<String> getCbxTipoUsuario() {
+		return cbxTipoUsuario;
+	}
+
+	public void setCbxTipoUsuario(JComboBox<String> cbxTipoUsuario) {
+		this.cbxTipoUsuario = cbxTipoUsuario;
+	}
+
+	/**
      * Establece el fondo del panel.
      * 
      * @param fondo Fondo del panel.
