@@ -28,6 +28,8 @@ public class PanelEquipo extends JPanel {
 		imagen1.setBounds(0, 0, 1290, 750);
 
 		btnVolver = new JButton();
+		
+		btnVolver.setBounds(1070, 45, 150, 60);
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
 		btnVolver.setBackground(new Color(0, 0, 0, 0));

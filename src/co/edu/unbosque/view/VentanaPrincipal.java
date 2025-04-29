@@ -11,6 +11,7 @@ public class VentanaPrincipal extends JFrame {
 	private PanelRegistroAdministrador pnlRegistroAdministrador;
 	private PanelRegistroJugador pnlRegistroJugador;
 	private PanelEquipo pnE;
+	private PanelHistorial pnH;
 
 	public VentanaPrincipal() {
 		pnlRegistroEntrenador = new PanelRegistroEntrenador();
@@ -34,6 +35,7 @@ public class VentanaPrincipal extends JFrame {
 		pnlRegistroAdministrador.setVisible(false);
 		pnlRegistroJugador.setVisible(false);
 		pnE.setVisible(false);
+		pnH.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -41,6 +43,8 @@ public class VentanaPrincipal extends JFrame {
 		add(pnlRegistroAdministrador);
 		add(pnlRegistroJugador);
 		add(pnE);
+		add(pnH);
+		
 	}
 
 	public PanelPrincipal getPnP() {
@@ -98,5 +102,14 @@ public class VentanaPrincipal extends JFrame {
 	public void setPnE(PanelEquipo pnE) {
 		this.pnE = pnE;
 	}
+
+	public PanelHistorial getPnH() {
+		return pnH;
+	}
+
+	public void setPnH(PanelHistorial pnH) {
+		this.pnH = pnH;
+	}
+	
 
 }
