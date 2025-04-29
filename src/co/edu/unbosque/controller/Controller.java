@@ -119,32 +119,17 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnE().setVisible(true);
 			break;
 		}
-//		case "btnVolver": {
-//			vf.getVp().getPnE().setVisible(false);
-//			vf.getVp().getPnP().setVisible(true);
-//			break;
-//		}
 		case "btnHistoriaP": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnH().setVisible(true);
 			break;
 		}
-//		case "btnVolverHistorial": {
-//			vf.getVp().getPnH().setVisible(false);
-//			vf.getVp().getPnP().setVisible(true);
-//			break;
-//		}
 
 		case "btnJugadoresD": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnJD().setVisible(true);
 			break;
 		}
-//		case "btnVolverJugadoresDestacado": {
-//			vf.getVp().getPnJD().setVisible(false);
-//			vf.getVp().getPnP().setVisible(true);
-//			break;
-//		}
 		}
 	}
 
@@ -154,5 +139,6 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnlRegistroEntrenador().setVisible(false);
 		vf.getVp().getPnE().setVisible(false);
 		vf.getVp().getPnH().setVisible(false);
+
 	}
 }
