@@ -39,6 +39,9 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnVerE().setActionCommand("btnVerE");
 		vf.getVp().getPnP().getBtnHistoriaP().addActionListener(this);
 		vf.getVp().getPnP().getBtnHistoriaP().setActionCommand("btnHistoriaP");
+		
+		vf.getVp().getPnP().getBtnJugadoresD().addActionListener(this);
+		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnHistoriaP");
 
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
@@ -59,6 +62,9 @@ public class Controller implements ActionListener {
 		
 		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
 		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverHistorial");
+		
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverJugadoresDestacado");
 		
 		
 		
@@ -133,6 +139,17 @@ public class Controller implements ActionListener {
 		}
 		case "btnVolverHistorial": {
 			vf.getVp().getPnH().setVisible(false);
+			vf.getVp().getPnP().setVisible(true);
+			break;
+		}
+		
+		case "btnJugadoresD": {
+			vf.getVp().getPnP().setVisible(false);
+			vf.getVp().getPnJD().setVisible(true);
+			break;
+		}
+		case "btnVolverJugadoresDestacado": {
+			vf.getVp().getPnJD().setVisible(false);
 			vf.getVp().getPnP().setVisible(true);
 			break;
 		}

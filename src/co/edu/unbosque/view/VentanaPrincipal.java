@@ -12,6 +12,7 @@ public class VentanaPrincipal extends JFrame {
 	private PanelRegistroJugador pnlRegistroJugador;
 	private PanelEquipo pnE;
 	private PanelHistorial pnH;
+	private PanelJugadoresDestacado pnJD;
 
 	public VentanaPrincipal() {
 		pnlRegistroEntrenador = new PanelRegistroEntrenador();
@@ -22,6 +23,7 @@ public class VentanaPrincipal extends JFrame {
 		pnlIniciarS = new PanelIniciarSesion();
 		pnE = new PanelEquipo();
 		pnH = new PanelHistorial();
+		pnJD = new PanelJugadoresDestacado();
 
 		setBounds(150, 150, 1300, 750);
 		setTitle("Neo League Arena");
@@ -37,6 +39,7 @@ public class VentanaPrincipal extends JFrame {
 		pnlRegistroJugador.setVisible(false);
 		pnE.setVisible(false);
 		pnH.setVisible(false);
+		pnJD.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -45,6 +48,7 @@ public class VentanaPrincipal extends JFrame {
 		add(pnlRegistroJugador);
 		add(pnE);
 		add(pnH);
+		add(pnJD);
 		
 	}
 
@@ -111,6 +115,17 @@ public class VentanaPrincipal extends JFrame {
 	public void setPnH(PanelHistorial pnH) {
 		this.pnH = pnH;
 	}
+
+	public PanelJugadoresDestacado getPnJD() {
+		return pnJD;
+	}
+
+	public void setPnJD(PanelJugadoresDestacado pnJD) {
+		this.pnJD = pnJD;
+	}
+	
+	
+	
 	
 
 }
