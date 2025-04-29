@@ -21,6 +21,7 @@ public class VentanaPrincipal extends JFrame {
 		pnP = new PanelPrincipal();
 		pnlIniciarS = new PanelIniciarSesion();
 		pnE = new PanelEquipo();
+		pnH = new PanelHistorial();
 
 		setBounds(150, 150, 1300, 750);
 		setTitle("Neo League Arena");
