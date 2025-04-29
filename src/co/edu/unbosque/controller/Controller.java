@@ -39,7 +39,7 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnVerE().setActionCommand("btnVerE");
 		vf.getVp().getPnP().getBtnHistoriaP().addActionListener(this);
 		vf.getVp().getPnP().getBtnHistoriaP().setActionCommand("btnHistoriaP");
-		
+
 		vf.getVp().getPnP().getBtnJugadoresD().addActionListener(this);
 		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnHistoriaP");
 
@@ -52,23 +52,15 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnlRegistroAdministrador().getBtnVolver().setActionCommand("btnVolverAInicioR");
 		vf.getVp().getPnlRegistroJugador().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistroJugador().getBtnVolver().setActionCommand("btnVolverAInicioR");
-
 		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolver");
+		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
+		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverAInicioR");
 
 		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().addActionListener(this);
 		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().setActionCommand("SeleccionCBXRegistroEntrenador");
-		
-		
-		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
-		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverHistorial");
-		
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverJugadoresDestacado");
-		
-		
-		
-		
 
 	}
 
@@ -118,7 +110,7 @@ public class Controller implements ActionListener {
 					vf.getVp().getPnlRegistroEntrenador().setVisible(true);
 
 				}
-			} 
+			}
 
 			break;
 		}
@@ -127,32 +119,32 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnE().setVisible(true);
 			break;
 		}
-		case "btnVolver": {
-			vf.getVp().getPnE().setVisible(false);
-			vf.getVp().getPnP().setVisible(true);
-			break;
-		}
+//		case "btnVolver": {
+//			vf.getVp().getPnE().setVisible(false);
+//			vf.getVp().getPnP().setVisible(true);
+//			break;
+//		}
 		case "btnHistoriaP": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnH().setVisible(true);
 			break;
 		}
-		case "btnVolverHistorial": {
-			vf.getVp().getPnH().setVisible(false);
-			vf.getVp().getPnP().setVisible(true);
-			break;
-		}
-		
+//		case "btnVolverHistorial": {
+//			vf.getVp().getPnH().setVisible(false);
+//			vf.getVp().getPnP().setVisible(true);
+//			break;
+//		}
+
 		case "btnJugadoresD": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnJD().setVisible(true);
 			break;
 		}
-		case "btnVolverJugadoresDestacado": {
-			vf.getVp().getPnJD().setVisible(false);
-			vf.getVp().getPnP().setVisible(true);
-			break;
-		}
+//		case "btnVolverJugadoresDestacado": {
+//			vf.getVp().getPnJD().setVisible(false);
+//			vf.getVp().getPnP().setVisible(true);
+//			break;
+//		}
 		}
 	}
 
@@ -160,5 +152,7 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnlRegistroAdministrador().setVisible(false);
 		vf.getVp().getPnlRegistroJugador().setVisible(false);
 		vf.getVp().getPnlRegistroEntrenador().setVisible(false);
+		vf.getVp().getPnE().setVisible(false);
+		vf.getVp().getPnH().setVisible(false);
 	}
 }
