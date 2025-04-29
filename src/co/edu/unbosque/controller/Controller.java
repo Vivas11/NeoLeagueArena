@@ -102,7 +102,7 @@ public class Controller implements ActionListener {
 					vf.getVp().getPnlRegistroEntrenador().setVisible(true);
 
 				}
-			}
+			} 
 
 			break;
 		}
