@@ -112,16 +112,16 @@ public class PanelRegistroAdministrador extends JPanel {
         nombreUsuario.setBounds(250, 210, 400, 50);
         nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
         add(nombreUsuario);
-        
-        txtCiudad = new JTextField();
-        txtCiudad.setBounds(250, 270, 400, 50);
-        txtCiudad.setFont(new Font("Baloo", Font.BOLD, 20));
-        add(txtCiudad);
-        //
-        txtPais = new JTextField();
-        txtPais.setBounds(250, 325, 400, 50);
-        txtPais.setFont(new Font("Baloo", Font.BOLD, 20));
-        add(txtPais);
+//        
+//        txtCiudad = new JTextField();
+//        txtCiudad.setBounds(250, 270, 400, 50);
+//        txtCiudad.setFont(new Font("Baloo", Font.BOLD, 20));
+//        add(txtCiudad);
+//        //
+//        txtPais = new JTextField();
+//        txtPais.setBounds(250, 325, 400, 50);
+//        txtPais.setFont(new Font("Baloo", Font.BOLD, 20));
+//        add(txtPais);
         //
         txtCorreo = new JTextField();
         txtCorreo.setBounds(250, 390, 400, 50);
