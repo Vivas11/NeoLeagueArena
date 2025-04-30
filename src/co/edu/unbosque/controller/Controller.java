@@ -61,6 +61,9 @@ public class Controller implements ActionListener {
 
 		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().addActionListener(this);
 		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().setActionCommand("SeleccionCBXRegistroEntrenador");
+		
+		vf.getVp().getPnlRegistroAdministrador().getBtnRegistrar().addActionListener(this);
+		vf.getVp().getPnlRegistroAdministrador().getBtnRegistrar().setActionCommand("btnRegistrarAdministrador");
 
 	}
 

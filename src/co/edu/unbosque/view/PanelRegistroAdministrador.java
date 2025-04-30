@@ -34,7 +34,7 @@ public class PanelRegistroAdministrador extends JPanel {
     /** Botón para volver al menú anterior. */
     private JButton btnVolver;
     /** Botón para confirmar la creación del usuario. */
-    private JButton btnIngresar;
+    private JButton btnRegistrar;
     /** Etiqueta para el texto del nombre de usuario. */
     private JLabel textNombre;
     /** Etiqueta para el texto de la primera contraseña. */
@@ -98,15 +98,15 @@ public class PanelRegistroAdministrador extends JPanel {
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
  
-        btnIngresar = new JButton();
-        btnIngresar.setBounds(305, 610, 150, 50);
+        btnRegistrar = new JButton();
+        btnRegistrar.setBounds(305, 610, 150, 50);
 //        btnIngresar.setText(prop.getProperty("archivospropiedad.boton.ingresar"));
-        btnIngresar.setFocusable(false);
-        btnIngresar.setContentAreaFilled(false); 
-        btnIngresar.setForeground(Color.black);
-        btnIngresar.setBackground(new Color(00, 150, 50));
-        btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
-        add(btnIngresar);
+        btnRegistrar.setFocusable(false);
+        btnRegistrar.setContentAreaFilled(false); 
+        btnRegistrar.setForeground(Color.black);
+        btnRegistrar.setBackground(new Color(00, 150, 50));
+        btnRegistrar.setFont(new Font("Baloo", Font.BOLD, 26));
+        add(btnRegistrar);
 
         nombreUsuario = new JTextField(); 
         nombreUsuario.setBounds(250, 210, 400, 50);
@@ -336,8 +336,8 @@ public class PanelRegistroAdministrador extends JPanel {
      * 
      * @return Botón para confirmar la creación del usuario.
      */
-    public JButton getBtnIngresar() {
-        return btnIngresar;
+    public JButton getBtnRegistrar() {
+        return btnRegistrar;
     }
 	public JPasswordField getContrasena1F() {
 		return this.contrasena1;
@@ -345,10 +345,10 @@ public class PanelRegistroAdministrador extends JPanel {
     /**
      * Establece el botón para confirmar la creación del usuario.
      * 
-     * @param btnIngresar Botón para confirmar la creación del usuario.
+     * @param btnRegistrar Botón para confirmar la creación del usuario.
      */
-    public void setBtnIngresar(JButton btnIngresar) {
-        this.btnIngresar = btnIngresar;
+    public void setBtnResgistrar(JButton btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
     }
 
     /**
