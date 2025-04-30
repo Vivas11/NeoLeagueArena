@@ -126,13 +126,13 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 //		FileManager.escribirArchivoTexto(TEXT_FILE_NAME, contenido);
 //	}
 //
-//	public ArrayList<Administrador> getListaAdministrador() {
-//		return listaAdministrador;
-//	}
-//
-//	public void setListaAdministrador(ArrayList<Administrador> listaAdministrador) {
-//		this.listaAdministrador = listaAdministrador;
-//	}
+	public ArrayList<Administrador> getListaAdministrador() {
+		return listaAdministrador;
+	}
+
+	public void setListaAdministrador(ArrayList<Administrador> listaAdministrador) {
+		this.listaAdministrador = listaAdministrador;
+	}
 //
 //	public String getSERIAL_FILE_NAME() {
 //		return SERIAL_FILE_NAME;

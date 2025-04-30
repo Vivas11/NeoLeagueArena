@@ -5,7 +5,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.Cliente;
 import co.edu.unbosque.model.ModelFacade;
+import co.edu.unbosque.util.exception.CapitalException;
+import co.edu.unbosque.util.exception.CharacterException;
+import co.edu.unbosque.util.exception.EqualPasswordException;
+import co.edu.unbosque.util.exception.NumberException;
+import co.edu.unbosque.util.exception.SmallException;
+import co.edu.unbosque.util.exception.SymbolException;
+import co.edu.unbosque.util.exception.UsernameException;
 import co.edu.unbosque.view.ViewFacade;
 
 /**
@@ -131,6 +140,45 @@ public class Controller implements ActionListener {
 		case "btnJugadoresD": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnJD().setVisible(true);
+			break;
+		}
+		case "btnRegistrarAdministrador":{
+			String usuario = (String) vf.getVp().getPnlRegistroAdministrador().getNombreUsuario();
+			String contrasena1 = (String) vf.getVp().getPnlRegistroAdministrador().getContrasena1();
+			String contrasena2 = (String) vf.getVp().getPnlRegistroAdministrador().getContrasena2();
+			String correo = (String) vf.getVp().getPnlRegistroAdministrador().getTxtCorreo();
+
+//			try {
+//				ExceptionCheker.checkerCharacter(usuario);
+//				ExceptionCheker.checkerEqualPassword(contrasena1, contrasena2);
+//				ExceptionCheker.checkerPasword(contrasena1);
+//
+//				for (Administrador c : mf.getAdministradorDAO().getListaAdministrador()) {
+//					if (c.getNombre().equals(usuario)) {
+//						throw new UsernameException();
+//					}
+//				}
+//
+//				mf.getAdministradorDAO().crear(new Administrador(usuario, contrasena1, correo ));
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+//
+//			} catch (CharacterException e1) {
+//				vf.getVp().getVemer().mostrar("burrrrrrrrrr");
+//			}
+////			} catch (EqualPasswordException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.contrasenasdiferentes"));
+//			} catch (CapitalException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.mayus"));
+//			} catch (SmallException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.minus"));
+//			} catch (NumberException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.numero"));
+//			} catch (SymbolException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.simbolo"));
+//			} catch (UsernameException e1) {
+//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.usuariorepetido"));
+//			}
+
 			break;
 		}
 		}
