@@ -5,41 +5,97 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.Equipo;
 import co.edu.unbosque.model.EquipoDTO;
 
-public class EquipoDAO implements OperacionDAO< EquipoDTO, Equipo>{
+public class EquipoDAO implements OperacionDAO<EquipoDTO, Equipo> {
 
-	@Override
-	public String showAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private final String SERIAL_FILE_NAME = "equipo.dat";
 
-	@Override
-	public ArrayList<EquipoDTO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Equipo> listaEquipos;
 
-	@Override
-	public boolean add(EquipoDTO newData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public EquipoDAO() {
+        listaEquipos = new ArrayList<>();
+        cargarSerializado();
+    }
 
-	@Override
-	public boolean delete(EquipoDTO toDelete) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public void escribirSerializado() {
+        FileManager.escribirArchivoSerializado(SERIAL_FILE_NAME, listaEquipos);
+    }
 
-	@Override
-	public Equipo find(Equipo toFind) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public void cargarSerializado() {
+        listaEquipos = (ArrayList<Equipo>) FileManager.leerArchivoSerialziado(SERIAL_FILE_NAME);
+        if (listaEquipos == null) {
+            listaEquipos = new ArrayList<>();
+        }
+    }
 
-	@Override
-	public boolean update(EquipoDTO previous, EquipoDTO newData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public String showAll() {
+        String rta = "";
+        if (listaEquipos.isEmpty()) {
+            return "No hay equipos en la lista";
+        } else {
+            for (Equipo equipo : listaEquipos) {
+                rta += equipo.toString() + "\n";
+            }
+            return rta.toString();
+        }
+    }
+
+    @Override
+    public ArrayList<EquipoDTO> getAll() {
+        return DataMapper.listEquipoToListEquipoDTO(listaEquipos);
+    }
+
+    @Override
+    public boolean add(EquipoDTO newData) {
+        if (find(DataMapper.equipoDTOToEquipo(newData)) == null) {
+            listaEquipos.add(DataMapper.equipoDTOToEquipo(newData));
+            escribirSerializado();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(EquipoDTO toDelete) {
+        Equipo found = find(DataMapper.equipoDTOToEquipo(toDelete));
+        if (found != null) {
+            listaEquipos.remove(found);
+            escribirSerializado();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Equipo find(Equipo toFind) {
+        for (Equipo equipo : listaEquipos) {
+            if (equipo.getNombre().equals(toFind.getNombre())) {
+                return equipo;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update(EquipoDTO previous, EquipoDTO newData) {
+        Equipo found = find(DataMapper.equipoDTOToEquipo(previous));
+        if (found != null) {
+            listaEquipos.remove(found);
+            listaEquipos.add(DataMapper.equipoDTOToEquipo(newData));
+            escribirSerializado();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Equipo> getListaEquipos() {
+        return listaEquipos;
+    }
+
+    public void setListaEquipos(ArrayList<Equipo> listaEquipos) {
+        this.listaEquipos = listaEquipos;
+    }
 }

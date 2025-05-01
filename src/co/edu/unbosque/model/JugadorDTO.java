@@ -3,38 +3,34 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 
 public class JugadorDTO extends Usuario implements Serializable {
-	private String nombre;
 	private String pais;
 	private String ciudad;
 	private Equipo equipo;
 
-	public JugadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad,
+	public JugadorDTO(String usuario, String contrasena, String correo, String pais, String ciudad,
 			Equipo equipo) {
-		super(nombre, contrasena, correo);
+		super(usuario, contrasena, correo);
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
 	}
 
-	public JugadorDTO(String nombre, String contrasena, String correo) {
-		super(nombre, contrasena, correo);
+	public JugadorDTO(String usuario, String contrasena, String correo) {
+		super(usuario, contrasena, correo);
 		// TODO Auto-generated constructor stub
 	}
 
-	public JugadorDTO(String nombre, String pais, String ciudad, Equipo equipo) {
+	public JugadorDTO(String pais, String ciudad, Equipo equipo) {
 		super();
-		this.nombre = nombre;
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
 	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	
+	public JugadorDTO(String usuario, String contrasena, String correo, String pais, String ciudad) {
+		super(usuario, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
 	}
 
 	public String getPais() {

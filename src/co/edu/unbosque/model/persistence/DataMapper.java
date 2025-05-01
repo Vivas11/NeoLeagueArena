@@ -14,6 +14,10 @@ import co.edu.unbosque.model.Partida;
 import co.edu.unbosque.model.PartidaDTO;
 import co.edu.unbosque.model.TorneoCompleto;
 import co.edu.unbosque.model.TorneoCompletoDTO;
+import co.edu.unbosque.model.TorneoLiga;
+import co.edu.unbosque.model.TorneoLigaDTO;
+import co.edu.unbosque.model.TorneoLlave;
+import co.edu.unbosque.model.TorneoLlaveDTO;
 
 public class DataMapper {
 
@@ -62,7 +66,7 @@ public class DataMapper {
 
 	// ENTRENADOR
 
-	public static Entrenador EntrenadorDTOToEntrenador(EntrenadorDTO dtoEntrenador) {
+	public static Entrenador entrenadorDTOToEntrenador(EntrenadorDTO dtoEntrenador) {
 
 		Entrenador entity;
 		entity = new Entrenador(dtoEntrenador.getNombre(), dtoEntrenador.getContrasena(), dtoEntrenador.getCorreo(),
@@ -72,7 +76,7 @@ public class DataMapper {
 
 	}
 
-	public static EntrenadorDTO EntrenadorToEntrenadorDTO(Entrenador entity) {
+	public static EntrenadorDTO entrenadorToEntrenadorDTO(Entrenador entity) {
 		EntrenadorDTO dto;
 		dto = new EntrenadorDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getPais(),
 				entity.getCiudad(), entity.getEquipos());
@@ -104,7 +108,7 @@ public class DataMapper {
 
 	// EQUIPO
 
-	public static Equipo EquipoDTOToEquipo(EquipoDTO dtoEquipo) {
+	public static Equipo equipoDTOToEquipo(EquipoDTO dtoEquipo) {
 
 		Equipo entity;
 		entity = new Equipo(dtoEquipo.getNombre(), dtoEquipo.getContrasena(), dtoEquipo.getCorreo(),
@@ -114,7 +118,7 @@ public class DataMapper {
 
 	}
 
-	public static EquipoDTO EquipoToEquipoDTO(Equipo entity) {
+	public static EquipoDTO equipoToEquipoDTO(Equipo entity) {
 		EquipoDTO dto;
 		dto = new EquipoDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getEntrenador());
 
@@ -145,7 +149,7 @@ public class DataMapper {
 
 	// JUGADOR
 
-	public static Jugador JugadorDTOToJugador(JugadorDTO dtoJugador) {
+	public static Jugador jugadorDTOToJugador(JugadorDTO dtoJugador) {
 
 		Jugador entity;
 		entity = new Jugador(dtoJugador.getNombre(), dtoJugador.getContrasena(), dtoJugador.getCorreo(),
@@ -155,7 +159,7 @@ public class DataMapper {
 
 	}
 
-	public static JugadorDTO JugadorToJugadorDTO(Jugador entity) {
+	public static JugadorDTO jugadorToJugadorDTO(Jugador entity) {
 		JugadorDTO dto;
 		dto = new JugadorDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getPais(),
 				entity.getCiudad(), entity.getEquipo());
@@ -187,20 +191,20 @@ public class DataMapper {
 
 	// PARTIDA
 
-	public static Partida PartidaDTOToPartida(PartidaDTO dtoPartida) {
+	public static Partida partidaDTOToPartida(PartidaDTO dtoPartida) {
 
 		Partida entity;
 		entity = new Partida(dtoPartida.getEquipoA(), dtoPartida.getEquipoB(), dtoPartida.getGanador(),
-				dtoPartida.getFecha(), dtoPartida.getJuego());
+				dtoPartida.getFecha(), dtoPartida.getJuego(), dtoPartida.getId());
 
 		return entity;
 
 	}
 
-	public static PartidaDTO PartidaToPartidaDTO(Partida entity) {
+	public static PartidaDTO partidaToPartidaDTO(Partida entity) {
 		PartidaDTO dto;
 		dto = new PartidaDTO(entity.getEquipoA(), entity.getEquipoB(), entity.getGanador(), entity.getFecha(),
-				entity.getJuego());
+				entity.getJuego(), entity.getId());
 
 		return dto;
 	}
@@ -210,7 +214,7 @@ public class DataMapper {
 		ArrayList<PartidaDTO> dtoPartidaList = new ArrayList<>();
 		for (PartidaDTO partidaDTO : dtoPartidaList) {
 			dtoPartidaList.add(new PartidaDTO(partidaDTO.getEquipoA(), partidaDTO.getEquipoB(), partidaDTO.getGanador(),
-					partidaDTO.getFecha(), partidaDTO.getJuego()));
+					partidaDTO.getFecha(), partidaDTO.getJuego(), partidaDTO.getId()));
 		}
 
 		return dtoPartidaList;
@@ -222,11 +226,132 @@ public class DataMapper {
 
 		for (Partida partida : entityListPartida) {
 			entityListPartida.add(new Partida(partida.getEquipoA(), partida.getEquipoB(), partida.getGanador(),
-					partida.getFecha(), partida.getJuego()));
+					partida.getFecha(), partida.getJuego(), partida.getId()));
 		}
 		return entityListPartida;
 	}
 
-	// TORNEOs .............................
+	// TorneoCompleto
+	public static TorneoCompletoDTO torneoCompletoToTorneoCompletoDTO(TorneoCompleto torneo) {
+		if (torneo == null) return null;
+		TorneoCompletoDTO dto = new TorneoCompletoDTO(
+			torneo.getCantidadFase(),
+			torneo.getCantidadGrupo(),
+			torneo.getGrupos()
+		);
+		dto.setNombre(torneo.getNombre());
+		dto.setJuego(torneo.getJuego());
+		dto.setEquipos(torneo.getEquipos());
+		dto.setPartidas(torneo.getPartidas());
+		return dto;
+	}
+
+	public static TorneoCompleto torneoCompletoDTOToTorneoCompleto(TorneoCompletoDTO dto) {
+		if (dto == null) return null;
+		TorneoCompleto torneo = new TorneoCompleto(
+			dto.getCantidadFase(),
+			dto.getCantidadGrupo(),
+			dto.getGrupos()
+		);
+		torneo.setNombre(dto.getNombre());
+		torneo.setJuego(dto.getJuego());
+		torneo.setEquipos(dto.getEquipos());
+		torneo.setPartidas(dto.getPartidas());
+		return torneo;
+	}
+
+	public static ArrayList<TorneoCompletoDTO> listaTorneoCompletoToListaTorneoCompletoDTO(ArrayList<TorneoCompleto> lista) {
+		ArrayList<TorneoCompletoDTO> dtoList = new ArrayList<>();
+		for (TorneoCompleto torneo : lista) {
+			dtoList.add(torneoCompletoToTorneoCompletoDTO(torneo));
+		}
+		return dtoList;
+	}
+
+	public static ArrayList<TorneoCompleto> listaTorneoCompletoDTOToListaTorneoCompleto(ArrayList<TorneoCompletoDTO> lista) {
+		ArrayList<TorneoCompleto> torneoList = new ArrayList<>();
+		for (TorneoCompletoDTO dto : lista) {
+			torneoList.add(torneoCompletoDTOToTorneoCompleto(dto));
+		}
+		return torneoList;
+	}
+
+	// TorneoLiga
+	public static TorneoLigaDTO torneoLigaToTorneoLigaDTO(TorneoLiga torneo) {
+		if (torneo == null) return null;
+		TorneoLigaDTO dto = new TorneoLigaDTO(
+			torneo.getNombre(),
+			torneo.getJuego(),
+			torneo.getGrupos()
+		);
+		return dto;
+	}
+
+	public static TorneoLiga torneoLigaDTOToTorneoLiga(TorneoLigaDTO dto) {
+		if (dto == null) return null;
+		TorneoLiga torneo = new TorneoLiga(
+			dto.getNombre(),
+			dto.getJuego(),
+			dto.getGrupos()
+		);
+		return torneo;
+	}
+
+	public static ArrayList<TorneoLigaDTO> listaTorneoLigaToListaTorneoLigaDTO(ArrayList<TorneoLiga> lista) {
+		ArrayList<TorneoLigaDTO> dtoList = new ArrayList<>();
+		for (TorneoLiga torneo : lista) {
+			dtoList.add(torneoLigaToTorneoLigaDTO(torneo));
+		}
+		return dtoList;
+	}
+
+	public static ArrayList<TorneoLiga> listaTorneoLigaDTOToListaTorneoLiga(ArrayList<TorneoLigaDTO> lista) {
+		ArrayList<TorneoLiga> torneoList = new ArrayList<>();
+		for (TorneoLigaDTO dto : lista) {
+			torneoList.add(torneoLigaDTOToTorneoLiga(dto));
+		}
+		return torneoList;
+	}
+
+	// TorneoLlave
+	public static TorneoLlaveDTO torneoLlaveToTorneoLlaveDTO(TorneoLlave torneo) {
+		if (torneo == null) return null;
+		TorneoLlaveDTO dto = new TorneoLlaveDTO(
+			torneo.getNombre(),
+			torneo.getJuego(),
+			torneo.getEquipos(),
+			torneo.getPartidas()
+		);
+		dto.setCantidadFase(torneo.getCantidadFase());
+		return dto;
+	}
+
+	public static TorneoLlave torneoLlaveDTOToTorneoLlave(TorneoLlaveDTO dto) {
+		if (dto == null) return null;
+		TorneoLlave torneo = new TorneoLlave(
+			dto.getNombre(),
+			dto.getJuego(),
+			dto.getEquipos(),
+			dto.getPartidas()
+		);
+		torneo.setCantidadFase(dto.getCantidadFase());
+		return torneo;
+	}
+
+	public static ArrayList<TorneoLlaveDTO> listaTorneoLlaveToListaTorneoLlaveDTO(ArrayList<TorneoLlave> lista) {
+		ArrayList<TorneoLlaveDTO> dtoList = new ArrayList<>();
+		for (TorneoLlave torneo : lista) {
+			dtoList.add(torneoLlaveToTorneoLlaveDTO(torneo));
+		}
+		return dtoList;
+	}
+
+	public static ArrayList<TorneoLlave> listaTorneoLlaveDTOToListaTorneoLlave(ArrayList<TorneoLlaveDTO> lista) {
+		ArrayList<TorneoLlave> torneoList = new ArrayList<>();
+		for (TorneoLlaveDTO dto : lista) {
+			torneoList.add(torneoLlaveDTOToTorneoLlave(dto));
+		}
+		return torneoList;
+	}
 
 }

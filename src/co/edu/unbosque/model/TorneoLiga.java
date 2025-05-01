@@ -25,6 +25,14 @@ public class TorneoLiga extends Torneo implements Serializable {
 		super(nombre, juego);
 		this.grupos = grupos;
 	}
+	
+	public Equipo[][] getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(Equipo[][] grupos) {
+		this.grupos = grupos;
+	}
 
 	@Override
     public String toString() {

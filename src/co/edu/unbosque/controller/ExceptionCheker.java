@@ -6,6 +6,8 @@ import co.edu.unbosque.util.exception.EqualPasswordException;
 import co.edu.unbosque.util.exception.NumberException;
 import co.edu.unbosque.util.exception.SymbolException;
 import co.edu.unbosque.util.exception.SmallException;
+import co.edu.unbosque.util.exception.CountryException;
+import co.edu.unbosque.util.exception.MailException;
 
 /**
  * Clase ExceptionCheker.
@@ -105,6 +107,32 @@ public class ExceptionCheker {
 
 		if (!a.matches(".*[^A-Za-z0-9].*")) {
 			throw new SymbolException();
+		}
+	}
+
+	/**
+	 * Verifica que el país ingresado no contenga números, símbolos,
+	 * ni sea una cadena vacía o compuesta solo por espacios.
+	 * 
+	 * @param country El país a validar.
+	 * @throws CountryException Si el país contiene números, símbolos, 
+	 *                          es vacío o solo tiene espacios.
+	 */
+	public static void checkerCountry(String country) throws CountryException {
+		if (country == null || country.trim().isEmpty() || !country.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+			throw new CountryException();
+		}
+	}
+
+	/**
+	 * Verifica que el correo electrónico sea válido.
+	 * 
+	 * @param email El correo a validar.
+	 * @throws MailException Si el correo no es válido.
+	 */
+	public static void checkerMail(String email) throws MailException {
+		if (email == null || email.trim().isEmpty() || !email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+			throw new MailException();
 		}
 	}
 

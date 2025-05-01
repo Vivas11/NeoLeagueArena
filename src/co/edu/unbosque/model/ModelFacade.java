@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.util.ArrayList;
+
 import co.edu.unbosque.model.persistence.AdministradorDAO;
 import co.edu.unbosque.model.persistence.EntrenadorDAO;
 import co.edu.unbosque.model.persistence.EquipoDAO;
@@ -31,7 +33,25 @@ public class ModelFacade {
 		torneoLigaDAO = new TorneoLigaDAO();
 		torneoLlaveDAO = new TorneoLlaveDAO();
 	}
-
+	
+	public ArrayList<Usuario> obtenerTodosUsuarios(){
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		usuarios.addAll(administradorDAO.getListaAdministrador());
+		usuarios.addAll(entrenadorDAO.getListaEntrenadores());
+		usuarios.addAll(jugadorDAO.getListaJugadores());
+		return usuarios;
+	}
+	
+	public boolean usuarioRepetido(String c) {
+		for (Usuario u : obtenerTodosUsuarios()) {
+			System.out.println(u.toString());
+			if (u.getNombre().equals(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Convierte un texto en formato HTML.
 	 * 

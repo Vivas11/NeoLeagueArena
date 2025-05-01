@@ -12,7 +12,7 @@ public class FileManager {
     /**
      * Ruta de la carpeta donde se almacenarán los archivos.
      */
-    private static final String RUTA_CARPETA = "../archivos";
+    private static final String RUTA_CARPETA = "src/archivos";
 
     // Variables para archivos de texto
     private static Scanner lectorArchivo;

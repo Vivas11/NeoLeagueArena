@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
+import co.edu.unbosque.model.Jugador;
 
 public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administrador> {
 
@@ -27,7 +28,17 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 		listaAdministrador = new ArrayList<>();
 //		cargarSerializado();
 	}
+    public void escribirSerializado() {
+        FileManager.escribirArchivoSerializado(SERIAL_FILE_NAME, listaAdministrador);
+    }
 
+    public void cargarSerializado() {
+        listaAdministrador = (ArrayList<Administrador>) FileManager.leerArchivoSerialziado(SERIAL_FILE_NAME);
+        if (listaAdministrador == null) {
+            listaAdministrador = new ArrayList<>();
+        }
+    }
+    
 	@Override
 	public String showAll() {
 		String rta = "";
@@ -51,6 +62,7 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 	public boolean add(AdministradorDTO newData) {
 		if (find(DataMapper.administradorDTOToAdministrador(newData)) == null) {
 			listaAdministrador.add(DataMapper.administradorDTOToAdministrador(newData));
+            escribirSerializado();
 			return true;
 		} else {
 			return false;
@@ -61,7 +73,9 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 	public boolean delete(AdministradorDTO toDelete) {
 		Administrador found = find(DataMapper.administradorDTOToAdministrador(toDelete));
 		if (found != null) {
-			return listaAdministrador.remove(found);
+			listaAdministrador.remove(found);
+            escribirSerializado();
+            return true;
 		} else {
 			return false;
 		}
@@ -96,36 +110,6 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 			return false;
 		}
 	}
-
-//	public void escribirSerializado() {
-//		FileManager.escribirArchivoSerializado(SERIAL_FILE_NAME, listaAdministrador);
-//	}
-//
-//	/**
-//	 * Carga la lista de objetos de tipo administrador desde un archivo serializado. Si el
-//	 * archivo está vacío o no existe, inicializa una nueva lista.
-//	 */
-//	public void cargarSerializado() {
-//		listaAdministrador = (ArrayList<Administrador>) FileManager.leerArchivoSerialziado(SERIAL_FILE_NAME);
-//		if (listaAdministrador == null) {
-//			listaAdministrador = new ArrayList<>();
-//		}
-//	}
-//
-//	/**
-//	 * Escribe la lista de objetos de tipo administrador en un archivo de texto en formato
-//	 * CSV.
-//	 */
-//	public void escribirArchivo() {
-//		String contenido = "";
-//		for (int i = 0; i < listaAdministrador.size(); i++) {
-//			contenido += listaAdministrador.get(i).getNombre() + ";";
-//			contenido += listaAdministrador.get(i).getContrasena() + ";";
-//			contenido += listaAdministrador.get(i).getCorreo() + ";";
-//		}
-//		FileManager.escribirArchivoTexto(TEXT_FILE_NAME, contenido);
-//	}
-//
 	public ArrayList<Administrador> getListaAdministrador() {
 		return listaAdministrador;
 	}
@@ -133,14 +117,4 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 	public void setListaAdministrador(ArrayList<Administrador> listaAdministrador) {
 		this.listaAdministrador = listaAdministrador;
 	}
-//
-//	public String getSERIAL_FILE_NAME() {
-//		return SERIAL_FILE_NAME;
-//	}
-//
-//	public String getTEXT_FILE_NAME() {
-//		return TEXT_FILE_NAME;
-//	}
-
-	
 }

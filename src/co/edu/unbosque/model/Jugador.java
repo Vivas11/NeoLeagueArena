@@ -7,19 +7,16 @@ public class Jugador extends Usuario implements Serializable {
 	private String ciudad;
 	private Equipo equipo;
 
-	public Jugador() {
-
-	}
-
-	public Jugador(String nombre, String contrasena, String correo, String pais, String ciudad, Equipo equipo) {
-		super(nombre, contrasena, correo);
+	public Jugador(String usuario, String contrasena, String correo, String pais, String ciudad,
+			Equipo equipo) {
+		super(usuario, contrasena, correo);
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
 	}
 
-	public Jugador(String nombre, String contrasena, String correo) {
-		super(nombre, contrasena, correo);
+	public Jugador(String usuario, String contrasena, String correo) {
+		super(usuario, contrasena, correo);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,6 +25,12 @@ public class Jugador extends Usuario implements Serializable {
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipo = equipo;
+	}
+	
+	public Jugador(String usuario, String contrasena, String correo, String pais, String ciudad) {
+		super(usuario, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
 	}
 
 	public String getPais() {

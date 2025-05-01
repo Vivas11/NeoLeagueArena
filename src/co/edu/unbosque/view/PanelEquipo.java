@@ -3,7 +3,12 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,20 +20,23 @@ public class PanelEquipo extends JPanel {
 	private JLabel fondo;
 	private JButton btnVolver;
 	private JScrollPane scrollPane;
-	private JLabel imagen1;
 	private JPanel panelContenido;
+	private Properties prop;
 
-	public PanelEquipo() {
+	public PanelEquipo(Properties prop) throws IOException {
+		this.prop = prop;
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 
-		ImageIcon icono = new ImageIcon("images/registrados.png");
-		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-		imagen1 = new JLabel(new ImageIcon(imagen));
-		imagen1.setBounds(0, 0, 1290, 750);
+		fondo = new JLabel();
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.equipos")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
+		fondo.setBounds(0, 0, 1290, 750);
 
 		btnVolver = new JButton();
-		
+
 		btnVolver.setBounds(1070, 45, 150, 60);
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
@@ -46,8 +54,24 @@ public class PanelEquipo extends JPanel {
 		add(btnVolver);
 
 		add(scrollPrincipal);
-		add(imagen1);
+		add(fondo);
 
+	}
+
+	public JPanel getPanelContenido() {
+		return panelContenido;
+	}
+
+	public void setPanelContenido(JPanel panelContenido) {
+		this.panelContenido = panelContenido;
+	}
+
+	public Properties getProp() {
+		return prop;
+	}
+
+	public void setProp(Properties prop) {
+		this.prop = prop;
 	}
 
 	public JLabel getFondo() {
@@ -72,14 +96,6 @@ public class PanelEquipo extends JPanel {
 
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
-	}
-
-	public JLabel getImagen1() {
-		return imagen1;
-	}
-
-	public void setImagen1(JLabel imagen1) {
-		this.imagen1 = imagen1;
 	}
 
 }

@@ -1,5 +1,8 @@
 package co.edu.unbosque.view;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.swing.JFrame;
 
 public class VentanaPrincipal extends JFrame {
@@ -7,23 +10,18 @@ public class VentanaPrincipal extends JFrame {
 	private PanelPrincipal pnP;
 	private PanelIniciarSesion pnlIniciarS;
 	private VentanaEmergente vemer;
-	private PanelRegistroEntrenador pnlRegistroEntrenador;
-	private PanelRegistroAdministrador pnlRegistroAdministrador;
-	private PanelRegistroJugador pnlRegistroJugador;
+	private PanelRegistro pnlRegistro;
 	private PanelEquipo pnE;
 	private PanelHistorial pnH;
 	private PanelJugadoresDestacado pnJD;
 
-	public VentanaPrincipal() {
-		pnlRegistroEntrenador = new PanelRegistroEntrenador();
-		pnlRegistroJugador = new PanelRegistroJugador();
-		pnlRegistroAdministrador = new PanelRegistroAdministrador();
-		vemer = new VentanaEmergente();
-		pnP = new PanelPrincipal();
-		pnlIniciarS = new PanelIniciarSesion();
-		pnE = new PanelEquipo();
-		pnH = new PanelHistorial();
-		pnJD = new PanelJugadoresDestacado();
+	public VentanaPrincipal(Properties prop) throws IOException {
+		pnlRegistro = new PanelRegistro(prop);
+		pnP = new PanelPrincipal(prop);
+		pnlIniciarS = new PanelIniciarSesion(prop);
+		pnE = new PanelEquipo(prop);
+		pnH = new PanelHistorial(prop);
+		pnJD = new PanelJugadoresDestacado(prop);
 
 		setBounds(150, 150, 1300, 750);
 		setTitle("Neo League Arena");
@@ -34,23 +32,45 @@ public class VentanaPrincipal extends JFrame {
 
 		pnP.setVisible(true);
 		pnlIniciarS.setVisible(false);
-		pnlRegistroEntrenador.setVisible(false);
-		pnlRegistroAdministrador.setVisible(false);
-		pnlRegistroJugador.setVisible(false);
+		pnlRegistro.setVisible(false);
 		pnE.setVisible(false);
 		pnH.setVisible(false);
 		pnJD.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
-		add(pnlRegistroEntrenador);
-		add(pnlRegistroAdministrador);
-		add(pnlRegistroJugador);
+		add(pnlRegistro);
 		add(pnE);
 		add(pnH);
 		add(pnJD);
 		
 	}
+	
+	public void refrescarUI(Properties prop) throws IOException {
+		pnlRegistro.setProp(prop);
+		pnP.setProp(prop);
+		pnlIniciarS.setProp(prop);
+		pnE.setProp(prop);
+		pnH.setProp(prop);
+		pnJD.setProp(prop);
+		
+		pnlRegistro.revalidate();
+		pnP.revalidate();
+		pnlIniciarS.revalidate();
+		pnE.revalidate();
+		pnH.revalidate();
+		pnJD.revalidate();
+		
+		pnlRegistro.repaint();
+		pnP.repaint();
+		pnlIniciarS.repaint();
+		pnE.repaint();
+		pnH.repaint();
+		pnJD.repaint();
+		
+        this.revalidate();
+        this.repaint();
+    }
 
 	public PanelPrincipal getPnP() {
 		return pnP;
@@ -76,28 +96,12 @@ public class VentanaPrincipal extends JFrame {
 		this.vemer = vemer;
 	}
 
-	public PanelRegistroEntrenador getPnlRegistroEntrenador() {
-		return pnlRegistroEntrenador;
+	public PanelRegistro getPnlRegistro() {
+		return pnlRegistro;
 	}
 
-	public void setPnlRegistroEntrenador(PanelRegistroEntrenador pnlRegistroEntrenador) {
-		this.pnlRegistroEntrenador = pnlRegistroEntrenador;
-	}
-
-	public PanelRegistroAdministrador getPnlRegistroAdministrador() {
-		return pnlRegistroAdministrador;
-	}
-
-	public void setPnlRegistroAdministrador(PanelRegistroAdministrador pnlRegistroAdministrador) {
-		this.pnlRegistroAdministrador = pnlRegistroAdministrador;
-	}
-
-	public PanelRegistroJugador getPnlRegistroJugador() {
-		return pnlRegistroJugador;
-	}
-
-	public void setPnlRegistroJugador(PanelRegistroJugador pnlRegistroJugador) {
-		this.pnlRegistroJugador = pnlRegistroJugador;
+	public void setPnlRegistro(PanelRegistro pnlRegistro) {
+		this.pnlRegistro = pnlRegistro;
 	}
 
 	public PanelEquipo getPnE() {
@@ -111,7 +115,7 @@ public class VentanaPrincipal extends JFrame {
 	public PanelHistorial getPnH() {
 		return pnH;
 	}
-
+	
 	public void setPnH(PanelHistorial pnH) {
 		this.pnH = pnH;
 	}

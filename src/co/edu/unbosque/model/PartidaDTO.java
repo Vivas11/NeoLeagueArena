@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class PartidaDTO implements Serializable {
+	private int id;
     private Equipo equipoA;
     private Equipo equipoB;
     private Equipo ganador;
@@ -13,13 +14,23 @@ public class PartidaDTO implements Serializable {
     public PartidaDTO() {
     }
 
-    public PartidaDTO(Equipo equipoA, Equipo equipoB, Equipo ganador, Date fecha, String juego) {
+    public PartidaDTO(Equipo equipoA, Equipo equipoB, Equipo ganador, Date fecha, String juego, int id) {
         this.equipoA = equipoA;
         this.equipoB = equipoB;
         this.ganador = ganador;
         this.fecha = fecha;
         this.juego = juego;
+        this.id = id;
     }
+	
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
     public Equipo getEquipoA() {
         return equipoA;

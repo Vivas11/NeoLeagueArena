@@ -3,7 +3,12 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,17 +20,19 @@ public class PanelHistorial extends JPanel  {
 	private JButton btnVolverHistorial;
 	private JScrollPane scrollPane;
 	private JPanel panelContenido;
+	private Properties prop;
 	
-	public PanelHistorial() {
+	public PanelHistorial(Properties prop) throws IOException {
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
+		this.prop = prop;
 		
-		
-		ImageIcon icono = new ImageIcon("images/Historial.png");
-		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-		fondo = new JLabel(new ImageIcon(imagen));
+		fondo = new JLabel();
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.historialpartidos")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
 		fondo.setBounds(0, 0, 1290, 750);
-		
 		
 		btnVolverHistorial = new JButton();
 		
@@ -52,6 +59,14 @@ public class PanelHistorial extends JPanel  {
 		add(fondo);
 		
 		
+	}
+	
+	public Properties getProp() {
+		return prop;
+	}
+
+	public void setProp(Properties prop) {
+		this.prop = prop;
 	}
 
 	public JLabel getFondo() {

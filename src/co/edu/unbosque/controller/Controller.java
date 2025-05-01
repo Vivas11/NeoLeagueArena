@@ -2,15 +2,22 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
-import javax.swing.JOptionPane;
-
-import co.edu.unbosque.model.Administrador;
-import co.edu.unbosque.model.Cliente;
+import co.edu.unbosque.model.AdministradorDTO;
+import co.edu.unbosque.model.EntrenadorDTO;
+import co.edu.unbosque.model.Jugador;
+import co.edu.unbosque.model.JugadorDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.util.exception.CapitalException;
 import co.edu.unbosque.util.exception.CharacterException;
+import co.edu.unbosque.util.exception.CountryException;
 import co.edu.unbosque.util.exception.EqualPasswordException;
+import co.edu.unbosque.util.exception.MailException;
 import co.edu.unbosque.util.exception.NumberException;
 import co.edu.unbosque.util.exception.SmallException;
 import co.edu.unbosque.util.exception.SymbolException;
@@ -28,10 +35,21 @@ public class Controller implements ActionListener {
 
 	/** Facade para gestionar la capa de la vista. */
 	private ViewFacade vf;
+	private Properties prop;
 
-	public Controller() {
+	public Controller() throws IOException {
+		prop = new Properties();
+		
+		try {
+			prop.load(new FileInputStream(new File("src/archivos/espanol.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		mf = new ModelFacade();
-		vf = new ViewFacade();
+		vf = new ViewFacade(prop);
 	}
 
 	public void run() {
@@ -48,31 +66,26 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnVerE().setActionCommand("btnVerE");
 		vf.getVp().getPnP().getBtnHistoriaP().addActionListener(this);
 		vf.getVp().getPnP().getBtnHistoriaP().setActionCommand("btnHistoriaP");
-
 		vf.getVp().getPnP().getBtnJugadoresD().addActionListener(this);
-		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnHistoriaP");
+		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnJugadoresD");
 
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
 
-		vf.getVp().getPnlRegistroEntrenador().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnlRegistroEntrenador().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnlRegistroAdministrador().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnlRegistroAdministrador().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnlRegistroJugador().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnlRegistroJugador().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
-		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverAInicioR");
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
 
-		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().addActionListener(this);
-		vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().setActionCommand("SeleccionCBXRegistroEntrenador");
+		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
+		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolverAInicioE");
 		
-		vf.getVp().getPnlRegistroAdministrador().getBtnRegistrar().addActionListener(this);
-		vf.getVp().getPnlRegistroAdministrador().getBtnRegistrar().setActionCommand("btnRegistrarAdministrador");
+		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
+		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverAInicioH");
+		
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
+		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverDestacados");
+
+		vf.getVp().getPnlRegistro().getBtnRegistrar().addActionListener(this);
+		vf.getVp().getPnlRegistro().getBtnRegistrar().setActionCommand("btnRegistrar");
 
 	}
 
@@ -91,49 +104,43 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnlIniciarS().setVisible(true);
 			break;
 		}
-
 		case "btnVolverAInicio": {
 			vf.getVp().getPnlIniciarS().setVisible(false);
 			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
 
+
+		case "btnPanelRegistrarse": {
+			vf.getVp().getPnP().setVisible(false);
+			vf.getVp().getPnlRegistro().setVisible(true);
+			break;
+		}
 		case "btnVolverAInicioR": {
-			ocultarPanelesDeRegistro();
+			vf.getVp().getPnlRegistro().setVisible(false);
 			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
-		case "btnPanelRegistrarse": {
-			vf.getVp().getPnP().setVisible(false);
-			vf.getVp().getPnlRegistroEntrenador().setVisible(true);
-			break;
-		}
 
-		case "SeleccionCBXRegistroEntrenador": {
-			if (e.getSource() == vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario()) {
-				String seleccion = (String) vf.getVp().getPnlRegistroEntrenador().getCbxTipoUsuario().getSelectedItem();
-
-				ocultarPanelesDeRegistro();
-				if (seleccion.equals("Administrador")) {
-					vf.getVp().getPnlRegistroAdministrador().setVisible(true);
-				} else if (seleccion.equals("Jugador")) {
-					vf.getVp().getPnlRegistroJugador().setVisible(true);
-				} else if (seleccion.equals("Entrenador")) {
-					vf.getVp().getPnlRegistroEntrenador().setVisible(true);
-
-				}
-			}
-
-			break;
-		}
 		case "btnVerE": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnE().setVisible(true);
 			break;
 		}
+		case "btnVolverAInicioE": {
+			vf.getVp().getPnP().setVisible(true);
+			vf.getVp().getPnE().setVisible(false);
+			break;
+		}
+		
 		case "btnHistoriaP": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnH().setVisible(true);
+			break;
+		}
+		case "btnVolverAInicioH": {
+			vf.getVp().getPnH().setVisible(false);
+			vf.getVp().getPnP().setVisible(true);
 			break;
 		}
 
@@ -142,54 +149,89 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnJD().setVisible(true);
 			break;
 		}
-		case "btnRegistrarAdministrador":{
-			String usuario = (String) vf.getVp().getPnlRegistroAdministrador().getNombreUsuario();
-			String contrasena1 = (String) vf.getVp().getPnlRegistroAdministrador().getContrasena1();
-			String contrasena2 = (String) vf.getVp().getPnlRegistroAdministrador().getContrasena2();
-			String correo = (String) vf.getVp().getPnlRegistroAdministrador().getTxtCorreo();
-
-//			try {
-//				ExceptionCheker.checkerCharacter(usuario);
-//				ExceptionCheker.checkerEqualPassword(contrasena1, contrasena2);
-//				ExceptionCheker.checkerPasword(contrasena1);
-//
-//				for (Administrador c : mf.getAdministradorDAO().getListaAdministrador()) {
-//					if (c.getNombre().equals(usuario)) {
-//						throw new UsernameException();
-//					}
-//				}
-//
-//				mf.getAdministradorDAO().crear(new Administrador(usuario, contrasena1, correo ));
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
-//
-//			} catch (CharacterException e1) {
-//				vf.getVp().getVemer().mostrar("burrrrrrrrrr");
-//			}
-////			} catch (EqualPasswordException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.contrasenasdiferentes"));
-//			} catch (CapitalException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.mayus"));
-//			} catch (SmallException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.minus"));
-//			} catch (NumberException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.numero"));
-//			} catch (SymbolException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.simbolo"));
-//			} catch (UsernameException e1) {
-//				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.usuariorepetido"));
-//			}
-
+		case "btnVolverDestacados": {
+			vf.getVp().getPnP().setVisible(true);
+			vf.getVp().getPnJD().setVisible(false);
 			break;
 		}
+		case "btnRegistrar": {
+			String usuario = (String) vf.getVp().getPnlRegistro().getNombreUsuario();
+			String contrasena1 = (String) vf.getVp().getPnlRegistro().getContrasena1();
+			String contrasena2 = (String) vf.getVp().getPnlRegistro().getContrasena2();
+			String correo = (String) vf.getVp().getPnlRegistro().getTxtCorreo();
+			String ciudad = vf.getVp().getPnlRegistro().getTxtCiudad().getText();
+			String pais = vf.getVp().getPnlRegistro().getTxtPais().getText();
+
+			if(mf.usuarioRepetido(usuario)) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.usuariorepetido"));
+				return;
+			}
+			
+			try {
+				String selected = (String) vf.getVp().getPnlRegistro().getCbxTipoUsuario().getSelectedItem();
+				ExceptionCheker.checkerEqualPassword(contrasena1, contrasena2);
+				ExceptionCheker.checkerPasword(contrasena1);
+				ExceptionCheker.checkerMail(correo);
+				switch (selected) {
+				case "Tipo de usuario": {
+					vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
+					break;
+				}
+				case "Jugador": {
+					ExceptionCheker.checkerCountry(ciudad);
+					ExceptionCheker.checkerCountry(pais);
+					
+					if(mf.getJugadorDAO().add(new JugadorDTO(usuario, contrasena2, correo, pais, ciudad))) {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+					}
+					break;
+				}
+				case "Entrenador": {
+					ExceptionCheker.checkerCountry(ciudad);
+					ExceptionCheker.checkerCountry(pais);
+					if(mf.getEntrenadorDAO().add(new EntrenadorDTO(usuario, contrasena2, correo, pais, ciudad))) {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+					}else {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
+					}
+					break;
+				}
+				case "Administrador": {
+					if(mf.getAdministradorDAO().add(new AdministradorDTO(usuario, contrasena2, correo))) {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+					}else {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
+					}
+					break;
+				}
+				default:
+					break;
+				}
+
+
+			} catch (CharacterException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.caracteres"));
+			} catch (EqualPasswordException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.contrasenasdiferentes"));
+			} catch (CapitalException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.mayus"));
+			} catch (SmallException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.minus"));
+			} catch (NumberException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.numero"));
+			} catch (SymbolException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.simbolo"));
+			} catch (MailException e1) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correo"));
+			} catch (CountryException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+
+			break;
+
+		}
 		}
 	}
 
-	public void ocultarPanelesDeRegistro() {
-		vf.getVp().getPnlRegistroAdministrador().setVisible(false);
-		vf.getVp().getPnlRegistroJugador().setVisible(false);
-		vf.getVp().getPnlRegistroEntrenador().setVisible(false);
-		vf.getVp().getPnE().setVisible(false);
-		vf.getVp().getPnH().setVisible(false);
-
-	}
 }

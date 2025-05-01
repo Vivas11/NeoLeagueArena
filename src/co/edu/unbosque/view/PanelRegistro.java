@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  * Clase que representa el panel para crear un usuario. Permite al usuario
  * ingresar un nombre de usuario y establecer una contraseña.
  */
-public class PanelRegistroEntrenador extends JPanel {
+public class PanelRegistro extends JPanel {
 	/** Fondo del panel. */
 	private JLabel fondo;
 	/** Campo de texto para el nombre de usuario. */
@@ -34,7 +34,7 @@ public class PanelRegistroEntrenador extends JPanel {
 	/** Botón para volver al menú anterior. */
 	private JButton btnVolver;
 	/** Botón para confirmar la creación del usuario. */
-	private JButton btnIngresar;
+	private JButton btnRegistrar;
 	/** Etiqueta para el texto del nombre de usuario. */
 	private JLabel textNombre;
 	/** Etiqueta para el texto de la primera contraseña. */
@@ -53,19 +53,12 @@ public class PanelRegistroEntrenador extends JPanel {
 	private Properties prop;
 
 	private JTextField txtCorreo;
-	private JLabel lblCorreo;
 
 	private JTextField txtPais;
-	private JLabel lblPais;
 
 	private JTextField txtCiudad;
-	private JLabel lblCiudad;
 
-	private JTextField txtTipoUsuario;
 	private JComboBox<String> cbxTipoUsuario;
-
-	private JTextField txtEquipo;
-	private JComboBox<String> cbxEquipo;
 
 	/**
 	 * Constructor que inicializa el panel para crear un usuario.
@@ -73,22 +66,14 @@ public class PanelRegistroEntrenador extends JPanel {
 	 * @param prop Propiedades para configurar el panel.
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
-	public PanelRegistroEntrenador() {
+	public PanelRegistro(Properties prop) throws IOException {
 		this.prop = prop;
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 
-//        fondo = new JLabel();
-////        BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.fondovacio")));
-//        ImageIcon imagenFondo = new ImageIcon(fd);
-//        Image fdRedim = fd.getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-//        fondo.setIcon(new ImageIcon(fdRedim));
-//        fondo.setBounds(0, 0, 1290, 750);
-
 		btnVolver = new JButton();
 		btnVolver.setBounds(1070, 45, 150, 60);
 
-//		btnVolver.setText("volver");
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
 		btnVolver.setBackground(new Color(0, 0, 0, 0));
@@ -99,15 +84,14 @@ public class PanelRegistroEntrenador extends JPanel {
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnVolver);
 
-		btnIngresar = new JButton();
-		btnIngresar.setBounds(305, 610, 150, 50);
-//        btnIngresar.setText(prop.getProperty("archivospropiedad.boton.ingresar"));
-		btnIngresar.setFocusable(false);
-		btnIngresar.setContentAreaFilled(false);
-		btnIngresar.setForeground(Color.black);
-		btnIngresar.setBackground(new Color(00, 150, 50));
-		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(btnIngresar);
+		btnRegistrar = new JButton();
+		btnRegistrar.setBounds(305, 610, 150, 50);
+		btnRegistrar.setFocusable(false);
+		btnRegistrar.setContentAreaFilled(false);
+		btnRegistrar.setForeground(Color.black);
+		btnRegistrar.setBackground(new Color(00, 150, 50));
+		btnRegistrar.setFont(new Font("Baloo", Font.BOLD, 26));
+		add(btnRegistrar);
 
 		nombreUsuario = new JTextField();
 		nombreUsuario.setBounds(250, 210, 400, 50);
@@ -151,13 +135,11 @@ public class PanelRegistroEntrenador extends JPanel {
 
 		textNombre = new JLabel();
 		textNombre.setBounds(340, 300, 400, 60);
-//        textNombre.setText(prop.getProperty("archivospropiedad.texto.usuario"));
 		textNombre.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(textNombre);
 
 		textContra1 = new JLabel();
 		textContra1.setBounds(324, 400, 400, 60);
-//        textContra1.setText(prop.getProperty("archivospropiedad.texto.contrasena"));
 		textContra1.setFont(new Font("Baloo", Font.BOLD, 20));
 		mostrarContrasena = new JCheckBox();
 		mostrarContrasena.setBounds(660, 515, 20, 20);
@@ -170,7 +152,6 @@ public class PanelRegistroEntrenador extends JPanel {
 
 		textContra2 = new JLabel();
 		textContra2.setBounds(230, 500, 400, 60);
-//        textContra2.setText(prop.getProperty("archivospropiedad.texto.repetircontrasena"));
 		textContra2.setFont(new Font("Baloo", Font.BOLD, 26));
 		mostrarContrasena2 = new JCheckBox();
 		mostrarContrasena2.setBounds(660, 570, 20, 20);
@@ -183,28 +164,19 @@ public class PanelRegistroEntrenador extends JPanel {
 
 		textEstandarNombre = new JLabel();
 		textEstandarNombre.setBounds(480, 341, 400, 60);
-//        textEstandarNombre.setText(prop.getProperty("archivospropiedad.texto.requsuario"));
 		textEstandarNombre.setFont(new Font("Baloo", Font.BOLD, 10));
 		add(textEstandarNombre);
 
 		textEstandarContra = new JLabel();
 		textEstandarContra.setBounds(480, 441, 800, 60);
-//        textEstandarContra.setText(prop.getProperty("archivospropiedad.texto.reqcontrasena"));
 		textEstandarContra.setFont(new Font("Baloo", Font.BOLD, 10));
 		add(textEstandarContra);
 
-		String[] equipo = { "Seleccione equipo", "equipoA", "EquipoB", "EquipoC" };
-
-		cbxEquipo = new JComboBox<>(equipo);
-		cbxEquipo.setFont(new Font("Baloo", Font.BOLD, 20));
-		cbxEquipo.setBounds(700, 210, 400, 50);
-
-		cbxEquipo.setSelectedIndex(0);
-		add(cbxEquipo);
-
-		ImageIcon icono = new ImageIcon("images/registro.png");
-		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-		fondo = new JLabel(new ImageIcon(imagen));
+		fondo = new JLabel();
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
 		fondo.setBounds(0, 0, 1290, 750);
 		add(fondo);
 
@@ -215,19 +187,12 @@ public class PanelRegistroEntrenador extends JPanel {
 	 * 
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
-//    public void actualizarComp() throws IOException {
-//        BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.fondovacio")));
-//        ImageIcon imagenFondo = new ImageIcon(fd);
-//        Image fdRedim = fd.getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-//        fondo.setIcon(new ImageIcon(fdRedim));
-//        btnVolver.setText(prop.getProperty("archivospropiedad.boton.volver"));
-//        btnIngresar.setText(prop.getProperty("archivospropiedad.boton.ingresar"));
-//        textNombre.setText(prop.getProperty("archivospropiedad.texto.usuario"));
-//        textContra1.setText(prop.getProperty("archivospropiedad.texto.contrasena"));
-//        textContra2.setText(prop.getProperty("archivospropiedad.texto.repetircontrasena"));
-//        textEstandarNombre.setText(prop.getProperty("archivospropiedad.texto.requsuario"));
-//        textEstandarContra.setText(prop.getProperty("archivospropiedad.texto.reqcontrasena"));
-//    }
+    public void actualizarComp() throws IOException {
+        BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
+        ImageIcon imagenFondo = new ImageIcon(fd);
+        Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+        fondo.setIcon(new ImageIcon(fdRedim));
+    }
 
 	/**
 	 * Obtiene el fondo del panel.
@@ -236,6 +201,18 @@ public class PanelRegistroEntrenador extends JPanel {
 	 */
 	public JLabel getFondo() {
 		return fondo;
+	}
+
+	public String getTxtCorreo() {
+		return txtCorreo.getText();
+	}
+
+	public void setTxtCorreo(JTextField txtCorreo) {
+		this.txtCorreo = txtCorreo;
+	}
+
+	public void setBtnRegistrar(JButton btnRegistrar) {
+		this.btnRegistrar = btnRegistrar;
 	}
 
 	public JComboBox<String> getCbxTipoUsuario() {
@@ -343,8 +320,8 @@ public class PanelRegistroEntrenador extends JPanel {
 	 * 
 	 * @return Botón para confirmar la creación del usuario.
 	 */
-	public JButton getBtnIngresar() {
-		return btnIngresar;
+	public JButton getBtnRegistrar() {
+		return btnRegistrar;
 	}
 
 	public JPasswordField getContrasena1F() {
@@ -354,10 +331,10 @@ public class PanelRegistroEntrenador extends JPanel {
 	/**
 	 * Establece el botón para confirmar la creación del usuario.
 	 * 
-	 * @param btnIngresar Botón para confirmar la creación del usuario.
+	 * @param btnRegistrar Botón para confirmar la creación del usuario.
 	 */
-	public void setBtnIngresar(JButton btnIngresar) {
-		this.btnIngresar = btnIngresar;
+	public void setBtnResgistrar(JButton btnRegistrar) {
+		this.btnRegistrar = btnRegistrar;
 	}
 
 	/**
@@ -475,6 +452,22 @@ public class PanelRegistroEntrenador extends JPanel {
 	 */
 	public JCheckBox getMostrarContrasena2() {
 		return mostrarContrasena2;
+	}
+
+	public JTextField getTxtPais() {
+		return txtPais;
+	}
+
+	public void setTxtPais(JTextField txtPais) {
+		this.txtPais = txtPais;
+	}
+
+	public JTextField getTxtCiudad() {
+		return txtCiudad;
+	}
+
+	public void setTxtCiudad(JTextField txtCiudad) {
+		this.txtCiudad = txtCiudad;
 	}
 
 	/**

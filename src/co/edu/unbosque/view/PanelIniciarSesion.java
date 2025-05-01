@@ -49,7 +49,8 @@ public class PanelIniciarSesion extends JPanel {
 	 * @param prop Propiedades para configurar el panel.
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
-	public PanelIniciarSesion() {
+	public PanelIniciarSesion(Properties prop) throws IOException {
+		this.prop = prop;
 		setBounds(0, 0, 1290, 750);
 		setLayout(null);
 
@@ -112,9 +113,11 @@ public class PanelIniciarSesion extends JPanel {
 		textContra.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(textContra);
 
-		ImageIcon icono = new ImageIcon("images/sesion.png");
-		Image imagen = icono.getImage().getScaledInstance(1290, 750, Image.SCALE_SMOOTH);
-		fondo = new JLabel(new ImageIcon(imagen));
+		fondo = new JLabel();
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.iniciarsesion")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
 		fondo.setBounds(0, 0, 1290, 750);
 		add(fondo);
 

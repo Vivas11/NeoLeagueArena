@@ -26,7 +26,17 @@ public class TorneoLlave extends Torneo implements Serializable {
         setPartidas(partidas);
     }
 
-    @Override
+	
+	
+    public int getCantidadFase() {
+		return cantidadFase;
+	}
+
+	public void setCantidadFase(int cantidadFase) {
+		this.cantidadFase = cantidadFase;
+	}
+
+	@Override
     public String toString() {
         return "TorneoLlave{" + super.toString() + "}";
     }

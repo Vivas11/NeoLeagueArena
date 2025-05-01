@@ -26,6 +26,14 @@ public class TorneoLigaDTO extends Torneo implements Serializable {
 		this.grupos = grupos;
 	}
 
+	public Equipo[][] getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(Equipo[][] grupos) {
+		this.grupos = grupos;
+	}
+
 	@Override
     public String toString() {
         return "TorneoLiga{" + super.toString() + "}";
