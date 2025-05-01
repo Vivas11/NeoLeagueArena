@@ -168,7 +168,7 @@ public class PanelIniciarSesion extends JPanel {
 		char[] con = contrasena.getPassword();
 		return new String(con);
 	}
-
+	
 	/**
 	 * Obtiene el campo de texto para la contraseña.
 	 * 

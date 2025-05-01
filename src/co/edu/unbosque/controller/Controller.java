@@ -69,8 +69,10 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnJugadoresD().addActionListener(this);
 		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnJugadoresD");
 
+		vf.getVp().getPnlIniciarS().getBtnIngresar().addActionListener(this);
+		vf.getVp().getPnlIniciarS().getBtnIngresar().setActionCommand("btnIniciarSesion");
 		vf.getVp().getPnlIniciarS().getBtnVolver().addActionListener(this);
-		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicio");
+		vf.getVp().getPnlIniciarS().getBtnVolver().setActionCommand("btnVolverAInicioS");
 
 		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
@@ -100,11 +102,29 @@ public class Controller implements ActionListener {
 		switch (e.getActionCommand()) {
 
 		case "btnPanelIniciarS": {
+			if(mf.getUsuarioActual() !=null) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.yadentro"));
+				break;
+			}
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlIniciarS().setVisible(true);
 			break;
 		}
-		case "btnVolverAInicio": {
+		case "btnIniciarSesion":{
+			String user = vf.getVp().getPnlIniciarS().getNombreUsuario().getText();
+			String contrasena = vf.getVp().getPnlIniciarS().getContrasena();
+			
+			if(mf.findUser(new Jugador(user, "", "")) != null && mf.findUser(new Jugador(user, "", "")).getContrasena().equals(contrasena)) {
+				mf.setUsuarioActual(mf.findUser(new Jugador(user, "", "")));
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.iniciosesion") + " " + mf.getUsuarioActual().getNombre());
+				vf.getVp().getPnlIniciarS().setVisible(false);
+				vf.getVp().getPnP().setVisible(true);
+			}else {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.errorsesion"));
+			}
+			break;
+		}
+		case "btnVolverAInicioS": {
 			vf.getVp().getPnlIniciarS().setVisible(false);
 			vf.getVp().getPnP().setVisible(true);
 			break;
@@ -112,6 +132,10 @@ public class Controller implements ActionListener {
 
 
 		case "btnPanelRegistrarse": {
+			if(mf.getUsuarioActual() !=null) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.yadentro"));
+				break;
+			}
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnlRegistro().setVisible(true);
 			break;

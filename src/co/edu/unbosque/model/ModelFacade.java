@@ -1,5 +1,6 @@
 package co.edu.unbosque.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.persistence.AdministradorDAO;
@@ -21,6 +22,7 @@ public class ModelFacade {
 	private TorneoCompletoDAO torneoCompletoDAO;
 	private TorneoLigaDAO torneoLigaDAO;
 	private TorneoLlaveDAO torneoLlaveDAO;
+	private Usuario usuarioActual;
 	
 	public ModelFacade() {
 
@@ -44,13 +46,22 @@ public class ModelFacade {
 	
 	public boolean usuarioRepetido(String c) {
 		for (Usuario u : obtenerTodosUsuarios()) {
-			System.out.println(u.toString());
 			if (u.getNombre().equals(c)) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public Usuario findUser(Usuario toFind) {
+		ArrayList<Usuario> usuarios = obtenerTodosUsuarios();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombre().equals(toFind.getNombre())) {
+                return usuario;
+            }
+        }
+        return null;
+    }
 	
 	/**
 	 * Convierte un texto en formato HTML.
@@ -126,7 +137,12 @@ public class ModelFacade {
 	public void setTorneoLlaveDAO(TorneoLlaveDAO torneoLlaveDAO) {
 		this.torneoLlaveDAO = torneoLlaveDAO;
 	}
-	
-	
 
+	public Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+	public void setUsuarioActual(Usuario usuarioActual) {
+		this.usuarioActual = usuarioActual;
+	}
 }
