@@ -23,16 +23,16 @@ public class PanelHistorial extends JPanel  {
 	private Properties prop;
 	
 	public PanelHistorial(Properties prop) throws IOException {
-		setBounds(0, 0, 1290, 750);
+		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 		this.prop = prop;
 		
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.historialpartidos")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
-		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
-		fondo.setBounds(0, 0, 1290, 750);
+		fondo.setBounds(0, 0, 1280, 720);
 		
 		btnVolverHistorial = new JButton();
 		

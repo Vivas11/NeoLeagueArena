@@ -23,21 +23,21 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnVerE;
 	private JButton btnHistoriaP;
 	private JButton btnJugadoresD;
-	private JButton btnMejoresE;
+	private JButton btnInformes;
 	private JButton btnRegistrarse;
 	private Properties prop;
 
 	public PanelPrincipal(Properties prop) throws IOException {
 		this.prop = prop;
-		setBounds(0, 0, 1290, 750);
+		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.menu")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
-		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
-		fondo.setBounds(0, 0, 1290, 750);
+		fondo.setBounds(0, 0, 1280, 720);
 
 		btnIniciarS = new JButton();
 		btnIniciarS.setBounds(1020, 45, 125, 60);
@@ -78,7 +78,7 @@ public class PanelPrincipal extends JPanel {
 		add(btnHistoriaP);
 
 		btnJugadoresD = new JButton();
-		btnJugadoresD.setBounds(450, 45, 170, 60);
+		btnJugadoresD.setBounds(450, 45, 110, 60);
 		btnJugadoresD.setFocusable(false);
 		btnJugadoresD.setContentAreaFilled(false);
 		btnJugadoresD.setOpaque(false);
@@ -87,15 +87,15 @@ public class PanelPrincipal extends JPanel {
 
 		add(btnJugadoresD);
 
-		btnMejoresE = new JButton();
-		btnMejoresE.setBounds(650, 45, 160, 60);
-		btnMejoresE.setFocusable(false);
-		btnMejoresE.setContentAreaFilled(false);
-		btnMejoresE.setOpaque(false);
-		btnMejoresE.setBorderPainted(false);
-		btnMejoresE.setBorder(null);
+		btnInformes = new JButton();
+		btnInformes.setBounds(650, 45, 100, 60);
+		btnInformes.setFocusable(false);
+		btnInformes.setContentAreaFilled(false);
+		btnInformes.setOpaque(false);
+		btnInformes.setBorderPainted(false);
+		btnInformes.setBorder(null);
 
-		add(btnMejoresE);
+		add(btnInformes);
 
 		btnRegistrarse = new JButton();
 		btnRegistrarse.setBounds(1150, 45, 120, 60);
@@ -169,20 +169,28 @@ public class PanelPrincipal extends JPanel {
 		this.btnJugadoresD = btnJugadoresD;
 	}
 
-	public JButton getBtnMejoresE() {
-		return btnMejoresE;
-	}
-
-	public void setBtnMejoresE(JButton btnMejoresE) {
-		this.btnMejoresE = btnMejoresE;
-	}
-
 	public JButton getBtnRegistrarse() {
 		return btnRegistrarse;
 	}
 
 	public void setBtnRegistrarse(JButton btnRegistrarse) {
 		this.btnRegistrarse = btnRegistrarse;
+	}
+
+	public JLabel getFondo() {
+		return fondo;
+	}
+
+	public void setFondo(JLabel fondo) {
+		this.fondo = fondo;
+	}
+
+	public JButton getBtnInformes() {
+		return btnInformes;
+	}
+
+	public void setBtnInformes(JButton btnInformes) {
+		this.btnInformes = btnInformes;
 	}
 
 }

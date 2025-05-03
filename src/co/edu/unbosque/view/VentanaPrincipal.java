@@ -23,7 +23,7 @@ public class VentanaPrincipal extends JFrame {
 		pnH = new PanelHistorial(prop);
 		pnJD = new PanelJugadoresDestacado(prop);
 
-		setBounds(150, 150, 1300, 750);
+		setBounds(150, 150, 1280, 720);
 		setTitle("Neo League Arena");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);

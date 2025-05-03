@@ -51,11 +51,11 @@ public class PanelIniciarSesion extends JPanel {
 	 */
 	public PanelIniciarSesion(Properties prop) throws IOException {
 		this.prop = prop;
-		setBounds(0, 0, 1290, 750);
+		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 
 		fondo = new JLabel();
-		fondo.setBounds(0, 0, 1290, 750);
+		fondo.setBounds(0, 0, 1280, 720);
 
 		btnVolver = new JButton();
 		btnVolver.setBounds(1070, 45, 150, 60);
@@ -116,9 +116,9 @@ public class PanelIniciarSesion extends JPanel {
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.iniciarsesion")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
-		Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
-		fondo.setBounds(0, 0, 1290, 750);
+		fondo.setBounds(0, 0, 1280, 720);
 		add(fondo);
 
 	}
