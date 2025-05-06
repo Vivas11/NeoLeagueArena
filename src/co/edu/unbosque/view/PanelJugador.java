@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class PanelJugadoresDestacado extends JPanel {
+public class PanelJugador extends JPanel {
 	public Properties getProp() {
 		return prop;
 	}
@@ -25,10 +25,10 @@ public class PanelJugadoresDestacado extends JPanel {
 	}
 
 	private JLabel fondo;
-	private JButton btnVolverJugadoresDestacado;
+	private JButton btnVolverJugador;
 	private Properties prop;
 
-	public PanelJugadoresDestacado(Properties prop) throws IOException {
+	public PanelJugador(Properties prop) throws IOException {
 		this.prop = prop;
 		
 		setBounds(0, 0, 1280, 720);
@@ -41,19 +41,19 @@ public class PanelJugadoresDestacado extends JPanel {
 		fondo.setIcon(new ImageIcon(fdRedim));
 		fondo.setBounds(0, 0, 1280, 720);
 
-		btnVolverJugadoresDestacado = new JButton();
+		btnVolverJugador = new JButton();
 
-		btnVolverJugadoresDestacado.setBounds(1070, 45, 150, 60);
-		btnVolverJugadoresDestacado.setFocusable(false);
-		btnVolverJugadoresDestacado.setForeground(Color.black);
-		btnVolverJugadoresDestacado.setBackground(new Color(0, 0, 0, 0));
-		btnVolverJugadoresDestacado.setOpaque(false);
-		btnVolverJugadoresDestacado.setBorderPainted(false);
-		btnVolverJugadoresDestacado.setContentAreaFilled(false);
-		btnVolverJugadoresDestacado.setBorder(null);
-		btnVolverJugadoresDestacado.setFont(new Font("Baloo", Font.BOLD, 26));
+		btnVolverJugador.setBounds(1070, 45, 150, 60);
+		btnVolverJugador.setFocusable(false);
+		btnVolverJugador.setForeground(Color.black);
+		btnVolverJugador.setBackground(new Color(0, 0, 0, 0));
+		btnVolverJugador.setOpaque(false);
+		btnVolverJugador.setBorderPainted(false);
+		btnVolverJugador.setContentAreaFilled(false);
+		btnVolverJugador.setBorder(null);
+		btnVolverJugador.setFont(new Font("Baloo", Font.BOLD, 26));
 
-		add(btnVolverJugadoresDestacado);
+		add(btnVolverJugador);
 
 		add(fondo);
 	}
@@ -66,12 +66,12 @@ public class PanelJugadoresDestacado extends JPanel {
 		this.fondo = fondo;
 	}
 
-	public JButton getBtnVolverJugadoresDestacado() {
-		return btnVolverJugadoresDestacado;
+	public JButton getBtnVolverJugadore() {
+		return btnVolverJugador;
 	}
 
-	public void setBtnVolverJugadoresDestacado(JButton btnVolverJugadoresDestacado) {
-		this.btnVolverJugadoresDestacado = btnVolverJugadoresDestacado;
+	public void setBtnVolverJugadore(JButton btnVolverJugador) {
+		this.btnVolverJugador = btnVolverJugador;
 	}
 
 }

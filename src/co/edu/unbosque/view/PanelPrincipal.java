@@ -25,6 +25,8 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnJugadoresD;
 	private JButton btnInformes;
 	private JButton btnRegistrarse;
+	private JButton btnAdministrar;
+	private JButton btnCerrarSesion;
 	private Properties prop;
 
 	public PanelPrincipal(Properties prop) throws IOException {
@@ -110,7 +112,42 @@ public class PanelPrincipal extends JPanel {
 		btnRegistrarse.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnRegistrarse);
 
+	
+		btnAdministrar = new JButton();
+		btnAdministrar.setBounds(1165, 575, 100, 100);
+		
+		btnAdministrar.setFocusable(false);
+		btnAdministrar.setForeground(Color.black);
+		btnAdministrar.setBackground(new Color(0, 0, 0, 0));
+		btnAdministrar.setOpaque(false);
+		btnAdministrar.setBorderPainted(false);
+		btnAdministrar.setContentAreaFilled(false);
+		btnAdministrar.setBorder(null);
+		btnAdministrar.setFont(new Font("Baloo", Font.BOLD, 26));
+		add(btnAdministrar);
+		
+		btnCerrarSesion = new JButton();
+		btnCerrarSesion.setBounds(1065, 600, 75, 75);
+		
+		btnCerrarSesion.setFocusable(false);
+		btnCerrarSesion.setForeground(Color.black);
+		btnCerrarSesion.setBackground(new Color(0, 0, 0, 0));
+		btnCerrarSesion.setOpaque(false);
+		btnCerrarSesion.setBorderPainted(false);
+		btnCerrarSesion.setContentAreaFilled(false);
+		btnCerrarSesion.setBorder(null);
+		btnCerrarSesion.setFont(new Font("Baloo", Font.BOLD, 26));
+		add(btnCerrarSesion);
+		
 		add(fondo);
+	}
+
+	public JButton getBtnCerrarSesion() {
+		return btnCerrarSesion;
+	}
+
+	public void setBtnCerrarSesion(JButton btnCerrarSesion) {
+		this.btnCerrarSesion = btnCerrarSesion;
 	}
 
 	public JLabel getImagen1() {
@@ -143,6 +180,14 @@ public class PanelPrincipal extends JPanel {
 
 	public void setBtnIniciarS(JButton btnIniciarS) {
 		this.btnIniciarS = btnIniciarS;
+	}
+
+	public JButton getBtnAdministrar() {
+		return btnAdministrar;
+	}
+
+	public void setBtnAdministrar(JButton btnAdministrar) {
+		this.btnAdministrar = btnAdministrar;
 	}
 
 	public JButton getBtnVerE() {

@@ -34,10 +34,6 @@ public class PanelIniciarSesion extends JPanel {
 	private JButton btnVolver;
 	/** Botón para ingresar a la aplicación. */
 	private JButton btnIngresar;
-	/** Etiqueta para el texto del nombre de usuario. */
-	private JLabel textNombre;
-	/** Etiqueta para el texto de la contraseña. */
-	private JLabel textContra;
 	/** Checkbox para mostrar la contraseña. */
 	private JCheckBox mostrarContrasena;
 	/** Propiedades para la configuración del panel. */
@@ -60,7 +56,6 @@ public class PanelIniciarSesion extends JPanel {
 		btnVolver = new JButton();
 		btnVolver.setBounds(1070, 45, 150, 60);
 
-//		btnVolver.setText("volver");
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
 		btnVolver.setBackground(new Color(0, 0, 0, 0));
@@ -72,46 +67,33 @@ public class PanelIniciarSesion extends JPanel {
 		add(btnVolver);
 
 		btnIngresar = new JButton();
-		btnIngresar.setBounds(910, 505, 150, 50);
-//		btnIngresar.setText("ingresar");
+		btnIngresar.setBounds(900, 485, 150, 50);
 		btnIngresar.setFocusable(false);
 		btnIngresar.setForeground(Color.black);
 		btnIngresar.setBackground(new Color(0, 0, 0, 0));
 		btnIngresar.setOpaque(false);
 		btnIngresar.setBorderPainted(false);
-//        btnIngresar.setContentAreaFilled(false);  no borrar :)
+        btnIngresar.setContentAreaFilled(false);
 		btnIngresar.setBorder(null);
 		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnIngresar);
 
 		nombreUsuario = new JTextField();
-		nombreUsuario.setBounds(850, 325, 350, 50);
+		nombreUsuario.setBounds(850, 315, 350, 50);
 		nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(nombreUsuario);
 
 		contrasena = new JPasswordField();
-		contrasena.setBounds(850, 420, 350, 50);
+		contrasena.setBounds(850, 400, 350, 50);
 		contrasena.setFont(new Font("Baloo", Font.BOLD, 20));
 		mostrarContrasena = new JCheckBox();
-		mostrarContrasena.setBounds(1200, 430, 20, 20);
+		mostrarContrasena.setBounds(1200, 415, 20, 20);
 		mostrarContrasena.setOpaque(false);
 		mostrarContrasena.setContentAreaFilled(false);
 		mostrarContrasena.setBorderPainted(false);
 		mostrarContrasena.setFocusPainted(false);
 		add(mostrarContrasena);
 		add(contrasena);
-
-		textNombre = new JLabel();
-		textNombre.setBounds(340, 300, 400, 60);
-//		textNombre.setText("usuario");
-		textNombre.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(textNombre);
-
-		textContra = new JLabel();
-		textContra.setBounds(324, 400, 400, 60);
-//		textContra.setText("contrasena");
-		textContra.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(textContra);
 
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.iniciarsesion")));
@@ -221,42 +203,6 @@ public class PanelIniciarSesion extends JPanel {
 	 */
 	public void setBtnIngresar(JButton btnIngresar) {
 		this.btnIngresar = btnIngresar;
-	}
-
-	/**
-	 * Obtiene la etiqueta para el texto del nombre de usuario.
-	 * 
-	 * @return Etiqueta para el texto del nombre de usuario.
-	 */
-	public JLabel getTextNombre() {
-		return textNombre;
-	}
-
-	/**
-	 * Establece la etiqueta para el texto del nombre de usuario.
-	 * 
-	 * @param textNombre Etiqueta para el texto del nombre de usuario.
-	 */
-	public void setTextNombre(JLabel textNombre) {
-		this.textNombre = textNombre;
-	}
-
-	/**
-	 * Obtiene la etiqueta para el texto de la contraseña.
-	 * 
-	 * @return Etiqueta para el texto de la contraseña.
-	 */
-	public JLabel getTextContra() {
-		return textContra;
-	}
-
-	/**
-	 * Establece la etiqueta para el texto de la contraseña.
-	 * 
-	 * @param textContra Etiqueta para el texto de la contraseña.
-	 */
-	public void setTextContra(JLabel textContra) {
-		this.textContra = textContra;
 	}
 
 	/**

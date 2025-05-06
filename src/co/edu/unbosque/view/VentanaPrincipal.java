@@ -13,7 +13,8 @@ public class VentanaPrincipal extends JFrame {
 	private PanelRegistro pnlRegistro;
 	private PanelEquipo pnE;
 	private PanelHistorial pnH;
-	private PanelJugadoresDestacado pnJD;
+	private PanelJugador pnJD;
+	private PanelAdministrar pAdmin;
 
 	public VentanaPrincipal(Properties prop) throws IOException {
 		pnlRegistro = new PanelRegistro(prop);
@@ -21,9 +22,10 @@ public class VentanaPrincipal extends JFrame {
 		pnlIniciarS = new PanelIniciarSesion(prop);
 		pnE = new PanelEquipo(prop);
 		pnH = new PanelHistorial(prop);
-		pnJD = new PanelJugadoresDestacado(prop);
+		pnJD = new PanelJugador(prop);
+		pAdmin = new PanelAdministrar(prop);
 
-		setBounds(150, 150, 1280, 720);
+		setBounds(300, 150, 1280, 720);
 		setTitle("Neo League Arena");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);
@@ -36,6 +38,7 @@ public class VentanaPrincipal extends JFrame {
 		pnE.setVisible(false);
 		pnH.setVisible(false);
 		pnJD.setVisible(false);
+		pAdmin.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -43,6 +46,7 @@ public class VentanaPrincipal extends JFrame {
 		add(pnE);
 		add(pnH);
 		add(pnJD);
+		add(pAdmin);
 		
 	}
 	
@@ -53,6 +57,7 @@ public class VentanaPrincipal extends JFrame {
 		pnE.setProp(prop);
 		pnH.setProp(prop);
 		pnJD.setProp(prop);
+		pAdmin.setProp(prop);
 		
 		pnlRegistro.revalidate();
 		pnP.revalidate();
@@ -60,6 +65,7 @@ public class VentanaPrincipal extends JFrame {
 		pnE.revalidate();
 		pnH.revalidate();
 		pnJD.revalidate();
+		pAdmin.revalidate();
 		
 		pnlRegistro.repaint();
 		pnP.repaint();
@@ -67,6 +73,7 @@ public class VentanaPrincipal extends JFrame {
 		pnE.repaint();
 		pnH.repaint();
 		pnJD.repaint();
+		pAdmin.repaint();
 		
         this.revalidate();
         this.repaint();
@@ -78,6 +85,14 @@ public class VentanaPrincipal extends JFrame {
 
 	public void setPnP(PanelPrincipal pnP) {
 		this.pnP = pnP;
+	}
+
+	public PanelAdministrar getpAdmin() {
+		return pAdmin;
+	}
+
+	public void setpAdmin(PanelAdministrar pAdmin) {
+		this.pAdmin = pAdmin;
 	}
 
 	public PanelIniciarSesion getPnlIniciarS() {
@@ -120,11 +135,11 @@ public class VentanaPrincipal extends JFrame {
 		this.pnH = pnH;
 	}
 
-	public PanelJugadoresDestacado getPnJD() {
+	public PanelJugador getPnJD() {
 		return pnJD;
 	}
 
-	public void setPnJD(PanelJugadoresDestacado pnJD) {
+	public void setPnJD(PanelJugador pnJD) {
 		this.pnJD = pnJD;
 	}
 	

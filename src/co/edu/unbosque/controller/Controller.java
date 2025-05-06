@@ -8,11 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
 import co.edu.unbosque.model.EntrenadorDTO;
 import co.edu.unbosque.model.Jugador;
 import co.edu.unbosque.model.JugadorDTO;
 import co.edu.unbosque.model.ModelFacade;
+import co.edu.unbosque.model.Usuario;
 import co.edu.unbosque.util.exception.CapitalException;
 import co.edu.unbosque.util.exception.CharacterException;
 import co.edu.unbosque.util.exception.CountryException;
@@ -50,6 +52,7 @@ public class Controller implements ActionListener {
 		
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
+		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.","lc.vivascruz@gmail.com"));
 	}
 
 	public void run() {
@@ -68,6 +71,10 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnHistoriaP().setActionCommand("btnHistoriaP");
 		vf.getVp().getPnP().getBtnJugadoresD().addActionListener(this);
 		vf.getVp().getPnP().getBtnJugadoresD().setActionCommand("btnJugadoresD");
+		vf.getVp().getPnP().getBtnAdministrar().addActionListener(this);
+		vf.getVp().getPnP().getBtnAdministrar().setActionCommand("btnAdministrar");
+		vf.getVp().getPnP().getBtnCerrarSesion().addActionListener(this);
+		vf.getVp().getPnP().getBtnCerrarSesion().setActionCommand("btnCerrarS");
 
 		vf.getVp().getPnlIniciarS().getBtnIngresar().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnIngresar().setActionCommand("btnIniciarSesion");
@@ -76,6 +83,8 @@ public class Controller implements ActionListener {
 
 		vf.getVp().getPnlRegistro().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnlRegistro().getBtnVolver().setActionCommand("btnVolverAInicioR");
+		vf.getVp().getPnlRegistro().getBtnRegistrar().addActionListener(this);
+		vf.getVp().getPnlRegistro().getBtnRegistrar().setActionCommand("btnRegistrar");
 
 		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolverAInicioE");
@@ -83,12 +92,11 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
 		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverAInicioH");
 		
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().addActionListener(this);
-		vf.getVp().getPnJD().getBtnVolverJugadoresDestacado().setActionCommand("btnVolverDestacados");
-
-		vf.getVp().getPnlRegistro().getBtnRegistrar().addActionListener(this);
-		vf.getVp().getPnlRegistro().getBtnRegistrar().setActionCommand("btnRegistrar");
-
+		vf.getVp().getPnJD().getBtnVolverJugadore().addActionListener(this);
+		vf.getVp().getPnJD().getBtnVolverJugadore().setActionCommand("btnVolverDestacados");
+		
+		vf.getVp().getpAdmin().getBtnVolver().addActionListener(this);
+		vf.getVp().getpAdmin().getBtnVolver().setActionCommand("btnVolverAdmin");
 	}
 
 	/**
@@ -255,6 +263,35 @@ public class Controller implements ActionListener {
 			break;
 
 		}
+		case "btnCerrarS": {
+			if(mf.getUsuarioActual() != null) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.sesioncerrada") + " " + mf.getUsuarioActual().getNombre() + ".");
+				mf.setUsuarioActual(null);
+			}else {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.errorsesioncerrada"));
+			}
+			break;
+		}
+		
+		case "btnAdministrar": {
+			if(!(mf.getUsuarioActual() instanceof Administrador)) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.noesadmin"));
+				break;
+			}
+			
+			vf.getVp().getpAdmin().setVisible(true);
+			vf.getVp().getPnP().setVisible(false);
+			
+			break;
+		}
+		case "btnVolverAdmin": {
+			vf.getVp().getpAdmin().setVisible(false);
+			vf.getVp().getPnP().setVisible(true);
+			
+			break;
+		}
+		
+		
 		}
 	}
 

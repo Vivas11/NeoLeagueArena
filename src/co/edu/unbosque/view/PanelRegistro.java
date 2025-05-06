@@ -35,16 +35,6 @@ public class PanelRegistro extends JPanel {
 	private JButton btnVolver;
 	/** Botón para confirmar la creación del usuario. */
 	private JButton btnRegistrar;
-	/** Etiqueta para el texto del nombre de usuario. */
-	private JLabel textNombre;
-	/** Etiqueta para el texto de la primera contraseña. */
-	private JLabel textContra1;
-	/** Etiqueta para el texto de la segunda contraseña. */
-	private JLabel textContra2;
-	/** Etiqueta para los requisitos del nombre de usuario. */
-	private JLabel textEstandarNombre;
-	/** Etiqueta para los requisitos de la contraseña. */
-	private JLabel textEstandarContra;
 	/** Checkbox para mostrar la primera contraseña. */
 	private JCheckBox mostrarContrasena;
 	/** Checkbox para mostrar la segunda contraseña. */
@@ -72,7 +62,7 @@ public class PanelRegistro extends JPanel {
 		setLayout(null);
 
 		btnVolver = new JButton();
-		btnVolver.setBounds(1070, 45, 150, 60);
+		btnVolver.setBounds(1070, 25, 150, 60);
 
 		btnVolver.setFocusable(false);
 		btnVolver.setForeground(Color.black);
@@ -85,31 +75,35 @@ public class PanelRegistro extends JPanel {
 		add(btnVolver);
 
 		btnRegistrar = new JButton();
-		btnRegistrar.setBounds(305, 610, 150, 50);
+		btnRegistrar.setBounds(305, 580, 150, 50);
+		
 		btnRegistrar.setFocusable(false);
 		btnRegistrar.setContentAreaFilled(false);
 		btnRegistrar.setForeground(Color.black);
 		btnRegistrar.setBackground(new Color(00, 150, 50));
 		btnRegistrar.setFont(new Font("Baloo", Font.BOLD, 26));
+		btnRegistrar.setBorder(null);
+		btnRegistrar.setBorderPainted(false);
+		btnRegistrar.setOpaque(false);
 		add(btnRegistrar);
 
 		nombreUsuario = new JTextField();
-		nombreUsuario.setBounds(250, 210, 400, 50);
+		nombreUsuario.setBounds(250, 205, 400, 50);
 		nombreUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(nombreUsuario);
 
 		txtCiudad = new JTextField();
-		txtCiudad.setBounds(250, 270, 400, 50);
+		txtCiudad.setBounds(250, 260, 400, 50);
 		txtCiudad.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(txtCiudad);
 		//
 		txtPais = new JTextField();
-		txtPais.setBounds(250, 325, 400, 50);
+		txtPais.setBounds(250, 315, 400, 50);
 		txtPais.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(txtPais);
 		//
 		txtCorreo = new JTextField();
-		txtCorreo.setBounds(250, 390, 400, 50);
+		txtCorreo.setBounds(250, 370, 400, 50);
 		txtCorreo.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(txtCorreo);
 
@@ -117,61 +111,37 @@ public class PanelRegistro extends JPanel {
 
 		cbxTipoUsuario = new JComboBox<>(usuario);
 		cbxTipoUsuario.setFont(new Font("Baloo", Font.BOLD, 20));
-//        cbxTipoUsuario.setBackground(Color.white);
-		cbxTipoUsuario.setBounds(250, 445, 400, 50);
+		cbxTipoUsuario.setBounds(250, 425, 400, 50);
 
 		cbxTipoUsuario.setSelectedIndex(0);
 		add(cbxTipoUsuario);
 
 		contrasena1 = new JPasswordField();
-		contrasena1.setBounds(250, 500, 400, 50);
+		contrasena1.setBounds(250, 480, 400, 50);
 		contrasena1.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(contrasena1);
 
 		contrasena2 = new JPasswordField();
-		contrasena2.setBounds(250, 555, 400, 50);
+		contrasena2.setBounds(250, 535, 400, 50);
 		contrasena2.setFont(new Font("Baloo", Font.BOLD, 20));
 		add(contrasena2);
 
-		textNombre = new JLabel();
-		textNombre.setBounds(340, 300, 400, 60);
-		textNombre.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(textNombre);
-
-		textContra1 = new JLabel();
-		textContra1.setBounds(324, 400, 400, 60);
-		textContra1.setFont(new Font("Baloo", Font.BOLD, 20));
 		mostrarContrasena = new JCheckBox();
-		mostrarContrasena.setBounds(660, 515, 20, 20);
+		mostrarContrasena.setBounds(660, 500, 20, 20);
 		mostrarContrasena.setOpaque(false);
 		mostrarContrasena.setContentAreaFilled(false);
 		mostrarContrasena.setBorderPainted(false);
 		mostrarContrasena.setFocusPainted(false);
 		add(mostrarContrasena);
-		add(textContra1);
 
-		textContra2 = new JLabel();
-		textContra2.setBounds(230, 500, 400, 60);
-		textContra2.setFont(new Font("Baloo", Font.BOLD, 26));
 		mostrarContrasena2 = new JCheckBox();
-		mostrarContrasena2.setBounds(660, 570, 20, 20);
+		mostrarContrasena2.setBounds(660, 555, 20, 20);
 		mostrarContrasena2.setOpaque(false);
 		mostrarContrasena2.setContentAreaFilled(false);
 		mostrarContrasena2.setBorderPainted(false);
 		mostrarContrasena2.setFocusPainted(false);
 		add(mostrarContrasena2);
-		add(textContra2);
-
-		textEstandarNombre = new JLabel();
-		textEstandarNombre.setBounds(480, 341, 400, 60);
-		textEstandarNombre.setFont(new Font("Baloo", Font.BOLD, 10));
-		add(textEstandarNombre);
-
-		textEstandarContra = new JLabel();
-		textEstandarContra.setBounds(480, 441, 800, 60);
-		textEstandarContra.setFont(new Font("Baloo", Font.BOLD, 10));
-		add(textEstandarContra);
-
+		
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
@@ -336,97 +306,6 @@ public class PanelRegistro extends JPanel {
 	public void setBtnResgistrar(JButton btnRegistrar) {
 		this.btnRegistrar = btnRegistrar;
 	}
-
-	/**
-	 * Obtiene la etiqueta para el texto del nombre de usuario.
-	 * 
-	 * @return Etiqueta para el texto del nombre de usuario.
-	 */
-	public JLabel getTextNombre() {
-		return textNombre;
-	}
-
-	/**
-	 * Establece la etiqueta para el texto del nombre de usuario.
-	 * 
-	 * @param textNombre Etiqueta para el texto del nombre de usuario.
-	 */
-	public void setTextNombre(JLabel textNombre) {
-		this.textNombre = textNombre;
-	}
-
-	/**
-	 * Obtiene la etiqueta para el texto de la primera contraseña.
-	 * 
-	 * @return Etiqueta para el texto de la primera contraseña.
-	 */
-	public JLabel getTextContra1() {
-		return textContra1;
-	}
-
-	/**
-	 * Establece la etiqueta para el texto de la primera contraseña.
-	 * 
-	 * @param textContra1 Etiqueta para el texto de la primera contraseña.
-	 */
-	public void setTextContra1(JLabel textContra1) {
-		this.textContra1 = textContra1;
-	}
-
-	/**
-	 * Obtiene la etiqueta para el texto de la segunda contraseña.
-	 * 
-	 * @return Etiqueta para el texto de la segunda contraseña.
-	 */
-	public JLabel getTextContra2() {
-		return textContra2;
-	}
-
-	/**
-	 * Establece la etiqueta para el texto de la segunda contraseña.
-	 * 
-	 * @param textContra2 Etiqueta para el texto de la segunda contraseña.
-	 */
-	public void setTextContra2(JLabel textContra2) {
-		this.textContra2 = textContra2;
-	}
-
-	/**
-	 * Obtiene la etiqueta para los requisitos del nombre de usuario.
-	 * 
-	 * @return Etiqueta para los requisitos del nombre de usuario.
-	 */
-	public JLabel getTextEstandarNombre() {
-		return textEstandarNombre;
-	}
-
-	/**
-	 * Establece la etiqueta para los requisitos del nombre de usuario.
-	 * 
-	 * @param textEstandarNombre Etiqueta para los requisitos del nombre de usuario.
-	 */
-	public void setTextEstandarNombre(JLabel textEstandarNombre) {
-		this.textEstandarNombre = textEstandarNombre;
-	}
-
-	/**
-	 * Obtiene la etiqueta para los requisitos de la contraseña.
-	 * 
-	 * @return Etiqueta para los requisitos de la contraseña.
-	 */
-	public JLabel getTextEstandarContra() {
-		return textEstandarContra;
-	}
-
-	/**
-	 * Establece la etiqueta para los requisitos de la contraseña.
-	 * 
-	 * @param textEstandarContra Etiqueta para los requisitos de la contraseña.
-	 */
-	public void setTextEstandarContra(JLabel textEstandarContra) {
-		this.textEstandarContra = textEstandarContra;
-	}
-
 	/**
 	 * Obtiene el checkbox para mostrar la primera contraseña.
 	 * 
