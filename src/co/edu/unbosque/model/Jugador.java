@@ -6,6 +6,7 @@ public class Jugador extends Usuario implements Serializable {
 	private String pais;
 	private String ciudad;
 	private Equipo equipo;
+    private String imagen;
 
 	public Jugador(String usuario, String contrasena, String correo, String pais, String ciudad,
 			Equipo equipo) {
@@ -31,6 +32,30 @@ public class Jugador extends Usuario implements Serializable {
 		super(usuario, contrasena, correo);
 		this.pais = pais;
 		this.ciudad = ciudad;
+	}
+	
+	public Jugador(String usuario, String contrasena, String correo, String pais, String ciudad, String imagen) {
+		super(usuario, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.imagen = imagen;
+	}
+
+	public Jugador(String nombre, String contrasena, String correo, String pais, String ciudad, Equipo equipo,
+			String imagen) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipo = equipo;
+		this.imagen = imagen;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getPais() {

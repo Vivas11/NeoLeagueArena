@@ -70,7 +70,7 @@ public class DataMapper {
 
 		Entrenador entity;
 		entity = new Entrenador(dtoEntrenador.getNombre(), dtoEntrenador.getContrasena(), dtoEntrenador.getCorreo(),
-				dtoEntrenador.getPais(), dtoEntrenador.getCiudad(), dtoEntrenador.getEquipos());
+				dtoEntrenador.getPais(), dtoEntrenador.getCiudad(), dtoEntrenador.getEquipos(),dtoEntrenador.getImagen());
 
 		return entity;
 
@@ -79,7 +79,7 @@ public class DataMapper {
 	public static EntrenadorDTO entrenadorToEntrenadorDTO(Entrenador entity) {
 		EntrenadorDTO dto;
 		dto = new EntrenadorDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getPais(),
-				entity.getCiudad(), entity.getEquipos());
+				entity.getCiudad(), entity.getEquipos(),entity.getImagen());
 
 		return dto;
 	}
@@ -89,7 +89,7 @@ public class DataMapper {
 		ArrayList<EntrenadorDTO> dtoEntrenadorList = new ArrayList<>();
 		for (EntrenadorDTO entrenadorDTO : dtoEntrenadorList) {
 			dtoEntrenadorList.add(new EntrenadorDTO(entrenadorDTO.getNombre(), entrenadorDTO.getContrasena(),
-					entrenadorDTO.getCorreo(), entrenadorDTO.getPais(), entrenadorDTO.getCiudad(), entrenadorDTO.getEquipos()));
+					entrenadorDTO.getCorreo(), entrenadorDTO.getPais(), entrenadorDTO.getCiudad(), entrenadorDTO.getEquipos(),entrenadorDTO.getImagen()));
 		}
 
 		return dtoEntrenadorList;
@@ -101,7 +101,7 @@ public class DataMapper {
 
 		for (Entrenador entrenador : entityListEntrenador) {
 			entityListEntrenador.add(new Entrenador(entrenador.getNombre(), entrenador.getContrasena(),
-					entrenador.getCorreo(), entrenador.getPais(), entrenador.getCiudad() , entrenador.getEquipos()));
+					entrenador.getCorreo(), entrenador.getPais(), entrenador.getCiudad() , entrenador.getEquipos(),entrenador.getImagen()));
 		}
 		return entityListEntrenador;
 	}
@@ -111,7 +111,7 @@ public class DataMapper {
 	public static Equipo equipoDTOToEquipo(EquipoDTO dtoEquipo) {
 
 		Equipo entity;
-		entity = new Equipo(dtoEquipo.getNombre(), dtoEquipo.getContrasena(), dtoEquipo.getCorreo(),
+		entity = new Equipo(dtoEquipo.getNombre(),
 				dtoEquipo.getEntrenador());
 
 		return entity;
@@ -120,7 +120,7 @@ public class DataMapper {
 
 	public static EquipoDTO equipoToEquipoDTO(Equipo entity) {
 		EquipoDTO dto;
-		dto = new EquipoDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getEntrenador());
+		dto = new EquipoDTO(entity.getNombre(), entity.getEntrenador());
 
 		return dto;
 	}
@@ -129,7 +129,7 @@ public class DataMapper {
 
 		ArrayList<EquipoDTO> dtoEquipoList = new ArrayList<>();
 		for (EquipoDTO equipoDTO : dtoEquipoList) {
-			dtoEquipoList.add(new EquipoDTO(equipoDTO.getNombre(), equipoDTO.getContrasena(), equipoDTO.getCorreo(),
+			dtoEquipoList.add(new EquipoDTO(equipoDTO.getNombre(),
 					equipoDTO.getEntrenador()));
 		}
 
@@ -142,7 +142,7 @@ public class DataMapper {
 
 		for (Equipo equipo : entityListEquipo) {
 			entityListEquipo.add(
-					new Equipo(equipo.getNombre(), equipo.getContrasena(), equipo.getCorreo(), equipo.getEntrenador()));
+					new Equipo(equipo.getNombre(), equipo.getEntrenador()));
 		}
 		return entityListEquipo;
 	}
@@ -153,7 +153,7 @@ public class DataMapper {
 
 		Jugador entity;
 		entity = new Jugador(dtoJugador.getNombre(), dtoJugador.getContrasena(), dtoJugador.getCorreo(),
-				dtoJugador.getPais(), dtoJugador.getCiudad(), dtoJugador.getEquipo());
+				dtoJugador.getPais(), dtoJugador.getCiudad(), dtoJugador.getEquipo(),dtoJugador.getImagen());
 
 		return entity;
 
@@ -162,7 +162,7 @@ public class DataMapper {
 	public static JugadorDTO jugadorToJugadorDTO(Jugador entity) {
 		JugadorDTO dto;
 		dto = new JugadorDTO(entity.getNombre(), entity.getContrasena(), entity.getCorreo(), entity.getPais(),
-				entity.getCiudad(), entity.getEquipo());
+				entity.getCiudad(), entity.getEquipo(),entity.getImagen());
 
 		return dto;
 	}
@@ -172,7 +172,7 @@ public class DataMapper {
 		ArrayList<JugadorDTO> dtoJugadorList = new ArrayList<>();
 		for (JugadorDTO jugadorDTO : dtoJugadorList) {
 			dtoJugadorList.add(new JugadorDTO(jugadorDTO.getNombre(), jugadorDTO.getContrasena(),
-					jugadorDTO.getCorreo(), jugadorDTO.getPais(), jugadorDTO.getCiudad(), jugadorDTO.getEquipo()));
+					jugadorDTO.getCorreo(), jugadorDTO.getPais(), jugadorDTO.getCiudad(), jugadorDTO.getEquipo(),jugadorDTO.getImagen()));
 		}
 
 		return dtoJugadorList;
@@ -184,7 +184,7 @@ public class DataMapper {
 
 		for (Jugador jugador : entityListJugador) {
 			entityListJugador.add(new Jugador(jugador.getNombre(), jugador.getContrasena(), jugador.getCorreo(),
-					jugador.getPais(), jugador.getCiudad(), jugador.getEquipo()));
+					jugador.getPais(), jugador.getCiudad(), jugador.getEquipo(),jugador.getImagen()));
 		}
 		return entityListJugador;
 	}

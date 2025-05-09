@@ -1,5 +1,6 @@
 package co.edu.unbosque.controller;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
 import co.edu.unbosque.model.EntrenadorDTO;
@@ -15,10 +18,12 @@ import co.edu.unbosque.model.Jugador;
 import co.edu.unbosque.model.JugadorDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.Usuario;
+import co.edu.unbosque.model.persistence.FileManager;
 import co.edu.unbosque.util.exception.CapitalException;
 import co.edu.unbosque.util.exception.CharacterException;
 import co.edu.unbosque.util.exception.CountryException;
 import co.edu.unbosque.util.exception.EqualPasswordException;
+import co.edu.unbosque.util.exception.ImageException;
 import co.edu.unbosque.util.exception.MailException;
 import co.edu.unbosque.util.exception.NumberException;
 import co.edu.unbosque.util.exception.SmallException;
@@ -41,7 +46,7 @@ public class Controller implements ActionListener {
 
 	public Controller() throws IOException {
 		prop = new Properties();
-		
+
 		try {
 			prop.load(new FileInputStream(new File("src/archivos/espanol.properties")));
 		} catch (FileNotFoundException e) {
@@ -49,10 +54,10 @@ public class Controller implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
-		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.","lc.vivascruz@gmail.com"));
+		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
 	}
 
 	public void run() {
@@ -88,13 +93,13 @@ public class Controller implements ActionListener {
 
 		vf.getVp().getPnE().getBtnVolver().addActionListener(this);
 		vf.getVp().getPnE().getBtnVolver().setActionCommand("btnVolverAInicioE");
-		
+
 		vf.getVp().getPnH().getBtnVolverHistorial().addActionListener(this);
 		vf.getVp().getPnH().getBtnVolverHistorial().setActionCommand("btnVolverAInicioH");
-		
+
 		vf.getVp().getPnJD().getBtnVolverJugadore().addActionListener(this);
 		vf.getVp().getPnJD().getBtnVolverJugadore().setActionCommand("btnVolverDestacados");
-		
+
 		vf.getVp().getpAdmin().getBtnVolver().addActionListener(this);
 		vf.getVp().getpAdmin().getBtnVolver().setActionCommand("btnVolverAdmin");
 	}
@@ -110,7 +115,7 @@ public class Controller implements ActionListener {
 		switch (e.getActionCommand()) {
 
 		case "btnPanelIniciarS": {
-			if(mf.getUsuarioActual() !=null) {
+			if (mf.getUsuarioActual() != null) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.yadentro"));
 				break;
 			}
@@ -118,16 +123,18 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnlIniciarS().setVisible(true);
 			break;
 		}
-		case "btnIniciarSesion":{
+		case "btnIniciarSesion": {
 			String user = vf.getVp().getPnlIniciarS().getNombreUsuario().getText();
 			String contrasena = vf.getVp().getPnlIniciarS().getContrasena();
-			
-			if(mf.findUser(new Jugador(user, "", "")) != null && mf.findUser(new Jugador(user, "", "")).getContrasena().equals(contrasena)) {
+
+			if (mf.findUser(new Jugador(user, "", "")) != null
+					&& mf.findUser(new Jugador(user, "", "")).getContrasena().equals(contrasena)) {
 				mf.setUsuarioActual(mf.findUser(new Jugador(user, "", "")));
-				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.iniciosesion") + " " + mf.getUsuarioActual().getNombre());
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.iniciosesion") + " "
+						+ mf.getUsuarioActual().getNombre());
 				vf.getVp().getPnlIniciarS().setVisible(false);
 				vf.getVp().getPnP().setVisible(true);
-			}else {
+			} else {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.errorsesion"));
 			}
 			break;
@@ -138,9 +145,8 @@ public class Controller implements ActionListener {
 			break;
 		}
 
-
 		case "btnPanelRegistrarse": {
-			if(mf.getUsuarioActual() !=null) {
+			if (mf.getUsuarioActual() != null) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.yadentro"));
 				break;
 			}
@@ -164,7 +170,7 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnE().setVisible(false);
 			break;
 		}
-		
+
 		case "btnHistoriaP": {
 			vf.getVp().getPnP().setVisible(false);
 			vf.getVp().getPnH().setVisible(true);
@@ -177,8 +183,13 @@ public class Controller implements ActionListener {
 		}
 
 		case "btnJugadoresD": {
-			vf.getVp().getPnP().setVisible(false);
-			vf.getVp().getPnJD().setVisible(true);
+			if (mf.getJugadorDAO().getListaJugadores() == null) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.nojugadores"));
+			} else {
+				vf.getVp().getPnJD().actualizarInfo(mf.getJugadorDAO().getListaJugadores());
+				vf.getVp().getPnP().setVisible(false);
+				vf.getVp().getPnJD().setVisible(true);
+			}
 			break;
 		}
 		case "btnVolverDestacados": {
@@ -194,11 +205,11 @@ public class Controller implements ActionListener {
 			String ciudad = vf.getVp().getPnlRegistro().getTxtCiudad().getText();
 			String pais = vf.getVp().getPnlRegistro().getTxtPais().getText();
 
-			if(mf.usuarioRepetido(usuario)) {
+			if (mf.usuarioRepetido(usuario)) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.usuariorepetido"));
 				return;
 			}
-			
+
 			try {
 				String selected = (String) vf.getVp().getPnlRegistro().getCbxTipoUsuario().getSelectedItem();
 				ExceptionCheker.checkerEqualPassword(contrasena1, contrasena2);
@@ -213,25 +224,87 @@ public class Controller implements ActionListener {
 					ExceptionCheker.checkerCountry(ciudad);
 					ExceptionCheker.checkerCountry(pais);
 					
-					if(mf.getJugadorDAO().add(new JugadorDTO(usuario, contrasena2, correo, pais, ciudad))) {
-						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+					//SelectorImagen
+					String imagen = "src/archivos/imagenperfil/";
+					File selectedFile = vf.getVemer().seleccionarArchivo();
+					if (selectedFile != null) {
+						String fileName = selectedFile.getName().toLowerCase();
+						if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
+							vf.getVemer().mostrarError(
+									"El archivo seleccionado no es una imagen válida. Por favor, seleccione un archivo con extensión .jpg, .jpeg, .png");
+							break;
+						}
+						try {
+							// Cambiar el nombre del archivo de destino para que sea el nombre del usuario con la extensión correcta
+							String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+							File destino = new File("src/archivos/imagenperfil/" + usuario + "." + extension);
+
+							// Guardar la imagen con el formato correcto
+							FileManager.guardarImagen(selectedFile, destino);
+							imagen = destino.getPath();
+
+							if (mf.getJugadorDAO().add(new JugadorDTO(usuario, contrasena2, correo, pais, ciudad, imagen))) {
+								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+							}
+							
+						} catch (IOException ex) {
+							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.cargaimagen"));
+						} catch (IllegalArgumentException ex) {
+							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.archivoseleccionado"));
+						}
+					} else {
+						ExceptionCheker.checkerImage();
 					}
+					//FinSelectorImagen
+					
 					break;
 				}
 				case "Entrenador": {
 					ExceptionCheker.checkerCountry(ciudad);
 					ExceptionCheker.checkerCountry(pais);
-					if(mf.getEntrenadorDAO().add(new EntrenadorDTO(usuario, contrasena2, correo, pais, ciudad))) {
-						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
-					}else {
-						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
+					
+					//SelectorImagen
+					String imagen = "src/archivos/imagenperfil/";
+					File selectedFile = vf.getVemer().seleccionarArchivo();
+					if (selectedFile != null) {
+						String fileName = selectedFile.getName().toLowerCase();
+						if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
+							vf.getVemer().mostrarError(
+									"El archivo seleccionado no es una imagen válida. Por favor, seleccione un archivo con extensión .jpg, .jpeg, .png");
+							break;
+						}
+						try {
+							// Cambiar el nombre del archivo de destino para que sea el nombre del usuario con la extensión correcta
+							String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+							File destino = new File("src/archivos/imagenperfil/" + usuario + "." + extension);
+
+							// Guardar la imagen con el formato correcto
+							FileManager.guardarImagen(selectedFile, destino);
+							imagen = destino.getPath();
+
+							if (mf.getEntrenadorDAO().add(new EntrenadorDTO(usuario, contrasena2, correo, pais, ciudad, imagen))) {
+								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+							} else {
+								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
+							}
+							break;
+							
+						} catch (IOException ex) {
+							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.cargaimagen"));
+						} catch (IllegalArgumentException ex) {
+							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.archivoseleccionado"));
+						}
+					} else {
+						ExceptionCheker.checkerImage();
 					}
-					break;
+					//FinSelectorImagen
+					
+					
 				}
 				case "Administrador": {
-					if(mf.getAdministradorDAO().add(new AdministradorDTO(usuario, contrasena2, correo))) {
+					if (mf.getAdministradorDAO().add(new AdministradorDTO(usuario, contrasena2, correo))) {
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
-					}else {
+					} else {
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
 					}
 					break;
@@ -239,7 +312,6 @@ public class Controller implements ActionListener {
 				default:
 					break;
 				}
-
 
 			} catch (CharacterException e1) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.caracteres"));
@@ -256,42 +328,44 @@ public class Controller implements ActionListener {
 			} catch (MailException e1) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correo"));
 			} catch (CountryException e1) {
-				// TODO Auto-generated catch block
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.paiserror"));
 				e1.printStackTrace();
-			} 
+			} catch (ImageException e1) {
+				vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.imagen"));
+			}
 
 			break;
 
 		}
 		case "btnCerrarS": {
-			if(mf.getUsuarioActual() != null) {
-				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.sesioncerrada") + " " + mf.getUsuarioActual().getNombre() + ".");
+			if (mf.getUsuarioActual() != null) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.sesioncerrada") + " "
+						+ mf.getUsuarioActual().getNombre() + ".");
 				mf.setUsuarioActual(null);
-			}else {
+			} else {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.errorsesioncerrada"));
 			}
 			break;
 		}
-		
+
 		case "btnAdministrar": {
-			if(!(mf.getUsuarioActual() instanceof Administrador)) {
+			if (!(mf.getUsuarioActual() instanceof Administrador)) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.noesadmin"));
 				break;
 			}
-			
+
 			vf.getVp().getpAdmin().setVisible(true);
 			vf.getVp().getPnP().setVisible(false);
-			
+
 			break;
 		}
 		case "btnVolverAdmin": {
 			vf.getVp().getpAdmin().setVisible(false);
 			vf.getVp().getPnP().setVisible(true);
-			
+
 			break;
 		}
-		
-		
+
 		}
 	}
 

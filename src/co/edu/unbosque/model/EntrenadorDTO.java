@@ -7,7 +7,9 @@ public class EntrenadorDTO extends Usuario implements Serializable {
     private String pais;
     private String ciudad;
     private ArrayList<Equipo> equipos;
-
+    private String imagen;
+    
+    
     public EntrenadorDTO() {
         super();
         this.equipos = new ArrayList<>();
@@ -19,14 +21,22 @@ public class EntrenadorDTO extends Usuario implements Serializable {
         this.ciudad = ciudad;
         this.equipos = new ArrayList<>();
     }
-
     
+    public EntrenadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad, String imagen) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = new ArrayList<>();
+		this.imagen = imagen;
+	}
+
     public EntrenadorDTO(String pais, String ciudad, ArrayList<Equipo> equipos) {
 		super();
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipos = equipos;
 	}
+
     
 	public EntrenadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad,
 			ArrayList<Equipo> equipos) {
@@ -34,6 +44,23 @@ public class EntrenadorDTO extends Usuario implements Serializable {
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipos = equipos;
+	}
+
+	public EntrenadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad,
+			ArrayList<Equipo> equipos, String imagen) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = equipos;
+		this.imagen = imagen;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getPais() {

@@ -3,6 +3,7 @@ package co.edu.unbosque.controller;
 import co.edu.unbosque.util.exception.CapitalException;
 import co.edu.unbosque.util.exception.CharacterException;
 import co.edu.unbosque.util.exception.EqualPasswordException;
+import co.edu.unbosque.util.exception.ImageException;
 import co.edu.unbosque.util.exception.NumberException;
 import co.edu.unbosque.util.exception.SymbolException;
 import co.edu.unbosque.util.exception.SmallException;
@@ -134,6 +135,12 @@ public class ExceptionCheker {
 		if (email == null || email.trim().isEmpty() || !email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
 			throw new MailException();
 		}
+	}
+	
+	public static void checkerImage() throws ImageException {
+		
+		throw new ImageException();
+
 	}
 
 }

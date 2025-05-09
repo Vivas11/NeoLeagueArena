@@ -7,7 +7,7 @@ public class Entrenador extends Usuario implements Serializable {
     private String pais;
     private String ciudad;
     private ArrayList<Equipo> equipos;
-
+    private String imagen;
     
     
     public Entrenador() {
@@ -21,6 +21,14 @@ public class Entrenador extends Usuario implements Serializable {
         this.ciudad = ciudad;
         this.equipos = new ArrayList<>();
     }
+    
+    public Entrenador(String nombre, String contrasena, String correo, String pais, String ciudad, String imagen) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = new ArrayList<>();
+		this.imagen = imagen;
+	}
 
     public Entrenador(String pais, String ciudad, ArrayList<Equipo> equipos) {
 		super();
@@ -36,6 +44,23 @@ public class Entrenador extends Usuario implements Serializable {
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.equipos = equipos;
+	}
+
+	public Entrenador(String nombre, String contrasena, String correo, String pais, String ciudad,
+			ArrayList<Equipo> equipos, String imagen) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipos = equipos;
+		this.imagen = imagen;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getPais() {

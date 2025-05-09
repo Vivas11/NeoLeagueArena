@@ -3,20 +3,20 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EquipoDTO extends Usuario implements Serializable {
-	private ArrayList<Jugador> jugadores;
+public class EquipoDTO implements Serializable {
+	private String nombre;
+    private ArrayList<Jugador> jugadores;
     private Entrenador entrenador;
     private ArrayList<Torneo> torneosJugados;
 	private ArrayList<Partida> partidosJugados;
 
     public EquipoDTO() {
-        super();
         this.jugadores = new ArrayList<>();
         this.torneosJugados = new ArrayList<>();
     }
 
-    public EquipoDTO(String nombre, String contrasena, String correo, Entrenador entrenador) {
-        super(nombre, contrasena, correo);
+    public EquipoDTO(String nombre, Entrenador entrenador) {
+    	this.nombre = nombre;
         this.entrenador = entrenador;
         this.jugadores = new ArrayList<>();
         this.torneosJugados = new ArrayList<>();
@@ -37,8 +37,16 @@ public class EquipoDTO extends Usuario implements Serializable {
     public void setEntrenador(Entrenador entrenador) {
         this.entrenador = entrenador;
     }
+    
+    public String getNombre() {
+		return nombre;
+	}
 
-    public ArrayList<Torneo> getTorneosJugados() {
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public ArrayList<Torneo> getTorneosJugados() {
         return torneosJugados;
     }
 
@@ -56,6 +64,6 @@ public class EquipoDTO extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "EquipoDTO{" + super.toString() + ", jugadores=" + jugadores + ", entrenador=" + entrenador + ", torneosJugados=" + torneosJugados + '}';
+        return "Equipo{" + super.toString() + ", jugadores=" + jugadores + ", entrenador=" + entrenador + ", torneosJugados=" + torneosJugados + '}';
     }
 }
