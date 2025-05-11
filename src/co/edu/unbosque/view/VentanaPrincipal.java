@@ -15,6 +15,12 @@ public class VentanaPrincipal extends JFrame {
 	private PanelHistorial pnH;
 	private PanelJugador pnJD;
 	private PanelAdministrar pAdmin;
+	private PanelAdministrarU pAdminU;
+	private PanelAdministrarUE pAdminUE;
+	private PanelAdministrarEquipo pAdminE;
+	private PanelAdministrarPartido pAdminP;
+	private PanelAdministrarTorneo pAdminT;
+	private PanelInforme pInf;
 
 	public VentanaPrincipal(Properties prop) throws IOException {
 		pnlRegistro = new PanelRegistro(prop);
@@ -24,6 +30,8 @@ public class VentanaPrincipal extends JFrame {
 		pnH = new PanelHistorial(prop);
 		pnJD = new PanelJugador(prop);
 		pAdmin = new PanelAdministrar(prop);
+		pAdminU = new PanelAdministrarU(prop);
+		pAdminUE = new PanelAdministrarUE(prop);
 
 		setBounds(300, 150, 1280, 720);
 		setTitle("Neo League Arena");
@@ -39,6 +47,8 @@ public class VentanaPrincipal extends JFrame {
 		pnH.setVisible(false);
 		pnJD.setVisible(false);
 		pAdmin.setVisible(false);
+		pAdminU.setVisible(false);
+		pAdminUE.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -47,9 +57,11 @@ public class VentanaPrincipal extends JFrame {
 		add(pnH);
 		add(pnJD);
 		add(pAdmin);
-		
+		add(pAdminU);
+		add(pAdminUE);
+
 	}
-	
+
 	public void refrescarUI(Properties prop) throws IOException {
 		pnlRegistro.setProp(prop);
 		pnP.setProp(prop);
@@ -58,7 +70,9 @@ public class VentanaPrincipal extends JFrame {
 		pnH.setProp(prop);
 		pnJD.setProp(prop);
 		pAdmin.setProp(prop);
-		
+		pAdminU.setProp(prop);
+		pAdminUE.setProp(prop);
+
 		pnlRegistro.revalidate();
 		pnP.revalidate();
 		pnlIniciarS.revalidate();
@@ -66,7 +80,9 @@ public class VentanaPrincipal extends JFrame {
 		pnH.revalidate();
 		pnJD.revalidate();
 		pAdmin.revalidate();
-		
+		pAdminU.revalidate();
+		pAdminUE.revalidate();
+
 		pnlRegistro.repaint();
 		pnP.repaint();
 		pnlIniciarS.repaint();
@@ -74,10 +90,29 @@ public class VentanaPrincipal extends JFrame {
 		pnH.repaint();
 		pnJD.repaint();
 		pAdmin.repaint();
-		
-        this.revalidate();
-        this.repaint();
-    }
+		pAdminU.repaint();
+		pAdminUE.repaint();
+
+		this.revalidate();
+		this.repaint();
+	}
+
+
+	public PanelAdministrarUE getpAdminUE() {
+		return pAdminUE;
+	}
+
+	public void setpAdminUE(PanelAdministrarUE pAdminUE) {
+		this.pAdminUE = pAdminUE;
+	}
+
+	public PanelAdministrarU getpAdminU() {
+		return pAdminU;
+	}
+
+	public void setpAdminU(PanelAdministrarU pAdminU) {
+		this.pAdminU = pAdminU;
+	}
 
 	public PanelPrincipal getPnP() {
 		return pnP;
@@ -130,7 +165,7 @@ public class VentanaPrincipal extends JFrame {
 	public PanelHistorial getPnH() {
 		return pnH;
 	}
-	
+
 	public void setPnH(PanelHistorial pnH) {
 		this.pnH = pnH;
 	}
@@ -142,9 +177,5 @@ public class VentanaPrincipal extends JFrame {
 	public void setPnJD(PanelJugador pnJD) {
 		this.pnJD = pnJD;
 	}
-	
-	
-	
-	
 
 }

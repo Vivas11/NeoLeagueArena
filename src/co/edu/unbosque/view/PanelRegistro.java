@@ -76,7 +76,7 @@ public class PanelRegistro extends JPanel {
 
 		btnRegistrar = new JButton();
 		btnRegistrar.setBounds(305, 580, 150, 50);
-		
+
 		btnRegistrar.setFocusable(false);
 		btnRegistrar.setContentAreaFilled(false);
 		btnRegistrar.setForeground(Color.black);
@@ -141,7 +141,7 @@ public class PanelRegistro extends JPanel {
 		mostrarContrasena2.setBorderPainted(false);
 		mostrarContrasena2.setFocusPainted(false);
 		add(mostrarContrasena2);
-		
+
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
@@ -157,12 +157,12 @@ public class PanelRegistro extends JPanel {
 	 * 
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
-    public void actualizarComp() throws IOException {
-        BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
-        ImageIcon imagenFondo = new ImageIcon(fd);
-        Image fdRedim = fd.getScaledInstance(1300, 750, Image.SCALE_SMOOTH);
-        fondo.setIcon(new ImageIcon(fdRedim));
-    }
+	public void actualizarComp() throws IOException {
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
+	}
 
 	/**
 	 * Obtiene el fondo del panel.
@@ -306,6 +306,7 @@ public class PanelRegistro extends JPanel {
 	public void setBtnResgistrar(JButton btnRegistrar) {
 		this.btnRegistrar = btnRegistrar;
 	}
+
 	/**
 	 * Obtiene el checkbox para mostrar la primera contraseña.
 	 * 

@@ -28,29 +28,52 @@ public class PanelAdministrar extends JPanel {
 		this.prop = prop;
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
-
+		
+		btnVolver = new JButton();
+		btnVolver.setBounds(1070, 45, 150, 60);
+		btnVolver.setFocusable(false);
+		btnVolver.setOpaque(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorder(null);
+		add(btnVolver);
+		
 		btnUsuario = new JButton();
-		btnUsuario.setBounds(900, 485, 150, 50);
+		btnUsuario.setBounds(715, 225, 150, 50);
 		btnUsuario.setFocusable(false);
 		btnUsuario.setOpaque(false);
 		btnUsuario.setBorderPainted(false);
 		btnUsuario.setContentAreaFilled(false);
 		btnUsuario.setBorder(null);
-		btnUsuario.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnUsuario);
-
-		btnVolver = new JButton();
-		btnVolver.setBounds(1070, 45, 150, 60);
-		btnVolver.setFocusable(false);
-		btnVolver.setForeground(Color.black);
-		btnVolver.setBackground(new Color(0, 0, 0, 0));
-		btnVolver.setOpaque(false);
-		btnVolver.setBorderPainted(false);
-		btnVolver.setContentAreaFilled(false);
-		btnVolver.setBorder(null);
-		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
-		add(btnVolver);
 		
+		btnEquipo = new JButton();
+		btnEquipo.setBounds(415, 225, 150, 50);
+		btnEquipo.setFocusable(false);
+		btnEquipo.setOpaque(false);
+		btnEquipo.setBorderPainted(false);
+		btnEquipo.setContentAreaFilled(false);
+		btnEquipo.setBorder(null);
+		add(btnEquipo);
+		
+		btnTorneo = new JButton();
+		btnTorneo.setBounds(715, 615, 150, 50);
+		btnTorneo.setFocusable(false);
+		btnTorneo.setOpaque(false);
+		btnTorneo.setBorderPainted(false);
+		btnTorneo.setContentAreaFilled(false);
+		btnTorneo.setBorder(null);
+		add(btnTorneo);
+
+		btnPartido = new JButton();
+		btnPartido.setBounds(415, 615, 150, 50);
+		btnPartido.setFocusable(false);
+		btnPartido.setOpaque(false);
+		btnPartido.setBorderPainted(false);
+		btnPartido.setContentAreaFilled(false);
+		btnPartido.setBorder(null);
+		add(btnPartido);
+
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrar")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
@@ -59,6 +82,18 @@ public class PanelAdministrar extends JPanel {
 		fondo.setBounds(0, 0, 1280, 720);
 
 		add(fondo);
+	}
+
+	/**
+	 * Actualiza los componentes del panel con base en las propiedades.
+	 * 
+	 * @throws IOException Si ocurre un error al cargar las imágenes.
+	 */
+	public void actualizarComp() throws IOException {
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.registro")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
 	}
 
 	public JLabel getFondo() {
@@ -108,7 +143,7 @@ public class PanelAdministrar extends JPanel {
 	public void setBtnPartido(JButton btnPartido) {
 		this.btnPartido = btnPartido;
 	}
-
+	
 	public Properties getProp() {
 		return prop;
 	}
@@ -116,6 +151,5 @@ public class PanelAdministrar extends JPanel {
 	public void setProp(Properties prop) {
 		this.prop = prop;
 	}
-	
-	
+
 }

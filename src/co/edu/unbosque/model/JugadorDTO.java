@@ -7,6 +7,8 @@ public class JugadorDTO extends Usuario implements Serializable {
 	private String ciudad;
 	private Equipo equipo;
     private String imagen;
+    private int partidasJugadas;
+    private int partidasGanadas;
 
 	public JugadorDTO(String usuario, String contrasena, String correo, String pais, String ciudad,
 			Equipo equipo) {
@@ -80,6 +82,22 @@ public class JugadorDTO extends Usuario implements Serializable {
 
 	public void setEquipo(Equipo equipo) {
 		this.equipo = equipo;
+	}
+
+	public int getPartidasJugadas() {
+		return partidasJugadas;
+	}
+
+	public void setPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas = partidasJugadas;
+	}
+
+	public int getPartidasGanadas() {
+		return partidasGanadas;
+	}
+
+	public void setPartidasGanadas(int partidasGanadas) {
+		this.partidasGanadas = partidasGanadas;
 	}
 
 	@Override

@@ -7,6 +7,8 @@ public class Jugador extends Usuario implements Serializable {
 	private String ciudad;
 	private Equipo equipo;
     private String imagen;
+    private int partidasJugadas;
+    private int partidasGanadas;
 
 	public Jugador(String usuario, String contrasena, String correo, String pais, String ciudad,
 			Equipo equipo) {
@@ -39,6 +41,8 @@ public class Jugador extends Usuario implements Serializable {
 		this.pais = pais;
 		this.ciudad = ciudad;
 		this.imagen = imagen;
+		partidasJugadas = 0;
+		partidasGanadas = 0;
 	}
 
 	public Jugador(String nombre, String contrasena, String correo, String pais, String ciudad, Equipo equipo,
@@ -80,6 +84,22 @@ public class Jugador extends Usuario implements Serializable {
 
 	public void setEquipo(Equipo equipo) {
 		this.equipo = equipo;
+	}
+	
+	public int getPartidasJugadas() {
+		return partidasJugadas;
+	}
+
+	public void setPartidasJugadas(int partidasJugadas) {
+		this.partidasJugadas = partidasJugadas;
+	}
+
+	public int getPartidasGanadas() {
+		return partidasGanadas;
+	}
+
+	public void setPartidasGanadas(int partidasGanadas) {
+		this.partidasGanadas = partidasGanadas;
 	}
 
 	@Override

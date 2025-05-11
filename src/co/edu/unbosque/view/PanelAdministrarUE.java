@@ -10,31 +10,35 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.OverlayLayout;
 
+import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.Entrenador;
 import co.edu.unbosque.model.Jugador;
-
-public class PanelJugador extends JPanel {
+public class PanelAdministrarUE extends JPanel {
 	/** Scroll que es usado para navegar en los productos del carrito. */
 	private JScrollPane scrollPane;
 	/** Panel en el que se guardan todos los productos del carrito. */
 	private JPanel panelContenido;
 
+	private ArrayList<JButton> btnsEliminar;
+	private ArrayList<JButton> btnsActualizar;
+	
 	private JLabel fondo;
 	private JButton btnVolverJugador;
 	private Properties prop;
 
-	public PanelJugador(Properties prop) throws IOException {
+	public PanelAdministrarUE(Properties prop) throws IOException {
 		this.prop = prop;
-
+		
+		btnsEliminar = new ArrayList<>();
+		btnsActualizar = new ArrayList<>();
+		
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 
@@ -48,19 +52,16 @@ public class PanelJugador extends JPanel {
 		btnVolverJugador = new JButton();
 		btnVolverJugador.setBounds(1070, 45, 150, 60);
 		btnVolverJugador.setFocusable(false);
-		btnVolverJugador.setForeground(Color.black);
-		btnVolverJugador.setBackground(new Color(0, 0, 0, 0));
 		btnVolverJugador.setOpaque(false);
 		btnVolverJugador.setBorderPainted(false);
 		btnVolverJugador.setContentAreaFilled(false);
 		btnVolverJugador.setBorder(null);
-		btnVolverJugador.setFont(new Font("Baloo", Font.BOLD, 26));
 
 		panelContenido = new JPanel();
 		panelContenido.setBackground(new Color(198, 195, 195));
 		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
 
-		agregarProducto(-1, new ArrayList<>());
+		agregarJugador(-1, new ArrayList<>());
 
 		scrollPane = new JScrollPane(panelContenido);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -75,19 +76,80 @@ public class PanelJugador extends JPanel {
 	 * Agrega productos con sus botones correspondientes al panel.
 	 * 
 	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada Jugador.
+	 */
+	public void agregarJugador(int cantidad, ArrayList<Jugador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		
+		panelContenido.removeAll();
+		
+		if (cantidad == -1) {
+			return;
+		}
+
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+	
+	/**
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
 	 * @param listaDatos Lista con la información de cada producto.
 	 */
-	public void agregarProducto(int cantidad, ArrayList<Jugador> listaDatos) {
+	public void agregarEntrenador(int cantidad, ArrayList<Entrenador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		panelContenido.removeAll();
+		if (cantidad == -1) {
+			return;
+		}
+
+		panelContenido.removeAll();
+		
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+	
+	public void agregarAdministrador(int cantidad, ArrayList<Administrador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		panelContenido.removeAll();
 		if (cantidad == -1) {
 			return;
 		}
 
 		panelContenido.removeAll();
 
-		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjeta");
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
 
 		for (int i = 0; i < cantidad; i++) {
 			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
 			panelContenido.add(tarjeta);
 		}
 
@@ -102,9 +164,7 @@ public class PanelJugador extends JPanel {
 	 * 
 	 * @param listaDatos Lista con la nueva información de los productos.
 	 */
-	public void actualizarInfo(ArrayList<Jugador> listaDatos) {
-		panelContenido.removeAll();
-		agregarProducto(listaDatos.size(), listaDatos);
+	public void actualizarInfo() {
 		revalidate();
 		repaint();
 	}
@@ -115,10 +175,26 @@ public class PanelJugador extends JPanel {
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
 	public void actualizarComp() throws IOException {
-		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.jugadores")));
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarue")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
 		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public JPanel getPanelContenido() {
+		return panelContenido;
+	}
+
+	public void setPanelContenido(JPanel panelContenido) {
+		this.panelContenido = panelContenido;
 	}
 
 	public JLabel getFondo() {
@@ -129,11 +205,11 @@ public class PanelJugador extends JPanel {
 		this.fondo = fondo;
 	}
 
-	public JButton getBtnVolverJugadore() {
+	public JButton getBtnVolverJugador() {
 		return btnVolverJugador;
 	}
 
-	public void setBtnVolverJugadore(JButton btnVolverJugador) {
+	public void setBtnVolverJugador(JButton btnVolverJugador) {
 		this.btnVolverJugador = btnVolverJugador;
 	}
 
@@ -144,4 +220,21 @@ public class PanelJugador extends JPanel {
 	public void setProp(Properties prop) {
 		this.prop = prop;
 	}
+
+	public ArrayList<JButton> getBtnsEliminar() {
+		return btnsEliminar;
+	}
+
+	public void setBtnsEliminar(ArrayList<JButton> btnsEliminar) {
+		this.btnsEliminar = btnsEliminar;
+	}
+
+	public ArrayList<JButton> getBtnsActualizar() {
+		return btnsActualizar;
+	}
+
+	public void setBtnsActualizar(ArrayList<JButton> btnsActualizar) {
+		this.btnsActualizar = btnsActualizar;
+	}
+	
 }

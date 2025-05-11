@@ -90,6 +90,10 @@ public class JugadorDAO implements OperacionDAO<JugadorDTO, Jugador> {
             return false;
         }
     }
+    
+    public void organizarUsuarioPorWinRate() {
+    	
+    }
 
     public ArrayList<Jugador> getListaJugadores() {
         return listaJugadores;

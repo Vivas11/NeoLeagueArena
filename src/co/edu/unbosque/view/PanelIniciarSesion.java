@@ -73,7 +73,7 @@ public class PanelIniciarSesion extends JPanel {
 		btnIngresar.setBackground(new Color(0, 0, 0, 0));
 		btnIngresar.setOpaque(false);
 		btnIngresar.setBorderPainted(false);
-        btnIngresar.setContentAreaFilled(false);
+		btnIngresar.setContentAreaFilled(false);
 		btnIngresar.setBorder(null);
 		btnIngresar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnIngresar);
@@ -103,6 +103,18 @@ public class PanelIniciarSesion extends JPanel {
 		fondo.setBounds(0, 0, 1280, 720);
 		add(fondo);
 
+	}
+
+	/**
+	 * Actualiza los componentes del panel con base en las propiedades.
+	 * 
+	 * @throws IOException Si ocurre un error al cargar las imágenes.
+	 */
+	public void actualizarComp() throws IOException {
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.iniciarsesion")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
 	}
 
 	/**
@@ -150,7 +162,7 @@ public class PanelIniciarSesion extends JPanel {
 		char[] con = contrasena.getPassword();
 		return new String(con);
 	}
-	
+
 	/**
 	 * Obtiene el campo de texto para la contraseña.
 	 * 
