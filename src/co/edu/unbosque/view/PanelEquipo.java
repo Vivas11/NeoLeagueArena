@@ -6,17 +6,25 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import co.edu.unbosque.model.Equipo;
+import co.edu.unbosque.model.Jugador;
+
 public class PanelEquipo extends JPanel {
 
+	private ArrayList<JButton> btnsIngresar;
+	private ArrayList<JButton> btnsSalir;
+	
 	private JLabel fondo;
 	private JButton btnVolver;
 	private JScrollPane scrollPane;
@@ -24,6 +32,10 @@ public class PanelEquipo extends JPanel {
 	private Properties prop;
 
 	public PanelEquipo(Properties prop) throws IOException {
+		
+		btnsIngresar = new ArrayList<>();
+		btnsSalir = new ArrayList<>();
+		
 		this.prop = prop;
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
@@ -47,17 +59,66 @@ public class PanelEquipo extends JPanel {
 		btnVolver.setBorder(null);
 		btnVolver.setFont(new Font("Baloo", Font.BOLD, 26));
 
-		JScrollPane scrollPrincipal = new JScrollPane(panelContenido);
-		scrollPrincipal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPrincipal.setBounds(25, 150, 700, 450);
+		panelContenido = new JPanel();
+		panelContenido.setBackground(new Color(198, 195, 195));
+		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
 
+		agregarEquipos(-1, new ArrayList<>());
+
+		scrollPane = new JScrollPane(panelContenido);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(50, 200, 660, 360);
+
+		add(scrollPane);
 		add(btnVolver);
-
-		add(scrollPrincipal);
 		add(fondo);
 
 	}
+	
+	/**
+	 * Actualiza la información mostrada en el panel.
+	 * 
+	 * @param listaDatos Lista con la nueva información de los equipos.
+	 */
+	public void actualizarInfo() {
+		panelContenido.revalidate();
+		panelContenido.repaint();
+		revalidate();
+		repaint();
+	}
 
+	
+	/**
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada Jugador.
+	 */
+	public void agregarEquipos(int cantidad, ArrayList<Equipo> listaDatos) {
+		btnsIngresar.clear();
+		btnsSalir.clear();
+		
+		panelContenido.removeAll();
+		
+		if (cantidad == -1) {
+			return;
+		}
+
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaequipo");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop);
+			btnsIngresar.add(tarjeta.getIngresar());
+			btnsSalir.add(tarjeta.getSalir());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+	
 	/**
 	 * Actualiza los componentes del panel con base en las propiedades.
 	 * 
@@ -110,4 +171,20 @@ public class PanelEquipo extends JPanel {
 		this.scrollPane = scrollPane;
 	}
 
+	public ArrayList<JButton> getBtnsIngresar() {
+		return btnsIngresar;
+	}
+
+	public void setBtnsIngresar(ArrayList<JButton> btnsIngresar) {
+		this.btnsIngresar = btnsIngresar;
+	}
+
+	public ArrayList<JButton> getBtnsSalir() {
+		return btnsSalir;
+	}
+
+	public void setBtnsSalir(ArrayList<JButton> btnsSalir) {
+		this.btnsSalir = btnsSalir;
+	}
+	
 }

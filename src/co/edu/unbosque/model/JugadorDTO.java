@@ -52,6 +52,17 @@ public class JugadorDTO extends Usuario implements Serializable {
 		this.imagen = imagen;
 	}
 
+	public JugadorDTO(String nombre, String contrasena, String correo, String pais, String ciudad, Equipo equipo,
+			String imagen, int partidasJugadas, int partidasGanadas) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipo = equipo;
+		this.imagen = imagen;
+		this.partidasJugadas = partidasJugadas;
+		this.partidasGanadas = partidasGanadas;
+	}
+
 	public String getImagen() {
 		return imagen;
 	}

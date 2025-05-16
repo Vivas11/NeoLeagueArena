@@ -25,8 +25,6 @@ import javax.swing.JTextField;
 public class PanelRegistro extends JPanel {
 	/** Fondo del panel. */
 	private JLabel fondo;
-	/** Campo de texto para el nombre de usuario. */
-	private JTextField nombreUsuario;
 	/** Campo de texto para la primera contraseña. */
 	private JPasswordField contrasena1;
 	/** Campo de texto para la segunda contraseña (confirmación). */
@@ -48,6 +46,9 @@ public class PanelRegistro extends JPanel {
 
 	private JTextField txtCiudad;
 
+	/** Campo de texto para el nombre de usuario. */
+	private JTextField nombreUsuario;
+	
 	private JComboBox<String> cbxTipoUsuario;
 
 	/**

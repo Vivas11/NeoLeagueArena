@@ -70,20 +70,16 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
 
     @Override
     public Entrenador find(Entrenador toFind) {
-        Entrenador found = null;
-        if (!listaEntrenadores.isEmpty()) {
-            for (Entrenador entrenador : listaEntrenadores) {
-                if (entrenador.getNombre().equals(toFind.getNombre())) {
-                    found = entrenador;
-                    return found;
-                } else {
-                    continue;
-                }
-            }
-        } else {
+        if (toFind == null) {
+            System.out.println("aadsad");
             return null;
         }
-        return null;
+        for (Entrenador entrenador : listaEntrenadores) {
+            if (entrenador.getNombre().equals(toFind.getNombre())) {
+                return entrenador;
+            }
+        }
+        return null; // Si no se encuentra, retorna null
     }
 
     @Override

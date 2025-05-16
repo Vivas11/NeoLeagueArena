@@ -53,7 +53,18 @@ public class Jugador extends Usuario implements Serializable {
 		this.equipo = equipo;
 		this.imagen = imagen;
 	}
-
+	
+	public Jugador(String nombre, String contrasena, String correo, String pais, String ciudad, Equipo equipo,
+			String imagen, int partidasJugadas, int partidasGanadas) {
+		super(nombre, contrasena, correo);
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.equipo = equipo;
+		this.imagen = imagen;
+		this.partidasJugadas = partidasJugadas;
+		this.partidasGanadas = partidasGanadas;
+	}
+	
 	public String getImagen() {
 		return imagen;
 	}

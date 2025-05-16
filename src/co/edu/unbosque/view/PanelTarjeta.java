@@ -7,23 +7,32 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.JFormattedTextField;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Entrenador;
 import co.edu.unbosque.model.Equipo;
 import co.edu.unbosque.model.Jugador;
+import co.edu.unbosque.model.Partida;
+import co.edu.unbosque.model.Torneo;
 
 public class PanelTarjeta extends JPanel {
 
-	private JButton eliminar, actualizar;
+	private JButton eliminar, actualizar, ingresar, salir, confirmar;
+	
+	private Partida partida;
+	
+	private JSpinner e1, e2;
 	
 	public PanelTarjeta(Jugador jugador, String rutaFondo, Properties prop) {
 		setLayout(null);
@@ -208,6 +217,8 @@ public class PanelTarjeta extends JPanel {
 		actualizar.setBorder(null);
 		add(actualizar);
 		
+		
+		
 		JLabel lblImagen = new JLabel(asignarImagen(entrenador));
 		lblImagen.setBounds(70, 100, 150, 150);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -252,6 +263,151 @@ public class PanelTarjeta extends JPanel {
 		usuario.setFont(new Font("Arial", Font.BOLD, 15));
 		usuario.setForeground(Color.WHITE);
 		add(usuario);
+		
+		BufferedImage fd;
+		try {
+			fd = ImageIO.read(new File("src/Archivos/imagenperfil/adminIcon.png"));
+			Image fdRedim = fd.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			ImageIcon ic = new ImageIcon(fdRedim);
+			JLabel lblImagen = new JLabel(ic);
+			lblImagen.setBounds(70, 100, 150, 150);
+			lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+			add(lblImagen);
+		} catch (IOException e) {
+		}
+		
+		add(pfondo);
+	}
+	
+	public PanelTarjeta(Equipo equipo, String rutaFondo, Properties prop) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblImagen = new JLabel(asignarImagen(equipo));
+		lblImagen.setBounds(70, 100, 150, 150);
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblImagen);
+
+		JLabel nombre = new JLabel(equipo.getNombre());
+		nombre.setBounds(370, 132, 200, 30);
+		nombre.setFont(new Font("Arial", Font.BOLD, 15));
+		nombre.setForeground(Color.WHITE);
+		add(nombre);
+
+		JLabel pais = new JLabel(equipo.getPais());
+		pais.setBounds(325, 193, 200, 30);
+		pais.setFont(new Font("Arial", Font.BOLD, 15));
+		pais.setForeground(Color.WHITE);
+		add(pais);
+
+		JLabel entrenador;
+		try {
+			entrenador = new JLabel(equipo.getEntrenador().getNombre());
+		} catch (Exception e) {
+			entrenador = new JLabel("No tiene entrenador asignado.");
+		}
+		entrenador.setBounds(375, 255, 300, 30);
+		entrenador.setFont(new Font("Arial", Font.BOLD, 15));
+		entrenador.setForeground(Color.WHITE);
+		add(entrenador);
+
+		ingresar = new JButton();
+		ingresar.setBounds(70, 275, 70, 20);
+		ingresar.setFocusable(false);
+		ingresar.setOpaque(false);
+		ingresar.setBorderPainted(false);
+		ingresar.setContentAreaFilled(false);
+		ingresar.setBorder(null);
+		add(ingresar);
+
+		salir = new JButton();
+		salir.setBounds(175, 275, 70, 20);
+		salir.setFocusable(false);
+		salir.setOpaque(false);
+		salir.setBorderPainted(false);
+		salir.setContentAreaFilled(false);
+		salir.setBorder(null);
+		add(salir);
+
+		add(pfondo);
+	}
+	
+	public PanelTarjeta(Partida partida, String rutaFondo) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+		this.partida = partida;
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblTorneo = new JLabel(partida.getTor().getNombre());
+		lblTorneo.setBounds(215, 205, 400, 25);
+		lblTorneo.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTorneo.setForeground(Color.WHITE);
+		add(lblTorneo);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
+		String fechaFormateada = sdf.format(partida.getFecha());
+		JLabel lblFecha = new JLabel(fechaFormateada + ":00[America/Bogota]");
+		lblFecha.setBounds(205, 158, 400, 25);
+		lblFecha.setFont(new Font("Arial", Font.BOLD, 14));
+		lblFecha.setForeground(Color.WHITE);
+		add(lblFecha);
+
+		JLabel equipoA = new JLabel(partida.getEquipoA().getNombre());
+		equipoA.setBounds(220, 60, 200, 30);
+		equipoA.setFont(new Font("Arial", Font.BOLD, 15));
+		equipoA.setForeground(Color.WHITE);
+		add(equipoA);
+
+		JLabel equipoB = new JLabel(partida.getEquipoB().getNombre());
+		equipoB.setBounds(220, 108, 200, 30);
+		equipoB.setFont(new Font("Arial", Font.BOLD, 15));
+		equipoB.setForeground(Color.WHITE);
+		add(equipoB);
+
+		int valorA = partida.getPuntajeEquipoA();
+		boolean editableA = valorA == -1;
+		e1 = new JSpinner(new SpinnerNumberModel(editableA ? 0 : valorA, 0, Integer.MAX_VALUE, 1));
+		e1.setBounds(230, 300, 40, 20);
+		e1.setFont(new Font("Arial", Font.BOLD, 15));
+		e1.setEnabled(editableA);
+		add(e1);
+
+		int valorB = partida.getPuntajeEquipoB();
+		boolean editableB = valorB == -1;
+		e2 = new JSpinner(new SpinnerNumberModel(editableB ? 0 : valorB, 0, Integer.MAX_VALUE, 1));
+		e2.setBounds(390, 300, 40, 20);
+		e2.setFont(new Font("Arial", Font.BOLD, 15));
+		e2.setEnabled(editableB);
+		add(e2);
+
+		confirmar = new JButton();
+		confirmar.setBounds(280, 320, 85, 25);
+		confirmar.setFocusable(false);
+		confirmar.setOpaque(false);
+		confirmar.setBorderPainted(false);
+		confirmar.setContentAreaFilled(false);
+		confirmar.setBorder(null);
+		add(confirmar);
+
 		add(pfondo);
 	}
 	
@@ -281,6 +437,19 @@ public class PanelTarjeta extends JPanel {
 		}
 	}
 
+	private ImageIcon asignarImagen(Equipo equipo) {
+		try {
+			String ruta = equipo.getImagen();
+			ruta = ruta.replace("\\", "/"); // Convertir rutas Windows a formato válido
+			BufferedImage fd = ImageIO.read(new File(ruta));
+			Image fdRedim = fd.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			return new ImageIcon(fdRedim);
+		} catch (Exception e) {
+			System.err.println("Error cargando imagen del equipo: " + e.getMessage());
+			return null;
+		}
+	}
+
 	public JButton getEliminar() {
 		return eliminar;
 	}
@@ -296,4 +465,53 @@ public class PanelTarjeta extends JPanel {
 	public void setActualizar(JButton actualizar) {
 		this.actualizar = actualizar;
 	}
+
+	public JButton getIngresar() {
+		return ingresar;
+	}
+
+	public void setIngresar(JButton ingresar) {
+		this.ingresar = ingresar;
+	}
+
+	public JButton getSalir() {
+		return salir;
+	}
+
+	public void setSalir(JButton salir) {
+		this.salir = salir;
+	}
+
+	public JButton getConfirmar() {
+		return confirmar;
+	}
+
+	public void setConfirmar(JButton confirmar) {
+		this.confirmar = confirmar;
+	}
+
+	public Partida getPartida() {
+		return partida;
+	}
+
+	public void setPartida(Partida partida) {
+		this.partida = partida;
+	}
+
+	public JSpinner getE1() {
+		return e1;
+	}
+
+	public void setE1(JSpinner e1) {
+		this.e1 = e1;
+	}
+
+	public JSpinner getE2() {
+		return e2;
+	}
+
+	public void setE2(JSpinner e2) {
+		this.e2 = e2;
+	}
+	
 }

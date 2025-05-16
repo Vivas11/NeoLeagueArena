@@ -15,5 +15,5 @@ public class Administrador extends Usuario implements Serializable {
     @Override
     public String toString() {
         return "Administrador{" + super.toString() + "}";
-    }
+    } 
 }

@@ -54,7 +54,7 @@ public class EntrenadorDTO extends Usuario implements Serializable {
 		this.equipos = equipos;
 		this.imagen = imagen;
 	}
-
+	
 	public String getImagen() {
 		return imagen;
 	}

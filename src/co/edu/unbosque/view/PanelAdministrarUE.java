@@ -1,7 +1,6 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -43,7 +42,7 @@ public class PanelAdministrarUE extends JPanel {
 		setLayout(null);
 
 		fondo = new JLabel();
-		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.jugadores")));
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarue")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
 		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
@@ -165,6 +164,8 @@ public class PanelAdministrarUE extends JPanel {
 	 * @param listaDatos Lista con la nueva información de los productos.
 	 */
 	public void actualizarInfo() {
+		panelContenido.revalidate();
+		panelContenido.repaint();
 		revalidate();
 		repaint();
 	}

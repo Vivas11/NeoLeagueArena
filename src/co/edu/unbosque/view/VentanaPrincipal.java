@@ -32,6 +32,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdmin = new PanelAdministrar(prop);
 		pAdminU = new PanelAdministrarU(prop);
 		pAdminUE = new PanelAdministrarUE(prop);
+		pAdminT = new PanelAdministrarTorneo(prop);
+		pAdminE = new PanelAdministrarEquipo(prop);
 
 		setBounds(300, 150, 1280, 720);
 		setTitle("Neo League Arena");
@@ -49,6 +51,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdmin.setVisible(false);
 		pAdminU.setVisible(false);
 		pAdminUE.setVisible(false);
+		pAdminT.setVisible(false);
+		pAdminE.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -59,6 +63,8 @@ public class VentanaPrincipal extends JFrame {
 		add(pAdmin);
 		add(pAdminU);
 		add(pAdminUE);
+		add(pAdminT);
+		add(pAdminE);
 
 	}
 
@@ -72,6 +78,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdmin.setProp(prop);
 		pAdminU.setProp(prop);
 		pAdminUE.setProp(prop);
+		pAdminT.setProp(prop);
+		pAdminE.setProp(prop);
 
 		pnlRegistro.revalidate();
 		pnP.revalidate();
@@ -82,6 +90,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdmin.revalidate();
 		pAdminU.revalidate();
 		pAdminUE.revalidate();
+		pAdminT.revalidate();
+		pAdminE.revalidate();
 
 		pnlRegistro.repaint();
 		pnP.repaint();
@@ -92,11 +102,45 @@ public class VentanaPrincipal extends JFrame {
 		pAdmin.repaint();
 		pAdminU.repaint();
 		pAdminUE.repaint();
+		pAdminT.repaint();
+		pAdminE.repaint();
 
 		this.revalidate();
 		this.repaint();
 	}
 
+
+	public PanelAdministrarEquipo getpAdminE() {
+		return pAdminE;
+	}
+
+	public void setpAdminE(PanelAdministrarEquipo pAdminE) {
+		this.pAdminE = pAdminE;
+	}
+
+	public PanelAdministrarPartido getpAdminP() {
+		return pAdminP;
+	}
+
+	public void setpAdminP(PanelAdministrarPartido pAdminP) {
+		this.pAdminP = pAdminP;
+	}
+
+	public PanelAdministrarTorneo getpAdminT() {
+		return pAdminT;
+	}
+
+	public void setpAdminT(PanelAdministrarTorneo pAdminT) {
+		this.pAdminT = pAdminT;
+	}
+
+	public PanelInforme getpInf() {
+		return pInf;
+	}
+
+	public void setpInf(PanelInforme pInf) {
+		this.pInf = pInf;
+	}
 
 	public PanelAdministrarUE getpAdminUE() {
 		return pAdminUE;

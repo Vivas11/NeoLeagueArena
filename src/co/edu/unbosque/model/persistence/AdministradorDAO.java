@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
-import co.edu.unbosque.model.Jugador;
 
 public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administrador> {
 
@@ -26,7 +25,7 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
 
 	public AdministradorDAO() {
 		listaAdministrador = new ArrayList<>();
-//		cargarSerializado();
+		cargarSerializado();
 	}
     public void escribirSerializado() {
         FileManager.escribirArchivoSerializado(SERIAL_FILE_NAME, listaAdministrador);
@@ -35,7 +34,7 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
     public void cargarSerializado() {
         listaAdministrador = (ArrayList<Administrador>) FileManager.leerArchivoSerialziado(SERIAL_FILE_NAME);
         if (listaAdministrador == null) {
-            listaAdministrador = new ArrayList<>();
+            listaAdministrador = new ArrayList<>(); 
         }
     }
     

@@ -16,4 +16,4 @@ public class AdministradorDTO extends Usuario implements Serializable {
     public String toString() {
         return "Administrador{" + super.toString() + "}";
     }
-}
+} 

@@ -1,14 +1,12 @@
 package co.edu.unbosque.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 import co.edu.unbosque.model.persistence.AdministradorDAO;
 import co.edu.unbosque.model.persistence.EntrenadorDAO;
 import co.edu.unbosque.model.persistence.EquipoDAO;
 import co.edu.unbosque.model.persistence.JugadorDAO;
-import co.edu.unbosque.model.persistence.PartidaDAO;
-import co.edu.unbosque.model.persistence.TorneoCompletoDAO;
 import co.edu.unbosque.model.persistence.TorneoLigaDAO;
 import co.edu.unbosque.model.persistence.TorneoLlaveDAO;
 
@@ -18,8 +16,6 @@ public class ModelFacade {
 	private EntrenadorDAO entrenadorDAO;
 	private EquipoDAO equipoDAO;
 	private JugadorDAO jugadorDAO;
-	private PartidaDAO partidaDAO;
-	private TorneoCompletoDAO torneoCompletoDAO;
 	private TorneoLigaDAO torneoLigaDAO;
 	private TorneoLlaveDAO torneoLlaveDAO;
 	private Usuario usuarioActual;
@@ -30,10 +26,61 @@ public class ModelFacade {
 		entrenadorDAO = new EntrenadorDAO();
 		equipoDAO = new EquipoDAO();
 		jugadorDAO = new JugadorDAO();
-		partidaDAO = new PartidaDAO();
-		torneoCompletoDAO = new TorneoCompletoDAO();
 		torneoLigaDAO = new TorneoLigaDAO();
 		torneoLlaveDAO = new TorneoLlaveDAO();
+	}
+	
+	public ArrayList<Torneo> obtenerTodosTorneos(){
+
+		ArrayList<Torneo> torneos = new ArrayList<>();
+		torneos.addAll(torneoLigaDAO.getListaTorneos());
+		torneos.addAll(torneoLlaveDAO.getListaTorneos());
+		
+		for (Torneo torneo : torneos) {
+//			System.out.println(torneo.getClass().getName());
+		}
+		return torneos;
+	}
+	
+	public ArrayList<Partida> obtenerTodasPartidas(){
+
+		ArrayList<Partida> partidas = new ArrayList<>();
+		for (Torneo torneo : torneoLigaDAO.getListaTorneos()) {
+			partidas.addAll(torneo.getPartidas());
+		}
+		for (Torneo torneo : torneoLlaveDAO.getListaTorneos()) {
+			partidas.addAll(torneo.getPartidas());
+		}
+		
+		for (Partida partida : partidas) {
+//			System.out.println(partida.getTor().getClass().getName());
+		}
+		
+		return partidas;
+	}
+	
+	public Torneo buscarTorneoPartida(Partida par) {
+		for (Torneo tor : obtenerTodosTorneos()) {
+			if(tor.getPartidas().contains(par)) {
+				return tor;
+			}
+		}
+		return null;
+	}
+	
+	public Map<Equipo, Integer> organizarPuntosLiga(TorneoLiga liga) {
+	    Map<Equipo, Integer> puntos = new java.util.HashMap<>(liga.getPuntos());
+	    ArrayList<Equipo> equipos = new ArrayList<>(puntos.keySet());
+	    for (int i = 0; i < equipos.size() - 1; i++)
+	        for (int j = 0; j < equipos.size() - i - 1; j++)
+	            if (puntos.get(equipos.get(j)) < puntos.get(equipos.get(j + 1))) {
+	                Equipo tmp = equipos.get(j);
+	                equipos.set(j, equipos.get(j + 1));
+	                equipos.set(j + 1, tmp);
+	            }
+	    Map<Equipo, Integer> ordenado = new java.util.LinkedHashMap<>();
+	    for (Equipo e : equipos) ordenado.put(e, puntos.get(e));
+	    return ordenado;
 	}
 	
 	public ArrayList<Usuario> obtenerTodosUsuarios(){
@@ -51,6 +98,24 @@ public class ModelFacade {
 			}
 		}
 		return false;
+	}
+	
+	public boolean teamHasPlayer(Equipo e, Jugador u) {
+		for (Jugador j : e.getJugadores()) {
+			if(j.getNombre().equals(u.getNombre())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int indexOfJugador(Equipo e, Jugador u) {
+		for (Jugador j : e.getJugadores()) {
+			if(j.getNombre().equals(u.getNombre())) {
+				return e.getJugadores().indexOf(j);
+			}
+		}
+		return -1;
 	}
 	
 	public Usuario findUser(Usuario toFind) {
@@ -105,23 +170,6 @@ public class ModelFacade {
 	public void setJugadorDAO(JugadorDAO jugadorDAO) {
 		this.jugadorDAO = jugadorDAO;
 	}
-
-	public PartidaDAO getPartidaDAO() {
-		return partidaDAO;
-	}
-
-	public void setPartidaDAO(PartidaDAO partidaDAO) {
-		this.partidaDAO = partidaDAO;
-	}
-
-	public TorneoCompletoDAO getTorneoCompletoDAO() {
-		return torneoCompletoDAO;
-	}
-
-	public void setTorneoCompletoDAO(TorneoCompletoDAO torneoCompletoDAO) {
-		this.torneoCompletoDAO = torneoCompletoDAO;
-	}
-
 	public TorneoLigaDAO getTorneoLigaDAO() {
 		return torneoLigaDAO;
 	}

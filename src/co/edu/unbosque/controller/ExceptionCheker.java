@@ -9,6 +9,7 @@ import co.edu.unbosque.util.exception.SymbolException;
 import co.edu.unbosque.util.exception.SmallException;
 import co.edu.unbosque.util.exception.CountryException;
 import co.edu.unbosque.util.exception.MailException;
+import co.edu.unbosque.util.exception.PowerOfTwoException;
 
 /**
  * Clase ExceptionCheker.
@@ -141,6 +142,18 @@ public class ExceptionCheker {
 		
 		throw new ImageException();
 
+	}
+
+	/**
+	 * Verifica si un número es una potencia de dos.
+	 * 
+	 * @param n El número a validar.
+	 * @throws PowerOfTwoException Si el número no es una potencia de dos.
+	 */
+	public static void checkerPowerOfTwo(int n) throws PowerOfTwoException {
+		if (n <= 0 || Math.log(n) / Math.log(2) % 1 != 0) {
+			throw new PowerOfTwoException();
+		}
 	}
 
 }

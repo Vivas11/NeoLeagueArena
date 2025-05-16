@@ -1,7 +1,5 @@
 package co.edu.unbosque.view;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
