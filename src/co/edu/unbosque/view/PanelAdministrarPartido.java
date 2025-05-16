@@ -1,5 +1,6 @@
 package co.edu.unbosque.view;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,11 +9,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import co.edu.unbosque.model.Administrador;
+import co.edu.unbosque.model.Entrenador;
+import co.edu.unbosque.model.Jugador;
 import co.edu.unbosque.model.Partida;
 
 public class PanelAdministrarPartido extends JPanel{
@@ -22,42 +28,157 @@ public class PanelAdministrarPartido extends JPanel{
 	private JPanel panelContenido;
 	private JLabel fondo;
 	private Properties prop;
+	private JButton btnVolver;
+
+	private ArrayList<JButton> btnsEliminar;
+	private ArrayList<JButton> btnsActualizar;
 	
-	public PanelAdministrarPartido(Properties prop) {
-		// TODO Auto-generated constructor stub
+	public PanelAdministrarPartido(Properties prop) throws IOException {
+this.prop = prop;
+		
+		btnsEliminar = new ArrayList<>();
+		btnsActualizar = new ArrayList<>();
+		
+		setBounds(0, 0, 1280, 720);
+		setLayout(null);
+
+		fondo = new JLabel();
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarpartidos")));
+		ImageIcon imagenFondo = new ImageIcon(fd);
+		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+		fondo.setIcon(new ImageIcon(fdRedim));
+		fondo.setBounds(0, 0, 1280, 720);
+
+		btnVolver = new JButton();
+		btnVolver.setBounds(1070, 45, 150, 60);
+		btnVolver.setFocusable(false);
+		btnVolver.setOpaque(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorder(null);
+
+		panelContenido = new JPanel();
+		panelContenido.setBackground(new Color(198, 195, 195));
+		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
+
+		agregarJugador(-1, new ArrayList<>());
+
+		scrollPane = new JScrollPane(panelContenido);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(50, 200, 660, 360);
+
+		add(scrollPane);
+		add(btnVolver);
+		add(fondo);
 	}
+	/**
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada Jugador.
+	 */
+	public void agregarJugador(int cantidad, ArrayList<Jugador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		
+		panelContenido.removeAll();
+		
+		if (cantidad == -1) {
+			return;
+		}
+
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+	
+	/**
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada producto.
+	 */
+	public void agregarPartido(int cantidad, ArrayList<Entrenador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		panelContenido.removeAll();
+		if (cantidad == -1) {
+			return;
+		}
+
+		panelContenido.removeAll();
+		
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+	
+	public void agregarAdministrador(int cantidad, ArrayList<Administrador> listaDatos) {
+		btnsActualizar.clear();
+		btnsEliminar.clear();
+		panelContenido.removeAll();
+		if (cantidad == -1) {
+			return;
+		}
+
+		panelContenido.removeAll();
+
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop);
+			btnsActualizar.add(tarjeta.getActualizar());
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+
+	/**
+	 * Actualiza la información mostrada en el panel.
+	 * 
+	 * @param listaDatos Lista con la nueva información de los productos.
+	 */
+	public void actualizarInfo() {
+		panelContenido.revalidate();
+		panelContenido.repaint();
+		revalidate();
+		repaint();
+	}
+
 	/**
 	 * Actualiza los componentes del panel con base en las propiedades.
 	 * 
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
 	public void actualizarComp() throws IOException {
-		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administraru")));
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarue")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
 		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));
 	}
-	
-	/**
-     * Agrega productos con sus botones correspondientes al panel.
-     * 
-     * @param cantidad   Cantidad de productos a agregar.
-     * @param listaDatos Lista con la información de cada producto.
-     */
-    public void agregarProducto(int cantidad, ArrayList<Partida> listaDatos) {
-       
-    }
-
-
-    /**
-     * Actualiza la información mostrada en el panel.
-     * 
-     * @param listaDatos Lista con la nueva información de los productos.
-     */
-    public void actualizarInfo(ArrayList<Partida> listaDatos) {
-        panelContenido.removeAll();
-        agregarProducto(listaDatos.size(), listaDatos);
-        revalidate();
-        repaint();
-    }
 }

@@ -40,6 +40,7 @@ import co.edu.unbosque.util.exception.NumberException;
 import co.edu.unbosque.util.exception.PowerOfTwoException;
 import co.edu.unbosque.util.exception.SmallException;
 import co.edu.unbosque.util.exception.SymbolException;
+import co.edu.unbosque.util.mail.MailService;
 import co.edu.unbosque.view.SelectorEquipo;
 import co.edu.unbosque.view.ViewFacade;
 
@@ -55,10 +56,11 @@ public class Controller implements ActionListener {
 	/** Facade para gestionar la capa de la vista. */
 	private ViewFacade vf;
 	private Properties prop;
-
+	private MailService ms;
+	
 	public Controller() throws IOException {
 		prop = new Properties();
-
+		ms = new MailService();
 		try {
 			prop.load(new FileInputStream(new File("src/archivos/espanol.properties")));
 		} catch (FileNotFoundException e) {
@@ -70,7 +72,6 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
-
 	}
 
 	public void run() {
@@ -300,6 +301,10 @@ public class Controller implements ActionListener {
 							if (mf.getJugadorDAO()
 									.add(new JugadorDTO(usuario, contrasena2, correo, pais, ciudad, imagen))) {
 								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+
+								
+								ms.createEmail(correo, prop.getProperty("archivospropiedad.mail.asunto"), usuario+prop.getProperty("archivospropiedad.mail.saludo"), prop);
+								ms.sendEmail();
 							}
 
 						} catch (IOException ex) {
@@ -339,6 +344,8 @@ public class Controller implements ActionListener {
 							if (mf.getEntrenadorDAO()
 									.add(new EntrenadorDTO(usuario, contrasena2, correo, pais, ciudad, imagen))) {
 								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+								ms.createEmail(correo, prop.getProperty("archivospropiedad.mail.asunto"), usuario+prop.getProperty("archivospropiedad.mail.saludo"), prop);
+								ms.sendEmail();
 							} else {
 								vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
 							}
@@ -359,6 +366,8 @@ public class Controller implements ActionListener {
 				case "Administrador": {
 					if (mf.getAdministradorDAO().add(new AdministradorDTO(usuario, contrasena2, correo))) {
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctosesion"));
+						ms.createEmail(correo, prop.getProperty("archivospropiedad.mail.asunto"), usuario+prop.getProperty("archivospropiedad.mail.saludo"), prop);
+						ms.sendEmail();
 					} else {
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.tipousuario"));
 					}
@@ -1022,9 +1031,7 @@ public class Controller implements ActionListener {
 							}
 							
 							ps.get(indice).setPuntajeEquipoA((int)vf.getVp().getPnH().getSpinnersA().get(indice).getValue());
-							System.out.println(ps.get(indice).getPuntajeEquipoA());
 							ps.get(indice).setPuntajeEquipoB((int)vf.getVp().getPnH().getSpinnersB().get(indice).getValue());
-							System.out.println(ps.get(indice).getPuntajeEquipoB());
 							Equipo ganador;
 							Equipo perdedor;
 							if((int)vf.getVp().getPnH().getSpinnersA().get(indice).getValue() > (int)vf.getVp().getPnH().getSpinnersB().get(indice).getValue()) {

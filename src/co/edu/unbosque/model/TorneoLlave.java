@@ -63,11 +63,6 @@ public class TorneoLlave extends Torneo implements Serializable {
 
 	public void crearFasesPost(ArrayList<Equipo> equipos) {
 		
-		System.out.println("creando siguiente fase");
-		
-		for (Equipo equipo : equipos) {
-			System.out.println(equipo.getNombre() + "Creado");
-		}
 		
 		ZonedDateTime fechaColombia = ZonedDateTime.now(ZoneId.of("America/Bogota"));
 		ZonedDateTime fechaPartido = fechaColombia.plusDays(1);
