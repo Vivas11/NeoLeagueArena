@@ -61,7 +61,7 @@ public class PanelPrincipal extends JPanel {
 		add(btnVerE);
 
 		btnVerT = new JButton();
-		btnVerT.setBounds(555, 617, 180, 60);
+		btnVerT.setBounds(550, 590, 180, 60);
 		btnVerT.setFocusable(false);
 		btnVerT.setContentAreaFilled(false);
 		btnVerT.setOpaque(false);

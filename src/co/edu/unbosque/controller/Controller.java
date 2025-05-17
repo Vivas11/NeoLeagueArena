@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -26,6 +27,7 @@ import co.edu.unbosque.model.Jugador;
 import co.edu.unbosque.model.JugadorDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.Partida;
+import co.edu.unbosque.model.Torneo;
 import co.edu.unbosque.model.TorneoLigaDTO;
 import co.edu.unbosque.model.TorneoLlave;
 import co.edu.unbosque.model.TorneoLlaveDTO;
@@ -44,6 +46,7 @@ import co.edu.unbosque.util.exception.SmallException;
 import co.edu.unbosque.util.exception.SymbolException;
 import co.edu.unbosque.util.mail.MailService;
 import co.edu.unbosque.view.SelectorEquipo;
+import co.edu.unbosque.view.VentanaTablaTorneo;
 import co.edu.unbosque.view.ViewFacade;
 
 /**
@@ -74,7 +77,7 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
-		
+
 	}
 
 	public void run() {
@@ -97,6 +100,11 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnAdministrar().setActionCommand("btnAdministrar");
 		vf.getVp().getPnP().getBtnCerrarSesion().addActionListener(this);
 		vf.getVp().getPnP().getBtnCerrarSesion().setActionCommand("btnCerrarS");
+		vf.getVp().getPnP().getBtnVerT().addActionListener(this);
+		vf.getVp().getPnP().getBtnVerT().setActionCommand("btnTorneos");
+
+		vf.getVp().getpTor().getBtnVolver().addActionListener(this);
+		vf.getVp().getpTor().getBtnVolver().setActionCommand("btnVolverTor");
 
 		vf.getVp().getPnlIniciarS().getBtnIngresar().addActionListener(this);
 		vf.getVp().getPnlIniciarS().getBtnIngresar().setActionCommand("btnIniciarSesion");
@@ -257,6 +265,25 @@ public class Controller implements ActionListener {
 			vf.getVp().getPnJD().setVisible(false);
 			break;
 		}
+
+		case "btnTorneos": {
+			ArrayList<Torneo> tors = new ArrayList<>();
+			tors.addAll(mf.getTorneoLigaDAO().getListaTorneos());
+			tors.addAll(mf.getTorneoLlaveDAO().getListaTorneos());
+			
+			vf.getVp().getpTor().agregarTorneo(tors.size(), tors);
+			vf.getVp().getpTor().actualizarInfo();
+			asignarComponentes("Torneos");
+			vf.getVp().getPnP().setVisible(false);
+			vf.getVp().getpTor().setVisible(true);
+			break;
+		}
+		case "btnVolverTor": {
+			vf.getVp().getPnP().setVisible(true);
+			vf.getVp().getpTor().setVisible(false);
+			break;
+		}
+
 		case "btnRegistrar": {
 			String usuario = (String) vf.getVp().getPnlRegistro().getNombreUsuario();
 			String contrasena1 = (String) vf.getVp().getPnlRegistro().getContrasena1();
@@ -1190,23 +1217,18 @@ public class Controller implements ActionListener {
 				btn.setActionCommand(String.valueOf(vf.getVp().getpAdminP().getBtnsActualizar().indexOf(btn)));
 				btn.addActionListener(e -> {
 					int indice = Integer.parseInt(e.getActionCommand());
-					
+
 					ArrayList<Partida> ps = mf.obtenerTodasPartidas();
-					
 
 					java.util.Date nuevaFecha = vf.getVemer()
 							.leerFecha(prop.getProperty("archivospropiedad.emergente.leerfecha"));
-					
-					
-					
+
 					if (nuevaFecha != null) {
 						ps.get(indice).setFecha(nuevaFecha);
 
 						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
 						String fechaFormateada = sdf.format(ps.get(indice).getFecha());
-						
-						
-						
+
 						for (Jugador j : ps.get(indice).getEquipoA().getJugadores()) {
 							if (j != null) {
 								System.out.println(j.getCorreo());
@@ -1256,7 +1278,8 @@ public class Controller implements ActionListener {
 											+ "\n\nDatos actualizados del partido:\n" + "Equipo A: "
 											+ ps.get(indice).getEquipoA().getNombre() + "\n" + "Equipo B: "
 											+ ps.get(indice).getEquipoB().getNombre() + "\n" + "Torneo: "
-											+ ps.get(indice).getTor().getNombre() + "\n" + "Fecha: " + fechaFormateada  + ":00[America/Bogota]",
+											+ ps.get(indice).getTor().getNombre() + "\n" + "Fecha: " + fechaFormateada
+											+ ":00[America/Bogota]",
 									prop);
 							ms.sendEmail();
 						}
@@ -1272,6 +1295,22 @@ public class Controller implements ActionListener {
 					vf.getVp().getpAdminP().agregarPartido(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 					vf.getVp().getpAdminP().actualizarInfo();
 					asignarComponentes("PartidaAdmin");
+				});
+			}
+			break;
+		}
+		case "Torneos": {
+			for (JButton btn : vf.getVp().getpTor().getBtnsVerTabla()) {
+				btn.setActionCommand(String.valueOf(vf.getVp().getpTor().getBtnsVerTabla().indexOf(btn)));
+				btn.addActionListener(e -> {
+					int indice = Integer.parseInt(e.getActionCommand());
+
+					ArrayList<Torneo> tors = new ArrayList<>();
+					tors.addAll(mf.getTorneoLigaDAO().getListaTorneos());
+					tors.addAll(mf.getTorneoLlaveDAO().getListaTorneos());
+					Torneo torneo = tors.get(indice);
+
+					new VentanaTablaTorneo(torneo);
 				});
 			}
 			break;

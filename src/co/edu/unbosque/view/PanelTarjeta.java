@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.JFormattedTextField;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.Entrenador;
@@ -28,7 +27,7 @@ import co.edu.unbosque.model.Torneo;
 
 public class PanelTarjeta extends JPanel {
 
-	private JButton eliminar, actualizar, ingresar, salir, confirmar;
+	private JButton eliminar, actualizar, ingresar, salir, confirmar, verTabla ;
 	
 	private Partida partida;
 	
@@ -489,6 +488,124 @@ public class PanelTarjeta extends JPanel {
 		add(pfondo);
 	}
 	
+	public PanelTarjeta(Torneo torneo, String rutaFondo, Properties prop) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblNombre = new JLabel(torneo.getNombre());
+		lblNombre.setBounds(125, 35, 400, 30);
+		lblNombre.setFont(new Font("Arial", Font.BOLD, 18));
+		lblNombre.setForeground(Color.WHITE);
+		add(lblNombre);
+
+		JLabel lblJuego = new JLabel(torneo.getJuego());
+		lblJuego.setBounds(115, 85, 400, 25);
+		lblJuego.setFont(new Font("Arial", Font.BOLD, 15));
+		lblJuego.setForeground(Color.WHITE);
+		add(lblJuego);
+
+		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : "El torneo sigue en curso";
+		JLabel lblGanador = new JLabel(ganador);
+		lblGanador.setBounds(130, 130, 400, 25);
+		lblGanador.setFont(new Font("Arial", Font.BOLD, 15));
+		lblGanador.setForeground(Color.WHITE);
+		add(lblGanador);
+
+		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? "Liga" : "Eliminación directa";
+		JLabel lblTipo = new JLabel(tipo);
+		lblTipo.setBounds(120, 180, 400, 25);
+		lblTipo.setFont(new Font("Arial", Font.BOLD, 15));
+		lblTipo.setForeground(Color.WHITE);
+		add(lblTipo);
+
+		
+		JLabel lblEquipos = new JLabel(torneo.getEquipos().size() + "");
+		lblEquipos.setBounds(125, 230, 550, 25);
+		lblEquipos.setFont(new Font("Arial", Font.BOLD, 15));
+		lblEquipos.setForeground(Color.WHITE);
+		add(lblEquipos);
+
+		verTabla = new JButton();
+		verTabla.setBounds(450, 130, 150, 40);
+		verTabla.setFocusable(false);
+		verTabla.setOpaque(false);
+		verTabla.setBorderPainted(false);
+		verTabla.setContentAreaFilled(false);
+		verTabla.setBorder(null);
+		add(verTabla);
+
+		add(pfondo);
+	}
+
+	public PanelTarjeta(Torneo torneo, String rutaFondo, Properties prop, boolean admin) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblNombre = new JLabel(torneo.getNombre());
+		lblNombre.setBounds(125, 35, 400, 30);
+		lblNombre.setFont(new Font("Arial", Font.BOLD, 18));
+		lblNombre.setForeground(Color.WHITE);
+		add(lblNombre);
+
+		JLabel lblJuego = new JLabel(torneo.getJuego());
+		lblJuego.setBounds(115, 85, 400, 25);
+		lblJuego.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblJuego.setForeground(Color.WHITE);
+		add(lblJuego);
+
+		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : "El torneo sigue en curso";
+		JLabel lblGanador = new JLabel(ganador);
+		lblGanador.setBounds(130, 130, 400, 25);
+		lblGanador.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblGanador.setForeground(Color.WHITE);
+		add(lblGanador);
+
+		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? "Liga" : "Eliminación directa";
+		JLabel lblTipo = new JLabel(tipo);
+		lblTipo.setBounds(120, 180, 400, 25);
+		lblTipo.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTipo.setForeground(Color.WHITE);
+		add(lblTipo);
+
+		
+		JLabel lblEquipos = new JLabel(torneo.getEquipos().size() + "");
+		lblEquipos.setBounds(125, 230, 550, 25);
+		lblEquipos.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblEquipos.setForeground(Color.WHITE);
+		add(lblEquipos);
+
+		eliminar = new JButton();
+		eliminar.setBounds(450, 130, 150, 40);
+		eliminar.setFocusable(false);
+		eliminar.setOpaque(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorder(null);
+		add(eliminar);
+		
+		add(pfondo);
+	}
+	
 	private ImageIcon asignarImagen(Jugador jugador) {
 		try {
 			String ruta = jugador.getImagen();
@@ -590,6 +707,14 @@ public class PanelTarjeta extends JPanel {
 
 	public void setE2(JSpinner e2) {
 		this.e2 = e2;
+	}
+
+	public JButton getVerTabla() {
+		return verTabla;
+	}
+
+	public void setVerTabla(JButton verTabla) {
+		this.verTabla = verTabla;
 	}
 	
 }
