@@ -341,6 +341,69 @@ public class PanelTarjeta extends JPanel {
 		add(pfondo);
 	}
 	
+	public PanelTarjeta(Equipo equipo, String rutaFondo, Properties prop, Boolean admin) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblImagen = new JLabel(asignarImagen(equipo));
+		lblImagen.setBounds(70, 100, 150, 150);
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblImagen);
+
+		JLabel nombre = new JLabel(equipo.getNombre());
+		nombre.setBounds(370, 132, 200, 30);
+		nombre.setFont(new Font("Arial", Font.BOLD, 15));
+		nombre.setForeground(Color.WHITE);
+		add(nombre);
+
+		JLabel pais = new JLabel(equipo.getPais());
+		pais.setBounds(325, 193, 200, 30);
+		pais.setFont(new Font("Arial", Font.BOLD, 15));
+		pais.setForeground(Color.WHITE);
+		add(pais);
+
+		JLabel entrenador;
+		try {
+			entrenador = new JLabel(equipo.getEntrenador().getNombre());
+		} catch (Exception e) {
+			entrenador = new JLabel("No tiene entrenador asignado.");
+		}
+		entrenador.setBounds(375, 255, 300, 30);
+		entrenador.setFont(new Font("Arial", Font.BOLD, 15));
+		entrenador.setForeground(Color.WHITE);
+		add(entrenador);
+
+		actualizar = new JButton();
+		actualizar.setBounds(70, 275, 70, 20);
+		actualizar.setFocusable(false);
+		actualizar.setOpaque(false);
+		actualizar.setBorderPainted(false);
+		actualizar.setContentAreaFilled(false);
+		actualizar.setBorder(null);
+		add(actualizar);
+
+		eliminar = new JButton();
+		eliminar.setBounds(175, 275, 70, 20);
+		eliminar.setFocusable(false);
+		eliminar.setOpaque(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorder(null);
+		add(eliminar);
+
+		add(pfondo);
+	}
+	
 	public PanelTarjeta(Partida partida, String rutaFondo) {
 		setLayout(null);
 		setPreferredSize(new java.awt.Dimension(640, 360));

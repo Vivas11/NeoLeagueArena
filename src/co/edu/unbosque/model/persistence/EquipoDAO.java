@@ -90,6 +90,29 @@ public class EquipoDAO implements OperacionDAO<EquipoDTO, Equipo> {
             return false;
         }
     }
+    
+    public Equipo obtenerEquipoMasTorneos() {
+		int tor = 0;
+		Equipo eq = null;
+		for (Equipo e : getListaEquipos()) {
+			if(e.getTorneosJugados().size() > tor) {
+				tor = e.getTorneosJugados().size();
+			}
+		}
+		return eq;
+	}
+	
+	public Equipo obtenerEquipoMasPartidos() {
+		int par = 0;
+		Equipo eq = null;
+		for (Equipo e : getListaEquipos()) {
+			if(e.getPartidosJugados().size() > par) {
+				par = e.getPartidosJugados().size();
+				eq = e;
+			}
+		}
+		return eq;
+	}
 
     public ArrayList<Equipo> getListaEquipos() {
         return listaEquipos;

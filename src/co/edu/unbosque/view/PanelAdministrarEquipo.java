@@ -1,5 +1,6 @@
 package co.edu.unbosque.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import co.edu.unbosque.model.Equipo;
 import co.edu.unbosque.model.Partida;
 
 public class PanelAdministrarEquipo extends JPanel {
@@ -27,7 +30,13 @@ public class PanelAdministrarEquipo extends JPanel {
     private JButton btnVolver, btnCrearEquipo;
     private JTextField txtNombreEquipo1, txtPais;
 
+	private ArrayList<JButton> btnsEliminar;
+	private ArrayList<JButton> btnsActualizar;
+    
     public PanelAdministrarEquipo(Properties prop) throws IOException {
+    	btnsEliminar = new ArrayList<>();
+    	btnsActualizar = new ArrayList<>();
+    	
         this.prop = prop;
         setBounds(0, 0, 1280, 720);
         setLayout(null);
@@ -59,7 +68,19 @@ public class PanelAdministrarEquipo extends JPanel {
         btnVolver.setContentAreaFilled(false);
         btnVolver.setBorder(null);
         add(btnVolver);
+        
+        panelContenido = new JPanel();
+		panelContenido.setBackground(new Color(198, 195, 195));
+		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
 
+		agregarEquipos(-1, new ArrayList<>());
+
+		scrollPane = new JScrollPane(panelContenido);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(300, 300, 660, 360);
+
+		add(scrollPane);
+		
         fondo = new JLabel();
         BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarequipos")));
         ImageIcon imagenFondo = new ImageIcon(fd);
@@ -82,27 +103,50 @@ public class PanelAdministrarEquipo extends JPanel {
         fondo.setIcon(new ImageIcon(fdRedim));
     }
 
-    /**
-     * Agrega productos con sus botones correspondientes al panel.
-     * 
-     * @param cantidad   Cantidad de productos a agregar.
-     * @param listaDatos Lista con la información de cada producto.
-     */
-    public void agregarProducto(int cantidad, ArrayList<Partida> listaDatos) {
 
-    }
+	/**
+	 * Actualiza la información mostrada en el panel.
+	 * 
+	 * @param listaDatos Lista con la nueva información de los equipos.
+	 */
+	public void actualizarInfo() {
+		panelContenido.revalidate();
+		panelContenido.repaint();
+		revalidate();
+		repaint();
+	}
 
-    /**
-     * Actualiza la información mostrada en el panel.
-     * 
-     * @param listaDatos Lista con la nueva información de los productos.
-     */
-    public void actualizarInfo(ArrayList<Partida> listaDatos) {
-        panelContenido.removeAll();
-        agregarProducto(listaDatos.size(), listaDatos);
-        revalidate();
-        repaint();
-    }
+	
+	/**
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada Jugador.
+	 */
+	public void agregarEquipos(int cantidad, ArrayList<Equipo> listaDatos) {
+		btnsEliminar.clear();
+		btnsActualizar.clear();
+		
+		panelContenido.removeAll();
+		
+		if (cantidad == -1) {
+			return;
+		}
+
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaequipoadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsEliminar.add(tarjeta.getEliminar());
+			btnsActualizar.add(tarjeta.getActualizar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
     
     public JButton getBtnVolver() {
 		return btnVolver;
@@ -181,5 +225,25 @@ public class PanelAdministrarEquipo extends JPanel {
 
 	public void setTxtPais(JTextField txtPais) {
 		this.txtPais = txtPais;
+	}
+
+
+	public ArrayList<JButton> getBtnsEliminar() {
+		return btnsEliminar;
+	}
+
+
+	public void setBtnsEliminar(ArrayList<JButton> btnsEliminar) {
+		this.btnsEliminar = btnsEliminar;
+	}
+
+
+	public ArrayList<JButton> getBtnsActualizar() {
+		return btnsActualizar;
+	}
+
+
+	public void setBtnsActualizar(ArrayList<JButton> btnsActualizar) {
+		this.btnsActualizar = btnsActualizar;
 	}
 }

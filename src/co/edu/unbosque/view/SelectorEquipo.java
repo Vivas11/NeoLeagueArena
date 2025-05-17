@@ -23,6 +23,7 @@ public class SelectorEquipo extends JFrame {
         setLayout(null);
         setBounds(0, 0, 400, 300);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setResizable(false);
 
         JLabel lblSeleccionarEquipo = new JLabel(prop.getProperty("archivospropiedad.interfaz.seleccionarequipo"));
         lblSeleccionarEquipo.setFont(new Font("Arial", Font.BOLD, 14));

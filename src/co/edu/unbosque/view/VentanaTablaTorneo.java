@@ -15,6 +15,7 @@ public class VentanaTablaTorneo extends JFrame {
         setTitle("Tabla del Torneo");
         setSize(600, 400);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         if (torneo instanceof co.edu.unbosque.model.TorneoLiga) {
             mostrarTablaLiga((TorneoLiga) torneo);
@@ -48,23 +49,31 @@ public class VentanaTablaTorneo extends JFrame {
         JTextArea area = new JTextArea();
         area.setEditable(false);
 
-        Map<Integer, List<Partida>> fases = new TreeMap<>();
-        for (Partida p : llave.getPartidas()) {
-            fases.computeIfAbsent(p.getFase(), k -> new ArrayList<>()).add(p);
-        }
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
-        for (Map.Entry<Integer, List<Partida>> entry : fases.entrySet()) {
-            area.append("Fase " + entry.getKey() + ":\n");
-            for (Partida p : entry.getValue()) {
+        
+        int equipo = llave.getEquipos().size();
+        int faseMax = (int) (Math.log(equipo) / Math.log(2));
+        List<Partida> partidas = llave.getPartidas();
+
+        int partidaIndex = 0; // índice para recorrer partidas
+        int partidosEnFase = equipo / 2; // cantidad de partidos en la primera fase
+
+        for (int f = 1; f <= faseMax; f++) {
+            area.append("Fase " + f + ":\n");
+
+            for (int i = 0; i < partidosEnFase && partidaIndex < partidas.size(); i++) {
+                Partida p = partidas.get(partidaIndex++);
+
                 String eqA = p.getEquipoA().getNombre();
                 String eqB = p.getEquipoB().getNombre();
                 String score = (p.getPuntajeEquipoA() == -1 || p.getPuntajeEquipoB() == -1)
                         ? "Pendiente"
                         : p.getPuntajeEquipoA() + " - " + p.getPuntajeEquipoB();
-                String fecha = p.getFecha() != null ? sdf.format(p.getFecha()) : "Sin fecha";
+                String fecha = p.getFecha() != null ? sdf.format(p.getFecha()) + ":00[America/Bogota]" : "Sin fecha";
                 area.append("  " + eqA + " vs " + eqB + " | " + score + " | " + fecha + "\n");
             }
+
+            partidosEnFase /= 2;
             area.append("\n");
         }
 

@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="D:/IDES/Java/Proyects/NeoLeagueArena/Librerias/javax.faces-api-2.0.jar"/>
 	<classpathentry kind="lib" path="D:/IDES/Java/Proyects/NeoLeagueArena/Librerias/javax-inject.jar"/>
 	<classpathentry kind="lib" path="D:/IDES/Java/Proyects/NeoLeagueArena/Librerias/mail.jar"/>
+	<classpathentry kind="lib" path="D:/IDES/Java/Proyects/NeoLeagueArena/Librerias/itextpdf-5.5.13.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

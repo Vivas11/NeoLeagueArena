@@ -6,16 +6,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JFileChooser;
+
+import com.itextpdf.text.log.SysoCounter;
 
 import co.edu.unbosque.model.Administrador;
 import co.edu.unbosque.model.AdministradorDTO;
@@ -45,6 +46,7 @@ import co.edu.unbosque.util.exception.PowerOfTwoException;
 import co.edu.unbosque.util.exception.SmallException;
 import co.edu.unbosque.util.exception.SymbolException;
 import co.edu.unbosque.util.mail.MailService;
+import co.edu.unbosque.util.pdf.PdfManager;
 import co.edu.unbosque.view.SelectorEquipo;
 import co.edu.unbosque.view.VentanaTablaTorneo;
 import co.edu.unbosque.view.ViewFacade;
@@ -77,7 +79,14 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
-
+		
+		
+		for (Equipo e : mf.getEquipoDAO().getListaEquipos()) {
+			System.out.println(e.getNombre());
+			for (Partida p : e.getPartidosJugados()) {
+				System.out.println(p.getGanador().getNombre());
+			}
+		}
 	}
 
 	public void run() {
@@ -102,6 +111,8 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnCerrarSesion().setActionCommand("btnCerrarS");
 		vf.getVp().getPnP().getBtnVerT().addActionListener(this);
 		vf.getVp().getPnP().getBtnVerT().setActionCommand("btnTorneos");
+		vf.getVp().getPnP().getBtnInformes().addActionListener(this);
+		vf.getVp().getPnP().getBtnInformes().setActionCommand("btnInformes");
 
 		vf.getVp().getpTor().getBtnVolver().addActionListener(this);
 		vf.getVp().getpTor().getBtnVolver().setActionCommand("btnVolverTor");
@@ -171,7 +182,32 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
-
+		
+		case "btnInformes": {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int result = fileChooser.showOpenDialog(null);
+			String direccion = null;
+			if (result == JFileChooser.APPROVE_OPTION) {
+				direccion = fileChooser.getSelectedFile().getAbsolutePath();
+				
+				List<String> parrafos = Arrays.asList(
+			            prop.getProperty("archivospropiedad.informe.titulo"),
+			            prop.getProperty("archivospropiedad.informe.eqwinrate") + mf.equipoMayorWinrate().getNombre(),
+			            prop.getProperty("archivospropiedad.informe.eqvictorias") + mf.obtenerEquipoMasVictorias().getNombre(),
+			            prop.getProperty("archivospropiedad.informe.eqjugadas") + mf.getEquipoDAO().obtenerEquipoMasPartidos().getNombre(),
+			            prop.getProperty("archivospropiedad.informe.jgwinrate") + mf.jugadorMayorWinrate().getNombre(),
+			            prop.getProperty("archivospropiedad.informe.jgvictorias") + mf.obtenerJugadorMasVictorias().getNombre()
+			        );
+				
+				PdfManager.generarPDF(direccion + "/informe.pdf", parrafos);
+				
+			} else {
+				vf.getVemer().mostrarError("No se seleccionó ninguna carpeta.");
+			}
+			break;
+		}
+		
 		case "btnPanelIniciarS": {
 			if (mf.getUsuarioActual() != null) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.yadentro"));
@@ -627,6 +663,12 @@ public class Controller implements ActionListener {
 		case "btnAdminEq": {
 			vf.getVp().getpAdminE().setVisible(true);
 			vf.getVp().getpAdmin().setVisible(false);
+
+			vf.getVp().getpAdminE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
+					mf.getEquipoDAO().getListaEquipos());
+			vf.getVp().getpAdminE().actualizarInfo();
+			asignarComponentes("EquipoAdmin");
+			
 			break;
 		}
 
@@ -1023,15 +1065,14 @@ public class Controller implements ActionListener {
 									.getPnH().getSpinnersB().get(indice).getValue()) {
 								Equipo ganador = ps.get(indice).getEquipoA();
 								for (Jugador j : ganador.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ganador.getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
 								Equipo perdedor = ps.get(indice).getEquipoB();
 								for (Jugador j : perdedor.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								perdedor.getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
 
 								ps.get(indice).setGanador(ganador);
 								((TorneoLiga) ps.get(indice).getTor()).getPuntos().put(ganador,
@@ -1043,15 +1084,14 @@ public class Controller implements ActionListener {
 									.getVp().getPnH().getSpinnersB().get(indice).getValue()) {
 								Equipo ganador = ps.get(indice).getEquipoB();
 								for (Jugador j : ganador.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ganador.getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
 								Equipo perdedor = ps.get(indice).getEquipoA();
 								for (Jugador j : perdedor.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								perdedor.getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
 								ps.get(indice).setGanador(ps.get(indice).getEquipoB());
 
 								((TorneoLiga) ps.get(indice).getTor()).getPuntos().put(ganador,
@@ -1062,15 +1102,13 @@ public class Controller implements ActionListener {
 							} else {
 								ps.get(indice).setGanador(null);
 								for (Jugador j : ps.get(indice).getEquipoA().getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasJugadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ps.get(indice).getEquipoB().getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(ps.get(indice).getEquipoB()).getPartidosJugados().add(ps.get(indice));
 								for (Jugador j : ps.get(indice).getEquipoB().getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasJugadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ps.get(indice).getEquipoA().getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(ps.get(indice).getEquipoA()).getPartidosJugados().add(ps.get(indice));
 								((TorneoLiga) ps.get(indice).getTor()).getPuntos().put(ps.get(indice).getEquipoA(),
 										((TorneoLiga) ps.get(indice).getTor()).getPuntos()
 												.get(ps.get(indice).getEquipoA()) + 1);
@@ -1078,6 +1116,23 @@ public class Controller implements ActionListener {
 										((TorneoLiga) ps.get(indice).getTor()).getPuntos()
 												.get(ps.get(indice).getEquipoB()) + 1);
 							}
+
+							mf.getTorneoLigaDAO().escribirSerializado();
+							mf.getTorneoLlaveDAO().escribirSerializado();
+							mf.getJugadorDAO().escribirSerializado();
+							mf.getEntrenadorDAO().escribirSerializado();
+							
+							System.out.println();
+							
+							for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
+								System.out.println(j.getPartidasGanadas());
+								System.out.println(j.getPartidasJugadas());
+							}
+							
+							vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
+							vf.getVp().getPnH().actualizarInfo();
+							asignarComponentes("Partida");
+							
 							for (Partida partida : ps.get(indice).getTor().getPartidas()) {
 								if (partida.getPuntajeEquipoA() == -1 || partida.getPuntajeEquipoB() == -1) {
 									return;
@@ -1093,6 +1148,19 @@ public class Controller implements ActionListener {
 								break;
 							}
 							ps.get(indice).getTor().setGanador(primerEquipo);
+
+							mf.getTorneoLigaDAO().escribirSerializado();
+							mf.getTorneoLlaveDAO().escribirSerializado();
+							mf.getJugadorDAO().escribirSerializado();
+							mf.getEntrenadorDAO().escribirSerializado();
+							mf.getEquipoDAO().escribirSerializado();
+							
+							System.out.println();
+							
+							for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
+								System.out.println(j.getPartidasGanadas());
+								System.out.println(j.getPartidasJugadas());
+							}
 
 						}
 						// TORNEO ELIMINACION DIRECTA
@@ -1111,35 +1179,33 @@ public class Controller implements ActionListener {
 							Equipo perdedor;
 							if ((int) vf.getVp().getPnH().getSpinnersA().get(indice).getValue() > (int) vf.getVp()
 									.getPnH().getSpinnersB().get(indice).getValue()) {
-								ganador = ps.get(indice).getEquipoA();
-								ganador.getPartidosJugados().add(ps.get(indice));
+								ganador = mf.getEquipoDAO().find(ps.get(indice).getEquipoA());
 								for (Jugador j : ganador.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasJugadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								perdedor = ps.get(indice).getEquipoB();
+								perdedor = mf.getEquipoDAO().find(ps.get(indice).getEquipoB());
 								for (Jugador j : perdedor.getJugadores()) {
-									j.setPartidasJugadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ps.get(indice).setGanador(ps.get(indice).getEquipoA());
-								perdedor.getPartidosJugados().add(ps.get(indice));
+								ps.get(indice).setGanador(ganador);
+								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
 
 								// ps.get(indice).getTor().getEquipos().remove(perdedor);
 
 							} else if ((int) vf.getVp().getPnH().getSpinnersA().get(indice).getValue() < (int) vf
 									.getVp().getPnH().getSpinnersB().get(indice).getValue()) {
-								ganador = ps.get(indice).getEquipoB();
+								ganador = mf.getEquipoDAO().find(ps.get(indice).getEquipoB());
 								for (Jugador j : ganador.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasGanadas() + 1);
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ganador.getPartidosJugados().add(ps.get(indice));
-								perdedor = ps.get(indice).getEquipoA();
+								perdedor = mf.getEquipoDAO().find(ps.get(indice).getEquipoA());
 								for (Jugador j : perdedor.getJugadores()) {
-									j.setPartidasGanadas(j.getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
-								ps.get(indice).setGanador(ps.get(indice).getEquipoB());
-								perdedor.getPartidosJugados().add(ps.get(indice));
+								ps.get(indice).setGanador(ganador);
+								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
+								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
 
 								// ps.get(indice).getTor().getEquipos().remove(perdedor);
 							} else {
@@ -1160,10 +1226,22 @@ public class Controller implements ActionListener {
 							for (Partida partida : partidasTorneo) {
 								if (partida.getFase() == faseActual) {
 									if (partida.getPuntajeEquipoA() == -1 || partida.getPuntajeEquipoB() == -1) {
+
+
 										mf.getTorneoLigaDAO().escribirSerializado();
 										mf.getTorneoLlaveDAO().escribirSerializado();
-										vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(),
-												mf.obtenerTodasPartidas());
+										mf.getJugadorDAO().escribirSerializado();
+										mf.getEntrenadorDAO().escribirSerializado();
+										mf.getEquipoDAO().escribirSerializado();
+										
+										System.out.println("a");
+										
+										for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
+											System.out.println(j.getPartidasGanadas());
+											System.out.println(j.getPartidasJugadas());
+										}
+										
+										vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 										vf.getVp().getPnH().actualizarInfo();
 										asignarComponentes("Partida");
 										return;
@@ -1187,7 +1265,17 @@ public class Controller implements ActionListener {
 
 					mf.getTorneoLigaDAO().escribirSerializado();
 					mf.getTorneoLlaveDAO().escribirSerializado();
-
+					mf.getJugadorDAO().escribirSerializado();
+					mf.getEntrenadorDAO().escribirSerializado();
+					mf.getEquipoDAO().escribirSerializado();
+					
+					System.out.println();
+					
+					for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
+						System.out.println(j.getPartidasGanadas());
+						System.out.println(j.getPartidasJugadas());
+					}
+					
 					vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 					vf.getVp().getPnH().actualizarInfo();
 					asignarComponentes("Partida");
@@ -1316,6 +1404,42 @@ public class Controller implements ActionListener {
 			break;
 		}
 
+		case "EquipoAdmin": {
+			for (JButton btn : vf.getVp().getpAdminE().getBtnsEliminar()) {
+				btn.setActionCommand(String.valueOf(vf.getVp().getpAdminE().getBtnsEliminar().indexOf(btn)));
+				btn.addActionListener(e -> {
+					int indice = Integer.parseInt(e.getActionCommand());
+					mf.getEquipoDAO().delete(DataMapper.equipoToEquipoDTO(mf.getEquipoDAO().getListaEquipos().get(indice)));
+					vf.getVp().getpAdminE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
+							mf.getEquipoDAO().getListaEquipos());
+					vf.getVp().getpAdminE().actualizarInfo();
+					asignarComponentes("EquipoAdmin");
+				});
+			}
+
+			for (JButton btn : vf.getVp().getpAdminE().getBtnsActualizar()) {
+				btn.setActionCommand(String.valueOf(vf.getVp().getpAdminE().getBtnsActualizar().indexOf(btn)));
+				btn.addActionListener(e -> {
+					int indice = Integer.parseInt(e.getActionCommand());
+					String nombreNuevo = vf.getVemer().leerTexto(prop.getProperty("archivospropiedad.emergente.nuevoequipo"));
+					String paisNuevo = vf.getVemer().leerTexto(prop.getProperty("archivospropiedad.emergente.nuevopais"));
+					try {
+						ExceptionCheker.checkerCountry(paisNuevo);
+						mf.getEquipoDAO().getListaEquipos().get(indice).setNombre(nombreNuevo);
+						mf.getEquipoDAO().getListaEquipos().get(indice).setPais(paisNuevo);
+					} catch (CountryException ce) {
+						vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.paiserror"));
+					}
+					
+					vf.getVp().getpAdminE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
+							mf.getEquipoDAO().getListaEquipos());
+					vf.getVp().getpAdminE().actualizarInfo();
+					asignarComponentes("EquipoAdmin");
+				});
+			}
+			break;
+		}
+		
 		default:
 			System.err.println("Tipo de usuario no reconocido: " + tipoUsuario);
 			break;

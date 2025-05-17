@@ -58,6 +58,83 @@ public class ModelFacade {
 		
 		return partidas;
 	}
+
+	public Equipo obtenerEquipoMasVictorias() {
+	    int maxVictorias = 0;
+	    Equipo eq = null;
+	    for (Equipo e : getEquipoDAO().getListaEquipos()) {
+	    	int ganados = 0;
+	        for (Partida p : e.getPartidosJugados()) {
+	            if (e.equals(p.getGanador())) {
+	                ganados++;
+	            }
+	        }
+	    	
+	        int victorias = ganados;
+	        if (victorias > maxVictorias) {
+	            maxVictorias = victorias;
+	            eq = e;
+	        }
+	    }
+	    return eq;
+	}
+
+    public Equipo equipoMayorWinrate() {
+        double maxWinrate = -1;
+        Equipo eq = null;
+        for (Equipo e : getEquipoDAO().getListaEquipos()) {
+            int jugados = e.getPartidosJugados().size();
+            
+            int ganados = 0;
+	        for (Partida p : e.getPartidosJugados()) {
+	            if (e.equals(p.getGanador())) {
+	                ganados++;
+	            }
+	        }
+	        
+            if (jugados > 0) {
+                double winrate = (double) ganados / jugados;
+                if (winrate > maxWinrate) {
+                    maxWinrate = winrate;
+                    eq = e;
+                }
+            }
+        }
+        if(eq == null) {
+        	eq=getEquipoDAO().getListaEquipos().getFirst();
+        }
+        return eq;
+    }
+	
+	public Jugador obtenerJugadorMasVictorias() {
+	    int maxVictorias = 0;
+	    Jugador mejor = null;
+	    for (Jugador j : getJugadorDAO().getListaJugadores()) {
+	        int victorias = j.getPartidasGanadas();
+	        if (victorias > maxVictorias) {
+	            maxVictorias = victorias;
+	            mejor = j;
+	        }
+	    }
+	    return mejor;
+	}
+
+	public Jugador jugadorMayorWinrate() {
+	    double maxWinrate = -1;
+	    Jugador mejor = null;
+	    for (Jugador j : getJugadorDAO().getListaJugadores()) {
+	        int jugados = j.getPartidasJugadas();
+	        int ganados = j.getPartidasGanadas();
+	        if (jugados > 0) {
+	            double winrate = (double) ganados / jugados;
+	            if (winrate > maxWinrate) {
+	                maxWinrate = winrate;
+	                mejor = j;
+	            }
+	        }
+	    }
+	    return mejor;
+	}
 	
 	public Torneo buscarTorneoPartida(Partida par) {
 		for (Torneo tor : obtenerTodosTorneos()) {
