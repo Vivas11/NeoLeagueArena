@@ -79,7 +79,12 @@ public class VentanaEmergente {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
 			sdf.setLenient(false);
-			return sdf.parse(input);
+			Date fecha = sdf.parse(input);
+			Date hoy = new Date();
+			if (fecha.before(hoy)) {
+				return null;
+			}
+			return fecha;
 		} catch (Exception e) {
 			mostrarError("Use el formato dd/MM/yyyy HH (ej: 16/05/2025 14).");
 			return null;

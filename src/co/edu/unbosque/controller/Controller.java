@@ -168,6 +168,13 @@ public class Controller implements ActionListener {
 
 		vf.getVp().getpAdminUE().getBtnVolverJugador().addActionListener(this);
 		vf.getVp().getpAdminUE().getBtnVolverJugador().setActionCommand("btnVolverAdminUE");
+		
+		vf.getVp().getPnlIniciarS().getMostrarContrasena().addActionListener(this);
+		vf.getVp().getPnlIniciarS().getMostrarContrasena().setActionCommand("mostrarContraIni");
+		vf.getVp().getPnlRegistro().getMostrarContrasena().addActionListener(this);
+		vf.getVp().getPnlRegistro().getMostrarContrasena().setActionCommand("mostrarContraRegi");
+		vf.getVp().getPnlRegistro().getMostrarContrasena2().addActionListener(this);
+		vf.getVp().getPnlRegistro().getMostrarContrasena2().setActionCommand("mostrarContraRegi2");
 	}
 
 	/**
@@ -179,6 +186,35 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
+		
+		case "mostrarContraRegi": {
+			if (vf.getVp().getPnlRegistro().getMostrarContrasena().isSelected()) {
+				vf.getVp().getPnlRegistro().getContrasena1F().setEchoChar((char) 0);
+			} else {
+				vf.getVp().getPnlRegistro().getContrasena1F().setEchoChar('*');
+			}
+
+			break;
+		}
+		case "mostrarContraRegi2": {
+			if (vf.getVp().getPnlRegistro().getMostrarContrasena2().isSelected()) {
+				vf.getVp().getPnlRegistro().getContrasena2F().setEchoChar((char) 0);
+			} else {
+				vf.getVp().getPnlRegistro().getContrasena2F().setEchoChar('*');
+			}
+
+			break;
+		}
+		
+		case "mostrarContraIni": {
+			if (vf.getVp().getPnlIniciarS().getMostrarContrasena().isSelected()) {
+				vf.getVp().getPnlIniciarS().getContrasenaF().setEchoChar((char) 0);
+			} else {
+				vf.getVp().getPnlIniciarS().getContrasenaF().setEchoChar('*');
+			}
+
+			break;
+		}
 		
 		case "btnInformes": {
 			JFileChooser fileChooser = new JFileChooser();
@@ -1347,7 +1383,12 @@ public class Controller implements ActionListener {
 
 					java.util.Date nuevaFecha = vf.getVemer()
 							.leerFecha(prop.getProperty("archivospropiedad.emergente.leerfecha"));
-
+					
+					if(nuevaFecha == null) {
+						vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.fechainvalida"));
+						return;
+					}
+					
 					if (nuevaFecha != null) {
 						ps.get(indice).setFecha(nuevaFecha);
 
@@ -1356,7 +1397,6 @@ public class Controller implements ActionListener {
 
 						for (Jugador j : ps.get(indice).getEquipoA().getJugadores()) {
 							if (j != null) {
-								System.out.println(j.getCorreo());
 								ms.createEmail(j.getCorreo(), prop.getProperty("archivospropiedad.mail.asuntohorario"),
 										prop.getProperty("archivospropiedad.mail.mensajehorario")
 												+ "\n\nDatos actualizados del partido:\n" + "Equipo A: "
