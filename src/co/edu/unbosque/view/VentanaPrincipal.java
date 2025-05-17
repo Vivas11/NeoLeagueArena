@@ -34,6 +34,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdminUE = new PanelAdministrarUE(prop);
 		pAdminT = new PanelAdministrarTorneo(prop);
 		pAdminE = new PanelAdministrarEquipo(prop);
+		pAdminP = new PanelAdministrarPartido(prop);
+		pInf = new PanelInforme(prop);
 
 		setBounds(300, 150, 1280, 720);
 		setTitle("Neo League Arena");
@@ -53,6 +55,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdminUE.setVisible(false);
 		pAdminT.setVisible(false);
 		pAdminE.setVisible(false);
+		pAdminP.setVisible(false);
+		pInf.setVisible(false);
 
 		add(pnP);
 		add(pnlIniciarS);
@@ -65,6 +69,8 @@ public class VentanaPrincipal extends JFrame {
 		add(pAdminUE);
 		add(pAdminT);
 		add(pAdminE);
+		add(pAdminP);
+		add(pInf);
 
 	}
 
@@ -80,6 +86,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdminUE.setProp(prop);
 		pAdminT.setProp(prop);
 		pAdminE.setProp(prop);
+		pAdminP.setProp(prop);
+		pInf.setProp(prop);
 
 		pnlRegistro.revalidate();
 		pnP.revalidate();
@@ -92,6 +100,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdminUE.revalidate();
 		pAdminT.revalidate();
 		pAdminE.revalidate();
+		pAdminP.revalidate();
+		pInf.revalidate();
 
 		pnlRegistro.repaint();
 		pnP.repaint();
@@ -104,6 +114,8 @@ public class VentanaPrincipal extends JFrame {
 		pAdminUE.repaint();
 		pAdminT.repaint();
 		pAdminE.repaint();
+		pAdminP.repaint();
+		pInf.repaint();
 
 		this.revalidate();
 		this.repaint();
@@ -221,5 +233,5 @@ public class VentanaPrincipal extends JFrame {
 	public void setPnJD(PanelJugador pnJD) {
 		this.pnJD = pnJD;
 	}
-
+	
 }

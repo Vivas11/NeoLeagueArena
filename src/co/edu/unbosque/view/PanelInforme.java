@@ -29,4 +29,17 @@ public class PanelInforme extends JPanel{
 			Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 			fondo.setIcon(new ImageIcon(fdRedim));
 		}
+		
+		public JLabel getFondo() {
+			return fondo;
+		}
+		public void setFondo(JLabel fondo) {
+			this.fondo = fondo;
+		}
+		public Properties getProp() {
+			return prop;
+		}
+		public void setProp(Properties prop) {
+			this.prop = prop;
+		}
 }

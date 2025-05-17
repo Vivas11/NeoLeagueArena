@@ -1,9 +1,10 @@
 package co.edu.unbosque.view;
 
 import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Clase que representa una ventana emergente para interactuar con el usuario.
@@ -67,5 +68,21 @@ public class VentanaEmergente {
 	public void mostrarError(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-    
+
+	/*
+	 * Metodo el cual solicita una fecha al usuario en formato dd/MM/yyyy HH.
+	 */
+	public Date leerFecha(String mensaje) {
+		String input = JOptionPane.showInputDialog(null, mensaje + " (dd/MM/yyyy HH)");
+		if (input == null) return null;
+
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
+			sdf.setLenient(false);
+			return sdf.parse(input);
+		} catch (Exception e) {
+			mostrarError("Use el formato dd/MM/yyyy HH (ej: 16/05/2025 14).");
+			return null;
+		}
+	}
 }

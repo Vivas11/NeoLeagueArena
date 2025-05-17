@@ -411,6 +411,84 @@ public class PanelTarjeta extends JPanel {
 		add(pfondo);
 	}
 	
+	public PanelTarjeta(Partida partida, String rutaFondo, Properties prop, Boolean a) {
+		setLayout(null);
+		setPreferredSize(new java.awt.Dimension(640, 360));
+		this.partida = partida;
+
+		JLabel pfondo = new JLabel();
+		try {
+			BufferedImage fd = ImageIO.read(new File(rutaFondo));
+			Image fdRedim = fd.getScaledInstance(640, 360, Image.SCALE_SMOOTH);
+			pfondo.setIcon(new ImageIcon(fdRedim));
+		} catch (IOException e) {
+			System.err.println("Error cargando fondo del producto: " + e.getMessage());
+		}
+		pfondo.setBounds(0, 0, 640, 360);
+
+		JLabel lblTorneo = new JLabel(partida.getTor().getNombre());
+		lblTorneo.setBounds(215, 205, 400, 25);
+		lblTorneo.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTorneo.setForeground(Color.WHITE);
+		add(lblTorneo);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
+		String fechaFormateada = sdf.format(partida.getFecha());
+		JLabel lblFecha = new JLabel(fechaFormateada + ":00[America/Bogota]");
+		lblFecha.setBounds(205, 158, 400, 25);
+		lblFecha.setFont(new Font("Arial", Font.BOLD, 14));
+		lblFecha.setForeground(Color.WHITE);
+		add(lblFecha);
+
+		JLabel equipoA = new JLabel(partida.getEquipoA().getNombre());
+		equipoA.setBounds(220, 60, 200, 30);
+		equipoA.setFont(new Font("Arial", Font.BOLD, 15));
+		equipoA.setForeground(Color.WHITE);
+		add(equipoA);
+
+		JLabel equipoB = new JLabel(partida.getEquipoB().getNombre());
+		equipoB.setBounds(220, 108, 200, 30);
+		equipoB.setFont(new Font("Arial", Font.BOLD, 15));
+		equipoB.setForeground(Color.WHITE);
+		add(equipoB);
+
+		int valorA = partida.getPuntajeEquipoA();
+		boolean editableA = valorA == -1;
+		e1 = new JSpinner(new SpinnerNumberModel(editableA ? 0 : valorA, 0, Integer.MAX_VALUE, 1));
+		e1.setBounds(230, 300, 40, 20);
+		e1.setFont(new Font("Arial", Font.BOLD, 15));
+		e1.setEnabled(false);
+		add(e1);
+
+		int valorB = partida.getPuntajeEquipoB();
+		boolean editableB = valorB == -1;
+		e2 = new JSpinner(new SpinnerNumberModel(editableB ? 0 : valorB, 0, Integer.MAX_VALUE, 1));
+		e2.setBounds(390, 300, 40, 20);
+		e2.setFont(new Font("Arial", Font.BOLD, 15));
+		e2.setEnabled(false);
+		add(e2);
+
+		actualizar = new JButton();
+		actualizar.setBounds(280, 320, 85, 25);
+		actualizar.setFocusable(false);
+		actualizar.setOpaque(false);
+		actualizar.setBorderPainted(false);
+		actualizar.setContentAreaFilled(false);
+		actualizar.setBorder(null);
+		add(actualizar);
+
+		eliminar = new JButton();
+		eliminar.setBounds(280, 280, 85, 25);
+		eliminar.setFocusable(false);
+		eliminar.setOpaque(false);
+		eliminar.setBorderPainted(false);
+		eliminar.setContentAreaFilled(false);
+		eliminar.setBorder(null);
+		add(eliminar);
+		
+		add(pfondo);
+	}
+	
 	private ImageIcon asignarImagen(Jugador jugador) {
 		try {
 			String ruta = jugador.getImagen();
