@@ -69,7 +69,7 @@ public class PanelTarjeta extends JPanel {
 		try {
 			equipo = new JLabel(jugador.getEquipo().getNombre());
 		} catch (Exception e) {
-			equipo = new JLabel("No pertenece a ningún equipo.");
+			equipo = new JLabel(prop.getProperty("archivospropiedad.interfaz.noequipo"));
 		}
 		equipo.setBounds(340, 260, 300, 30);
 		equipo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -119,7 +119,7 @@ public class PanelTarjeta extends JPanel {
 		try {
 			equipo = new JLabel(jugador.getEquipo().getNombre());
 		} catch (Exception e) {
-			equipo = new JLabel("No pertenece a ningún equipo.");
+			equipo = new JLabel(prop.getProperty("archivospropiedad.interfaz.noequipo"));
 		}
 		equipo.setBounds(340, 260, 300, 30);
 		equipo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -191,7 +191,7 @@ public class PanelTarjeta extends JPanel {
 		try {
 			equipo = new JLabel(txteq);
 		} catch (Exception e) {
-			equipo = new JLabel("No pertenece a ningún equipo.");
+			equipo = new JLabel(prop.getProperty("archivospropiedad.interfaz.noequipo"));
 		}
 		equipo.setBounds(340, 260, 300, 30);
 		equipo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -313,7 +313,7 @@ public class PanelTarjeta extends JPanel {
 		try {
 			entrenador = new JLabel(equipo.getEntrenador().getNombre());
 		} catch (Exception e) {
-			entrenador = new JLabel("No tiene entrenador asignado.");
+			entrenador = new JLabel(prop.getProperty("archivospropiedad.interfaz.noentrenador"));
 		}
 		entrenador.setBounds(375, 255, 300, 30);
 		entrenador.setFont(new Font("Arial", Font.BOLD, 15));
@@ -376,7 +376,7 @@ public class PanelTarjeta extends JPanel {
 		try {
 			entrenador = new JLabel(equipo.getEntrenador().getNombre());
 		} catch (Exception e) {
-			entrenador = new JLabel("No tiene entrenador asignado.");
+			entrenador = new JLabel(prop.getProperty("archivospropiedad.interfaz.noentrenador"));
 		}
 		entrenador.setBounds(375, 255, 300, 30);
 		entrenador.setFont(new Font("Arial", Font.BOLD, 15));
@@ -577,14 +577,14 @@ public class PanelTarjeta extends JPanel {
 		lblJuego.setForeground(Color.WHITE);
 		add(lblJuego);
 
-		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : "El torneo sigue en curso";
+		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : prop.getProperty("archivospropiedad.interfaz.torneocurso");
 		JLabel lblGanador = new JLabel(ganador);
 		lblGanador.setBounds(130, 130, 400, 25);
 		lblGanador.setFont(new Font("Arial", Font.BOLD, 15));
 		lblGanador.setForeground(Color.WHITE);
 		add(lblGanador);
 
-		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? "Liga" : "Eliminación directa";
+		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? prop.getProperty("archivospropiedad.interfaz.liga") : prop.getProperty("archivospropiedad.interfaz.eliminaciondirecta");
 		JLabel lblTipo = new JLabel(tipo);
 		lblTipo.setBounds(120, 180, 400, 25);
 		lblTipo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -636,14 +636,14 @@ public class PanelTarjeta extends JPanel {
 		lblJuego.setForeground(Color.WHITE);
 		add(lblJuego);
 
-		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : "El torneo sigue en curso";
+		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : prop.getProperty("archivospropiedad.interfaz.torneocurso");
 		JLabel lblGanador = new JLabel(ganador);
 		lblGanador.setBounds(130, 133, 400, 25);
 		lblGanador.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblGanador.setForeground(Color.WHITE);
 		add(lblGanador);
 
-		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? "Liga" : "Eliminación directa";
+		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? prop.getProperty("archivospropiedad.interfaz.liga") : prop.getProperty("archivospropiedad.interfaz.eliminaciondirecta");
 		JLabel lblTipo = new JLabel(tipo);
 		lblTipo.setBounds(115, 182, 400, 25);
 		lblTipo.setFont(new Font("Arial", Font.PLAIN, 15));

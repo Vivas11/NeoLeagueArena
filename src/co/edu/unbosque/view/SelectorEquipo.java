@@ -72,4 +72,60 @@ public class SelectorEquipo extends JFrame {
     public ArrayList<String> getEquiposSeleccionados() {
         return this.listaEquipos;
     }
+
+	public Properties getProp() {
+		return prop;
+	}
+
+	public void setProp(Properties prop) {
+		this.prop = prop;
+	}
+
+	public JComboBox<String> getComboEquipos() {
+		return comboEquipos;
+	}
+
+	public void setComboEquipos(JComboBox<String> comboEquipos) {
+		this.comboEquipos = comboEquipos;
+	}
+
+	public JButton getBtnAgregar() {
+		return btnAgregar;
+	}
+
+	public void setBtnAgregar(JButton btnAgregar) {
+		this.btnAgregar = btnAgregar;
+	}
+
+	public DefaultListModel<String> getModeloLista() {
+		return modeloLista;
+	}
+
+	public void setModeloLista(DefaultListModel<String> modeloLista) {
+		this.modeloLista = modeloLista;
+	}
+
+	public JList<String> getListaEquiposTexto() {
+		return listaEquiposTexto;
+	}
+
+	public void setListaEquiposTexto(JList<String> listaEquiposTexto) {
+		this.listaEquiposTexto = listaEquiposTexto;
+	}
+
+	public ArrayList<String> getListaEquipos() {
+		return listaEquipos;
+	}
+
+	public void setListaEquipos(ArrayList<String> listaEquipos) {
+		this.listaEquipos = listaEquipos;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
 }

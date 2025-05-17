@@ -64,12 +64,15 @@ public class Controller implements ActionListener {
 	private ViewFacade vf;
 	private Properties prop;
 	private MailService ms;
+	private Boolean english;
 
 	public Controller() throws IOException {
 		prop = new Properties();
 		ms = new MailService();
 		try {
 			prop.load(new FileInputStream(new File("src/archivos/espanol.properties")));
+			english = false;
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -105,6 +108,8 @@ public class Controller implements ActionListener {
 		vf.getVp().getPnP().getBtnVerT().setActionCommand("btnTorneos");
 		vf.getVp().getPnP().getBtnInformes().addActionListener(this);
 		vf.getVp().getPnP().getBtnInformes().setActionCommand("btnInformes");
+		vf.getVp().getPnP().getBtnCambioIdioma().addActionListener(this);
+		vf.getVp().getPnP().getBtnCambioIdioma().setActionCommand("btnIdioma");
 
 		vf.getVp().getpTor().getBtnVolver().addActionListener(this);
 		vf.getVp().getpTor().getBtnVolver().setActionCommand("btnVolverTor");
@@ -198,6 +203,43 @@ public class Controller implements ActionListener {
 				vf.getVemer().mostrarError("No se seleccionó ninguna carpeta.");
 			}
 			break;
+		}
+		
+		case "btnIdioma": {
+			if (english) {
+				try {
+					prop.load(new FileInputStream(new File("src/archivos/espanol.properties")));
+					english= false;
+				} catch (FileNotFoundException o) {
+					o.printStackTrace();
+				} catch (IOException o) {
+					o.printStackTrace();
+				}
+				try {
+					vf.getVp().refrescarUI(prop);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				break;
+			}else {
+				System.out.println("aingles");
+				try {
+					prop.load(new FileInputStream(new File("src/archivos/english.properties")));
+					english= true;
+				} catch (FileNotFoundException o) {
+					o.printStackTrace();
+				} catch (IOException o) {
+					o.printStackTrace();
+				}
+				try {
+					vf.getVp().refrescarUI(prop);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				break;
+			}
 		}
 		
 		case "btnPanelIniciarS": {

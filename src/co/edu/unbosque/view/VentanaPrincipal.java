@@ -20,7 +20,6 @@ public class VentanaPrincipal extends JFrame {
 	private PanelAdministrarEquipo pAdminE;
 	private PanelAdministrarPartido pAdminP;
 	private PanelAdministrarTorneo pAdminT;
-	private PanelInforme pInf;
 	private PanelTorneo pTor;
 
 	public VentanaPrincipal(Properties prop) throws IOException {
@@ -36,7 +35,6 @@ public class VentanaPrincipal extends JFrame {
 		pAdminT = new PanelAdministrarTorneo(prop);
 		pAdminE = new PanelAdministrarEquipo(prop);
 		pAdminP = new PanelAdministrarPartido(prop);
-		pInf = new PanelInforme(prop);
 		pTor = new PanelTorneo(prop);
 
 		setBounds(300, 150, 1280, 720);
@@ -58,7 +56,6 @@ public class VentanaPrincipal extends JFrame {
 		pAdminT.setVisible(false);
 		pAdminE.setVisible(false);
 		pAdminP.setVisible(false);
-		pInf.setVisible(false);
 		pTor.setVisible(false);
 
 		add(pnP);
@@ -73,7 +70,6 @@ public class VentanaPrincipal extends JFrame {
 		add(pAdminT);
 		add(pAdminE);
 		add(pAdminP);
-		add(pInf);
 		add(pTor);
 
 	}
@@ -91,9 +87,22 @@ public class VentanaPrincipal extends JFrame {
 		pAdminT.setProp(prop);
 		pAdminE.setProp(prop);
 		pAdminP.setProp(prop);
-		pInf.setProp(prop);
 		pTor.setProp(prop);
 
+		pnlRegistro.actualizarComp();
+		pnP.actualizarComp();
+		pnlIniciarS.actualizarComp();
+		pnE.actualizarComp();
+		pnH.actualizarComp();
+		pnJD.actualizarComp();
+		pAdmin.actualizarComp();
+		pAdminU.actualizarComp();
+		pAdminUE.actualizarComp();
+		pAdminT.actualizarComp();
+		pAdminE.actualizarComp();
+		pAdminP.actualizarComp();
+		pTor.actualizarComp();
+		
 		pnlRegistro.revalidate();
 		pnP.revalidate();
 		pnlIniciarS.revalidate();
@@ -106,7 +115,6 @@ public class VentanaPrincipal extends JFrame {
 		pAdminT.revalidate();
 		pAdminE.revalidate();
 		pAdminP.revalidate();
-		pInf.revalidate();
 		pTor.revalidate();
 
 		pnlRegistro.repaint();
@@ -121,7 +129,6 @@ public class VentanaPrincipal extends JFrame {
 		pAdminT.repaint();
 		pAdminE.repaint();
 		pAdminP.repaint();
-		pInf.repaint();
 		pTor.repaint();
 
 		this.revalidate();
@@ -151,14 +158,6 @@ public class VentanaPrincipal extends JFrame {
 
 	public void setpAdminT(PanelAdministrarTorneo pAdminT) {
 		this.pAdminT = pAdminT;
-	}
-
-	public PanelInforme getpInf() {
-		return pInf;
-	}
-
-	public void setpInf(PanelInforme pInf) {
-		this.pInf = pInf;
 	}
 
 	public PanelAdministrarUE getpAdminUE() {

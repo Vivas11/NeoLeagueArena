@@ -31,5 +31,13 @@ public class ViewFacade {
 		this.vemer = vemer;
 	}
 
+	public SelectorEquipo getSe() {
+		return se;
+	}
+
+	public void setSe(SelectorEquipo se) {
+		this.se = se;
+	}
+
 	
 }

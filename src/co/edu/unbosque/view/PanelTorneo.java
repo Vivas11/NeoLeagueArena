@@ -115,7 +115,7 @@ public class PanelTorneo extends JPanel{
 	 * @throws IOException Si ocurre un error al cargar las imágenes.
 	 */
 	public void actualizarComp() throws IOException {
-		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarue")));
+		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.torneos")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
 		Image fdRedim = fd.getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 		fondo.setIcon(new ImageIcon(fdRedim));

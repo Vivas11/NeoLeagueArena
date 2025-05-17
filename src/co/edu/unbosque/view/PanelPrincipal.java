@@ -27,6 +27,7 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnRegistrarse;
 	private JButton btnAdministrar;
 	private JButton btnCerrarSesion;
+	private JButton btnCambioIdioma;
 	private Properties prop;
 
 	public PanelPrincipal(Properties prop) throws IOException {
@@ -122,7 +123,6 @@ public class PanelPrincipal extends JPanel {
 		btnAdministrar.setBorderPainted(false);
 		btnAdministrar.setContentAreaFilled(false);
 		btnAdministrar.setBorder(null);
-		btnAdministrar.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnAdministrar);
 
 		btnCerrarSesion = new JButton();
@@ -135,9 +135,18 @@ public class PanelPrincipal extends JPanel {
 		btnCerrarSesion.setBorderPainted(false);
 		btnCerrarSesion.setContentAreaFilled(false);
 		btnCerrarSesion.setBorder(null);
-		btnCerrarSesion.setFont(new Font("Baloo", Font.BOLD, 26));
 		add(btnCerrarSesion);
-
+		
+		btnCambioIdioma = new JButton();
+		btnCambioIdioma.setBounds(967, 615, 60, 60);
+		
+		btnCambioIdioma.setFocusable(false);
+		btnCambioIdioma.setOpaque(false);
+		btnCambioIdioma.setBorderPainted(false);
+		btnCambioIdioma.setContentAreaFilled(false);
+		btnCambioIdioma.setBorder(null);
+		add(btnCambioIdioma);
+		
 		add(fondo);
 	}
 
@@ -247,6 +256,14 @@ public class PanelPrincipal extends JPanel {
 
 	public void setBtnInformes(JButton btnInformes) {
 		this.btnInformes = btnInformes;
+	}
+
+	public JButton getBtnCambioIdioma() {
+		return btnCambioIdioma;
+	}
+
+	public void setBtnCambioIdioma(JButton btnCambioIdioma) {
+		this.btnCambioIdioma = btnCambioIdioma;
 	}
 
 }
