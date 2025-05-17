@@ -21,22 +21,46 @@ import javax.swing.JTextField;
 import co.edu.unbosque.model.Equipo;
 import co.edu.unbosque.model.Partida;
 
+/**
+ * Panel para la administración de equipos en la aplicación NeoLeagueArena.
+ * Permite crear, actualizar y eliminar equipos, así como visualizar la lista de equipos existentes.
+ * Incluye campos para ingresar el nombre y país del equipo, botones de acción y un área de scroll para mostrar los equipos.
+ * 
+ */
 public class PanelAdministrarEquipo extends JPanel {
 
+    /** Scroll para navegar en la lista de equipos. */
     private JScrollPane scrollPane;
+    /** Panel que contiene la lista de equipos. */
     private JPanel panelContenido;
+    /** Etiqueta para la imagen de fondo del panel. */
     private JLabel fondo;
+    /** Propiedades de configuración utilizadas para cargar recursos. */
     private Properties prop;
-    private JButton btnVolver, btnCrearEquipo;
-    private JTextField txtNombreEquipo1, txtPais;
-
-	private ArrayList<JButton> btnsEliminar;
-	private ArrayList<JButton> btnsActualizar;
+    /** Botón para volver a la pantalla anterior. */
+    private JButton btnVolver;
+    /** Botón para crear un nuevo equipo. */
+    private JButton btnCrearEquipo;
+    /** Campo de texto para el nombre del equipo. */
+    private JTextField txtNombreEquipo1;
+    /** Campo de texto para el país del equipo. */
+    private JTextField txtPais;
+    /** Lista de botones para eliminar equipos. */
+    private ArrayList<JButton> btnsEliminar;
+    /** Lista de botones para actualizar equipos. */
+    private ArrayList<JButton> btnsActualizar;
     
+    /**
+     * Constructor del panel de administración de equipos.
+     * Inicializa los componentes gráficos y configura el panel.
+     * 
+     * @param prop Propiedades de configuración para cargar imágenes y recursos.
+     * @throws IOException Si ocurre un error al cargar la imagen de fondo.
+     */
     public PanelAdministrarEquipo(Properties prop) throws IOException {
-    	btnsEliminar = new ArrayList<>();
-    	btnsActualizar = new ArrayList<>();
-    	
+        btnsEliminar = new ArrayList<>();
+        btnsActualizar = new ArrayList<>();
+        
         this.prop = prop;
         setBounds(0, 0, 1280, 720);
         setLayout(null);
@@ -70,17 +94,17 @@ public class PanelAdministrarEquipo extends JPanel {
         add(btnVolver);
         
         panelContenido = new JPanel();
-		panelContenido.setBackground(new Color(198, 195, 195));
-		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
+        panelContenido.setBackground(new Color(198, 195, 195));
+        panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
 
-		agregarEquipos(-1, new ArrayList<>());
+        agregarEquipos(-1, new ArrayList<>());
 
-		scrollPane = new JScrollPane(panelContenido);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(300, 300, 660, 360);
+        scrollPane = new JScrollPane(panelContenido);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(300, 300, 660, 360);
 
-		add(scrollPane);
-		
+        add(scrollPane);
+        
         fondo = new JLabel();
         BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrarequipos")));
         ImageIcon imagenFondo = new ImageIcon(fd);
@@ -90,9 +114,9 @@ public class PanelAdministrarEquipo extends JPanel {
         add(fondo);
     }
 
-
     /**
      * Actualiza los componentes del panel con base en las propiedades.
+     * Recarga la imagen de fondo.
      * 
      * @throws IOException Si ocurre un error al cargar las imágenes.
      */
@@ -103,147 +127,205 @@ public class PanelAdministrarEquipo extends JPanel {
         fondo.setIcon(new ImageIcon(fdRedim));
     }
 
+    /**
+     * Actualiza la información mostrada en el panel.
+     * Refresca la visualización de los equipos.
+     */
+    public void actualizarInfo() {
+        panelContenido.revalidate();
+        panelContenido.repaint();
+        revalidate();
+        repaint();
+    }
 
-	/**
-	 * Actualiza la información mostrada en el panel.
-	 * 
-	 * @param listaDatos Lista con la nueva información de los equipos.
-	 */
-	public void actualizarInfo() {
-		panelContenido.revalidate();
-		panelContenido.repaint();
-		revalidate();
-		repaint();
-	}
+    /**
+     * Agrega equipos con sus botones correspondientes al panel.
+     * 
+     * @param cantidad   Cantidad de equipos a agregar.
+     * @param listaDatos Lista con la información de cada equipo.
+     */
+    public void agregarEquipos(int cantidad, ArrayList<Equipo> listaDatos) {
+        btnsEliminar.clear();
+        btnsActualizar.clear();
+        
+        panelContenido.removeAll();
+        
+        if (cantidad == -1) {
+            return;
+        }
 
-	
-	/**
-	 * Agrega productos con sus botones correspondientes al panel.
-	 * 
-	 * @param cantidad   Cantidad de productos a agregar.
-	 * @param listaDatos Lista con la información de cada Jugador.
-	 */
-	public void agregarEquipos(int cantidad, ArrayList<Equipo> listaDatos) {
-		btnsEliminar.clear();
-		btnsActualizar.clear();
-		
-		panelContenido.removeAll();
-		
-		if (cantidad == -1) {
-			return;
-		}
+        String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaequipoadmin");
 
-		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetaequipoadmin");
+        for (int i = 0; i < cantidad; i++) {
+            PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+            btnsEliminar.add(tarjeta.getEliminar());
+            btnsActualizar.add(tarjeta.getActualizar());
+            panelContenido.add(tarjeta);
+        }
 
-		for (int i = 0; i < cantidad; i++) {
-			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
-			btnsEliminar.add(tarjeta.getEliminar());
-			btnsActualizar.add(tarjeta.getActualizar());
-			panelContenido.add(tarjeta);
-		}
+        panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
 
-		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
-
-		panelContenido.revalidate();
-		panelContenido.repaint();
-	}
+        panelContenido.revalidate();
+        panelContenido.repaint();
+    }
     
+    /**
+     * Obtiene el botón para volver a la pantalla anterior.
+     * @return JButton de volver.
+     */
     public JButton getBtnVolver() {
-		return btnVolver;
-	}
+        return btnVolver;
+    }
 
+    /**
+     * Obtiene el botón para crear un nuevo equipo.
+     * @return JButton de crear equipo.
+     */
+    public JButton getBtnCrearEquipo() {
+        return btnCrearEquipo;
+    }
 
-	public JButton getBtnCrearEquipo() {
-		return btnCrearEquipo;
-	}
+    /**
+     * Obtiene el campo de texto para el nombre del equipo.
+     * @return JTextField del nombre del equipo.
+     */
+    public JTextField getTxtNombreEquipo1() {
+        return txtNombreEquipo1;
+    }
 
+    /**
+     * Obtiene el campo de texto para el país del equipo.
+     * @return JTextField del país.
+     */
+    public JTextField getTxtPais() {
+        return txtPais;
+    }
 
-	public JTextField getTxtNombreEquipo1() {
-		return txtNombreEquipo1;
-	}
+    /**
+     * Obtiene el scroll de la lista de equipos.
+     * @return JScrollPane de la lista de equipos.
+     */
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
 
+    /**
+     * Establece el scroll de la lista de equipos.
+     * @param scrollPane JScrollPane a establecer.
+     */
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 
-	public JTextField getTxtPais() {
-		return txtPais;
-	}
+    /**
+     * Obtiene el panel que contiene la lista de equipos.
+     * @return JPanel de contenido.
+     */
+    public JPanel getPanelContenido() {
+        return panelContenido;
+    }
 
+    /**
+     * Establece el panel que contiene la lista de equipos.
+     * @param panelContenido JPanel a establecer.
+     */
+    public void setPanelContenido(JPanel panelContenido) {
+        this.panelContenido = panelContenido;
+    }
 
-	public JScrollPane getScrollPane() {
-		return scrollPane;
-	}
+    /**
+     * Obtiene la etiqueta de fondo del panel.
+     * @return JLabel de fondo.
+     */
+    public JLabel getFondo() {
+        return fondo;
+    }
 
+    /**
+     * Establece la etiqueta de fondo del panel.
+     * @param fondo JLabel a establecer.
+     */
+    public void setFondo(JLabel fondo) {
+        this.fondo = fondo;
+    }
 
-	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
-	}
+    /**
+     * Obtiene las propiedades de configuración.
+     * @return Properties utilizadas por el panel.
+     */
+    public Properties getProp() {
+        return prop;
+    }
 
+    /**
+     * Establece las propiedades de configuración.
+     * @param prop Properties a establecer.
+     */
+    public void setProp(Properties prop) {
+        this.prop = prop;
+    }
 
-	public JPanel getPanelContenido() {
-		return panelContenido;
-	}
+    /**
+     * Establece el botón para volver a la pantalla anterior.
+     * @param btnVolver JButton a establecer.
+     */
+    public void setBtnVolver(JButton btnVolver) {
+        this.btnVolver = btnVolver;
+    }
 
+    /**
+     * Establece el botón para crear un nuevo equipo.
+     * @param btnCrearEquipo JButton a establecer.
+     */
+    public void setBtnCrearEquipo(JButton btnCrearEquipo) {
+        this.btnCrearEquipo = btnCrearEquipo;
+    }
 
-	public void setPanelContenido(JPanel panelContenido) {
-		this.panelContenido = panelContenido;
-	}
+    /**
+     * Establece el campo de texto para el nombre del equipo.
+     * @param txtNombreEquipo1 JTextField a establecer.
+     */
+    public void setTxtNombreEquipo1(JTextField txtNombreEquipo1) {
+        this.txtNombreEquipo1 = txtNombreEquipo1;
+    }
 
+    /**
+     * Establece el campo de texto para el país del equipo.
+     * @param txtPais JTextField a establecer.
+     */
+    public void setTxtPais(JTextField txtPais) {
+        this.txtPais = txtPais;
+    }
 
-	public JLabel getFondo() {
-		return fondo;
-	}
+    /**
+     * Obtiene la lista de botones para eliminar equipos.
+     * @return Lista de JButton para eliminar.
+     */
+    public ArrayList<JButton> getBtnsEliminar() {
+        return btnsEliminar;
+    }
 
+    /**
+     * Establece la lista de botones para eliminar equipos.
+     * @param btnsEliminar Lista de JButton a establecer.
+     */
+    public void setBtnsEliminar(ArrayList<JButton> btnsEliminar) {
+        this.btnsEliminar = btnsEliminar;
+    }
 
-	public void setFondo(JLabel fondo) {
-		this.fondo = fondo;
-	}
+    /**
+     * Obtiene la lista de botones para actualizar equipos.
+     * @return Lista de JButton para actualizar.
+     */
+    public ArrayList<JButton> getBtnsActualizar() {
+        return btnsActualizar;
+    }
 
-
-	public Properties getProp() {
-		return prop;
-	}
-
-
-	public void setProp(Properties prop) {
-		this.prop = prop;
-	}
-
-
-	public void setBtnVolver(JButton btnVolver) {
-		this.btnVolver = btnVolver;
-	}
-
-
-	public void setBtnCrearEquipo(JButton btnCrearEquipo) {
-		this.btnCrearEquipo = btnCrearEquipo;
-	}
-
-
-	public void setTxtNombreEquipo1(JTextField txtNombreEquipo1) {
-		this.txtNombreEquipo1 = txtNombreEquipo1;
-	}
-
-
-	public void setTxtPais(JTextField txtPais) {
-		this.txtPais = txtPais;
-	}
-
-
-	public ArrayList<JButton> getBtnsEliminar() {
-		return btnsEliminar;
-	}
-
-
-	public void setBtnsEliminar(ArrayList<JButton> btnsEliminar) {
-		this.btnsEliminar = btnsEliminar;
-	}
-
-
-	public ArrayList<JButton> getBtnsActualizar() {
-		return btnsActualizar;
-	}
-
-
-	public void setBtnsActualizar(ArrayList<JButton> btnsActualizar) {
-		this.btnsActualizar = btnsActualizar;
-	}
+    /**
+     * Establece la lista de botones para actualizar equipos.
+     * @param btnsActualizar Lista de JButton a establecer.
+     */
+    public void setBtnsActualizar(ArrayList<JButton> btnsActualizar) {
+        this.btnsActualizar = btnsActualizar;
+    }
 }

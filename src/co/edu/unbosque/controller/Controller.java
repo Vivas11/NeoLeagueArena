@@ -52,20 +52,31 @@ import co.edu.unbosque.view.VentanaTablaTorneo;
 import co.edu.unbosque.view.ViewFacade;
 
 /**
- * Clase Controlador que maneja la interacción entre el modelo y la vista.
- * Implementa ActionListener para gestionar las acciones del usuario.
+ * Controlador principal de la aplicación NeoLeagueArena.
+ * Gestiona la interacción entre la vista y el modelo, y responde a los eventos de la interfaz gráfica.
  */
 public class Controller implements ActionListener {
 
-	/** Facade para gestionar la capa del modelo. */
-	private ModelFacade mf;
+	 /** Facade para gestionar la capa del modelo. */
+    private ModelFacade mf;
 
-	/** Facade para gestionar la capa de la vista. */
-	private ViewFacade vf;
-	private Properties prop;
-	private MailService ms;
-	private Boolean english;
+    /** Facade para gestionar la capa de la vista. */
+    private ViewFacade vf;
 
+    /** Propiedades de configuración e internacionalización. */
+    private Properties prop;
+
+    /** Servicio de correo electrónico. */
+    private MailService ms;
+
+    /** Indica si el idioma actual es inglés. */
+    private Boolean english;
+
+	/**
+     * Constructor de la clase Controller.
+     * Inicializa las propiedades, el modelo, la vista y el usuario administrador por defecto.
+     * @throws IOException Si ocurre un error al cargar los archivos de propiedades.
+     */
 	public Controller() throws IOException {
 		prop = new Properties();
 		ms = new MailService();
@@ -83,12 +94,16 @@ public class Controller implements ActionListener {
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
 	}
-
+	/**
+     * Inicia la aplicación mostrando la ventana principal y asignando los listeners.
+     */
 	public void run() {
 		vf.getVp().setVisible(true);
 		asignarLectores();
 	}
-
+	 /**
+     * Asigna los listeners a los componentes principales de la interfaz.
+     */
 	public void asignarLectores() {
 		vf.getVp().getPnP().getBtnIniciarS().addActionListener(this);
 		vf.getVp().getPnP().getBtnIniciarS().setActionCommand("btnPanelIniciarS");
@@ -178,11 +193,10 @@ public class Controller implements ActionListener {
 	}
 
 	/**
-	 * Método que gestiona las acciones realizadas por el usuario en la interfaz
-	 * gráfica.
-	 * 
-	 * @param e Evento de acción generado por el usuario.
-	 */
+     * Método que gestiona las acciones realizadas por el usuario en la interfaz gráfica.
+     * 
+     * @param e Evento de acción generado por el usuario.
+     */
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
@@ -254,12 +268,10 @@ public class Controller implements ActionListener {
 				try {
 					vf.getVp().refrescarUI(prop);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				break;
 			}else {
-				System.out.println("aingles");
 				try {
 					prop.load(new FileInputStream(new File("src/archivos/english.properties")));
 					english= true;
@@ -271,7 +283,6 @@ public class Controller implements ActionListener {
 				try {
 					vf.getVp().refrescarUI(prop);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				break;
@@ -804,11 +815,10 @@ public class Controller implements ActionListener {
 	}
 
 	/**
-	 * Método que asigna las funciones específicas a los componentes según el tipo
-	 * de usuario.
-	 * 
-	 * @param tipoUsuario Tipo de usuario (Jugador, Entrenador, Administrador).
-	 */
+     * Asigna las funciones específicas a los componentes según el tipo.
+     * 
+     * @param tipoUsuario Tipo(Jugador, Entrenador, Administrador, Equipo, Partida, etc.).
+     */
 	public void asignarComponentes(String tipoUsuario) {
 		switch (tipoUsuario) {
 		case "Jugador": {
@@ -1450,9 +1460,6 @@ public class Controller implements ActionListener {
 						}
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.actualizacioncorrecta"));
 
-					} else {
-						vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.fechainvalida"));
-						return;
 					}
 					mf.getTorneoLigaDAO().escribirSerializado();
 					mf.getTorneoLlaveDAO().escribirSerializado();

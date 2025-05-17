@@ -9,21 +9,40 @@ import java.util.Properties;
 
 import co.edu.unbosque.model.Equipo;
 
+/**
+ * Ventana para seleccionar equipos de una lista disponible.
+ * Permite al usuario seleccionar equipos de un JComboBox y agregarlos a una lista visual.
+ * Incluye controles para agregar equipos y visualizar los seleccionados.
+ */
 public class SelectorEquipo extends JFrame {
-	private Properties prop;
+    /** Propiedades de configuración utilizadas para cargar textos y recursos. */
+    private Properties prop;
+    /** ComboBox para seleccionar equipos disponibles. */
     private JComboBox<String> comboEquipos;
+    /** Botón para agregar el equipo seleccionado a la lista. */
     private JButton btnAgregar;
+    /** Modelo de lista para mostrar los equipos seleccionados. */
     private DefaultListModel<String> modeloLista;
+    /** Lista visual de equipos seleccionados. */
     private JList<String> listaEquiposTexto;
+    /** Lista interna de nombres de equipos seleccionados. */
     private ArrayList<String> listaEquipos;
+    /** Scroll para la lista de equipos seleccionados. */
     private JScrollPane scrollPane;
-    
+
+    /**
+     * Constructor de la ventana de selección de equipos.
+     * 
+     * @param equipos  Lista de equipos disponibles.
+     * @param cantidad Cantidad máxima de equipos a seleccionar (no usado en la lógica actual).
+     * @param prop     Propiedades de configuración para textos y recursos.
+     */
     public SelectorEquipo(ArrayList<Equipo> equipos, int cantidad, Properties prop) {
-    	this.prop = prop;
+        this.prop = prop;
         setLayout(null);
         setBounds(0, 0, 400, 300);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         JLabel lblSeleccionarEquipo = new JLabel(prop.getProperty("archivospropiedad.interfaz.seleccionarequipo"));
         lblSeleccionarEquipo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -48,13 +67,13 @@ public class SelectorEquipo extends JFrame {
         add(scrollPane);
 
         listaEquipos = new ArrayList<>();
-        
+
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String equipoSeleccionado = (String) comboEquipos.getSelectedItem();
                 if (equipoSeleccionado != null && !modeloLista.contains(equipoSeleccionado)) {
-                	listaEquipos.add(equipoSeleccionado);
+                    listaEquipos.add(equipoSeleccionado);
                     modeloLista.addElement(equipoSeleccionado);
                 } else {
                     JOptionPane.showMessageDialog(null, prop.getProperty("archivospropiedad.emergente.equiponovalido"), "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -73,59 +92,59 @@ public class SelectorEquipo extends JFrame {
         return this.listaEquipos;
     }
 
-	public Properties getProp() {
-		return prop;
-	}
+    public Properties getProp() {
+        return prop;
+    }
 
-	public void setProp(Properties prop) {
-		this.prop = prop;
-	}
+    public void setProp(Properties prop) {
+        this.prop = prop;
+    }
 
-	public JComboBox<String> getComboEquipos() {
-		return comboEquipos;
-	}
+    public JComboBox<String> getComboEquipos() {
+        return comboEquipos;
+    }
 
-	public void setComboEquipos(JComboBox<String> comboEquipos) {
-		this.comboEquipos = comboEquipos;
-	}
+    public void setComboEquipos(JComboBox<String> comboEquipos) {
+        this.comboEquipos = comboEquipos;
+    }
 
-	public JButton getBtnAgregar() {
-		return btnAgregar;
-	}
+    public JButton getBtnAgregar() {
+        return btnAgregar;
+    }
 
-	public void setBtnAgregar(JButton btnAgregar) {
-		this.btnAgregar = btnAgregar;
-	}
+    public void setBtnAgregar(JButton btnAgregar) {
+        this.btnAgregar = btnAgregar;
+    }
 
-	public DefaultListModel<String> getModeloLista() {
-		return modeloLista;
-	}
+    public DefaultListModel<String> getModeloLista() {
+        return modeloLista;
+    }
 
-	public void setModeloLista(DefaultListModel<String> modeloLista) {
-		this.modeloLista = modeloLista;
-	}
+    public void setModeloLista(DefaultListModel<String> modeloLista) {
+        this.modeloLista = modeloLista;
+    }
 
-	public JList<String> getListaEquiposTexto() {
-		return listaEquiposTexto;
-	}
+    public JList<String> getListaEquiposTexto() {
+        return listaEquiposTexto;
+    }
 
-	public void setListaEquiposTexto(JList<String> listaEquiposTexto) {
-		this.listaEquiposTexto = listaEquiposTexto;
-	}
+    public void setListaEquiposTexto(JList<String> listaEquiposTexto) {
+        this.listaEquiposTexto = listaEquiposTexto;
+    }
 
-	public ArrayList<String> getListaEquipos() {
-		return listaEquipos;
-	}
+    public ArrayList<String> getListaEquipos() {
+        return listaEquipos;
+    }
 
-	public void setListaEquipos(ArrayList<String> listaEquipos) {
-		this.listaEquipos = listaEquipos;
-	}
+    public void setListaEquipos(ArrayList<String> listaEquipos) {
+        this.listaEquipos = listaEquipos;
+    }
 
-	public JScrollPane getScrollPane() {
-		return scrollPane;
-	}
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
 
-	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
-	}
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 }

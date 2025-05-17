@@ -5,21 +5,37 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.Entrenador;
 import co.edu.unbosque.model.EntrenadorDTO;
 
+/**
+ * DAO para la gestión de entrenadores en el sistema.
+ * Permite operaciones CRUD y serialización de datos.
+ */
 public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
 
+    /** Nombre del archivo serializado para almacenar objetos de tipo entrenador. */
     private final String SERIAL_FILE_NAME = "entrenador.dat";
 
+    /** Lista de objetos de tipo entrenador gestionados por este DAO. */
     private ArrayList<Entrenador> listaEntrenadores;
 
+    /**
+     * Constructor que inicializa la lista y carga los datos serializados.
+     */
     public EntrenadorDAO() {
         listaEntrenadores = new ArrayList<>();
         cargarSerializado();
     }
 
+    /**
+     * Escribe la lista de entrenadores en un archivo serializado.
+     */
     public void escribirSerializado() {
         FileManager.escribirArchivoSerializado(SERIAL_FILE_NAME, listaEntrenadores);
     }
 
+    /**
+     * Carga la lista de entrenadores desde un archivo serializado.
+     * Si el archivo no existe, inicializa una nueva lista vacía.
+     */
     public void cargarSerializado() {
         listaEntrenadores = (ArrayList<Entrenador>) FileManager.leerArchivoSerialziado(SERIAL_FILE_NAME);
         if (listaEntrenadores == null) {
@@ -27,6 +43,10 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         }
     }
 
+    /**
+     * Muestra todos los entrenadores en la lista.
+     * @return Una cadena con la información de todos los entrenadores.
+     */
     @Override
     public String showAll() {
         String rta = "";
@@ -40,11 +60,20 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         }
     }
 
+    /**
+     * Obtiene una lista de objetos EntrenadorDTO a partir de la lista de entrenadores.
+     * @return Lista de EntrenadorDTO.
+     */
     @Override
     public ArrayList<EntrenadorDTO> getAll() {
         return DataMapper.listEntrenadorToListEntrenadorDTO(listaEntrenadores);
     }
 
+    /**
+     * Agrega un nuevo entrenador a la lista.
+     * @param newData Datos del nuevo entrenador.
+     * @return true si se agregó correctamente, false si ya existía.
+     */
     @Override
     public boolean add(EntrenadorDTO newData) {
         if (find(DataMapper.entrenadorDTOToEntrenador(newData)) == null) {
@@ -56,6 +85,11 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         }
     }
 
+    /**
+     * Elimina un entrenador de la lista.
+     * @param toDelete Datos del entrenador a eliminar.
+     * @return true si se eliminó correctamente, false si no se encontró.
+     */
     @Override
     public boolean delete(EntrenadorDTO toDelete) {
         Entrenador found = find(DataMapper.entrenadorDTOToEntrenador(toDelete));
@@ -68,6 +102,11 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         }
     }
 
+    /**
+     * Busca un entrenador en la lista.
+     * @param toFind Entrenador a buscar.
+     * @return El entrenador encontrado, o null si no se encuentra.
+     */
     @Override
     public Entrenador find(Entrenador toFind) {
         if (toFind == null) {
@@ -82,6 +121,12 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         return null; // Si no se encuentra, retorna null
     }
 
+    /**
+     * Actualiza los datos de un entrenador en la lista.
+     * @param previous Datos anteriores del entrenador.
+     * @param newData Nuevos datos del entrenador.
+     * @return true si se actualizó correctamente, false si no se encontró.
+     */
     @Override
     public boolean update(EntrenadorDTO previous, EntrenadorDTO newData) {
         Entrenador found = find(DataMapper.entrenadorDTOToEntrenador(previous));
@@ -95,10 +140,18 @@ public class EntrenadorDAO implements OperacionDAO<EntrenadorDTO, Entrenador> {
         }
     }
 
+    /**
+     * Obtiene la lista de entrenadores.
+     * @return Lista de entrenadores.
+     */
     public ArrayList<Entrenador> getListaEntrenadores() {
         return listaEntrenadores;
     }
 
+    /**
+     * Establece la lista de entrenadores.
+     * @param listaEntrenadores Nueva lista de entrenadores.
+     */
     public void setListaEntrenadores(ArrayList<Entrenador> listaEntrenadores) {
         this.listaEntrenadores = listaEntrenadores;
     }

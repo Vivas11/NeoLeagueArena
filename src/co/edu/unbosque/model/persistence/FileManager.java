@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 /**
  * Clase que proporciona métodos para la gestión de archivos, incluyendo lectura
  * y escritura de archivos de texto y serializados, así como la creación de
- * carpetas.
+ * carpetas y guardado de imágenes.
  */
 public class FileManager {
 

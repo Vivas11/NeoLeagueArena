@@ -3,25 +3,20 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 
 /**
- * Representa un usuario abstracto que implementa la interfaz Serializable.
+ * Representa un usuario abstracto del sistema.
+ * Implementa la interfaz Serializable.
  */
 public abstract class Usuario implements Serializable {
 
-    /**
-     * Nombre del usuario.
-     */
+    /** Nombre del usuario. */
     private String nombre;
 
-    /**
-     * Contraseña del usuario.
-     */
+    /** Contraseña del usuario. */
     private String contrasena;
 
-    /**
-     * Correo del usuario.
-     */
+    /** Correo electrónico del usuario. */
     private String correo;
-    
+
     /**
      * Constructor por defecto que inicializa un usuario sin datos.
      */
@@ -30,10 +25,11 @@ public abstract class Usuario implements Serializable {
     }
 
     /**
-     * Constructor que inicializa un usuario con un nombre y una contraseña.
+     * Constructor que inicializa un usuario con nombre, contraseña y correo.
      *
      * @param nombre     el nombre del usuario.
      * @param contrasena la contraseña del usuario.
+     * @param correo     el correo electrónico del usuario.
      */
     public Usuario(String nombre, String contrasena, String correo) {
         super();
@@ -44,7 +40,6 @@ public abstract class Usuario implements Serializable {
 
     /**
      * Obtiene el nombre del usuario.
-     *
      * @return el nombre del usuario.
      */
     public String getNombre() {
@@ -53,7 +48,6 @@ public abstract class Usuario implements Serializable {
 
     /**
      * Establece el nombre del usuario.
-     *
      * @param nombre el nuevo nombre del usuario.
      */
     public void setNombre(String nombre) {
@@ -62,7 +56,6 @@ public abstract class Usuario implements Serializable {
 
     /**
      * Obtiene la contraseña del usuario.
-     *
      * @return la contraseña del usuario.
      */
     public String getContrasena() {
@@ -70,17 +63,15 @@ public abstract class Usuario implements Serializable {
     }
 
     /**
-     * Establece el correo del usuario.
-     *
-     * @param correo la nueva contraseña del usuario.
+     * Establece la contraseña del usuario.
+     * @param contrasena la nueva contraseña del usuario.
      */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
-     * Obtiene el correo del usuario.
-     *
+     * Obtiene el correo electrónico del usuario.
      * @return el correo del usuario.
      */
     public String getCorreo() {
@@ -88,18 +79,15 @@ public abstract class Usuario implements Serializable {
     }
 
     /**
-     * Establece la contraseña del usuario.
-     *
-     * @param contrasena la nueva contraseña del usuario.
+     * Establece el correo electrónico del usuario.
+     * @param correo el nuevo correo del usuario.
      */
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
-// gay
-    
+
     /**
      * Devuelve una representación en cadena del objeto Usuario.
-     *
      * @return una cadena que representa al usuario.
      */
     @Override

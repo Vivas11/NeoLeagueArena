@@ -9,47 +9,94 @@ import java.util.Collections;
 
 import co.edu.unbosque.model.persistence.DataMapper;
 
+/**
+ * Data Transfer Object para la entidad TorneoLlave.
+ */
 public class TorneoLlaveDTO extends Torneo implements Serializable {
 
+    /** Cantidad de fases del torneo. */
     private int cantidadFase;
 
+    /**
+     * Constructor por defecto.
+     */
     public TorneoLlaveDTO() {
         super();
     }
 
+    /**
+     * Constructor que inicializa el nombre y el juego del torneo.
+     * 
+     * @param nombre Nombre del torneo.
+     * @param juego  Juego del torneo.
+     */
     public TorneoLlaveDTO(String nombre, String juego) {
         super(nombre, juego);
     }
 
+    /**
+     * Constructor que inicializa la cantidad de fases del torneo.
+     * 
+     * @param cantidadFase Cantidad de fases del torneo.
+     */
     public TorneoLlaveDTO(int cantidadFase) {
-		super();
-		this.cantidadFase = cantidadFase;
-	}
-    
-	public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos, ArrayList<Partida> partidas,
-			Equipo ganador, int cantidadFase) {
-		super(nombre, juego, equipos, partidas, ganador);
-		this.cantidadFase = cantidadFase;
-	}
+        super();
+        this.cantidadFase = cantidadFase;
+    }
 
-	public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos, ArrayList<Partida> partidas) {
+    /**
+     * Constructor que inicializa todos los atributos del torneo.
+     * 
+     * @param nombre      Nombre del torneo.
+     * @param juego       Juego del torneo.
+     * @param equipos     Lista de equipos participantes.
+     * @param partidas    Lista de partidas del torneo.
+     * @param ganador     Equipo ganador del torneo.
+     * @param cantidadFase Cantidad de fases del torneo.
+     */
+    public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos, ArrayList<Partida> partidas,
+            Equipo ganador, int cantidadFase) {
+        super(nombre, juego, equipos, partidas, ganador);
+        this.cantidadFase = cantidadFase;
+    }
+
+    /**
+     * Constructor que inicializa el nombre, el juego, los equipos y las partidas del torneo.
+     * 
+     * @param nombre   Nombre del torneo.
+     * @param juego    Juego del torneo.
+     * @param equipos  Lista de equipos participantes.
+     * @param partidas Lista de partidas del torneo.
+     */
+    public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos, ArrayList<Partida> partidas) {
         super(nombre, juego);
         setEquipos(equipos);
         setPartidas(partidas);
     }
 
-	public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos) {
+    /**
+     * Constructor que inicializa el nombre, el juego y los equipos del torneo.
+     * 
+     * @param nombre  Nombre del torneo.
+     * @param juego   Juego del torneo.
+     * @param equipos Lista de equipos participantes.
+     */
+    public TorneoLlaveDTO(String nombre, String juego, ArrayList<Equipo> equipos) {
         super(nombre, juego, equipos);
-        //crearFase(equipos);
     }
-	
-	public void crearFase(ArrayList<Equipo> equipos) {
+
+    /**
+     * Método para crear las fases del torneo.
+     * 
+     * @param equipos Lista de equipos participantes.
+     */
+    public void crearFase(ArrayList<Equipo> equipos) {
 
         int cantidadFase = (int) (Math.log(equipos.size()) / Math.log(2));
         setCantidadFase(cantidadFase);
 
-		ZonedDateTime fechaColombia = ZonedDateTime.now(ZoneId.of("America/Bogota"));
-		ZonedDateTime fechaPartido = fechaColombia.plusDays(1);
+        ZonedDateTime fechaColombia = ZonedDateTime.now(ZoneId.of("America/Bogota"));
+        ZonedDateTime fechaPartido = fechaColombia.plusDays(1);
 
         ArrayList<Partida> partidas = new ArrayList<>();
 
@@ -62,38 +109,31 @@ public class TorneoLlaveDTO extends Torneo implements Serializable {
                 Date.from(fechaPartido.toInstant()),
                 this.getJuego(),
                 DataMapper.torneoLlaveDTOToTorneoLlave(this)
-            ));
-			fechaPartido = fechaPartido.plusDays(1);
+             ));
+            fechaPartido = fechaPartido.plusDays(1);
         }
         setPartidas(partidas);
-	}
-//	public void crearFasesPost(ArrayList<Equipo> equipos) {
-//		
-//		ZonedDateTime fechaColombia = ZonedDateTime.now(ZoneId.of("America/Bogota"));
-//		ZonedDateTime fechaPartido = fechaColombia.plusDays(1);
-//		
-//		ArrayList<Partida> partidas = new ArrayList<>();
-//		partidas.addAll(getPartidas());
-//		
-//		for (int i = 0; i < equipos.size(); i += 2) {
-//
-//			partidas.add(new Partida(equipos.get(i), equipos.get(i + 1), Date.from(fechaPartido.toInstant()),
-//					this.getJuego(), DataMapper.torneoLlaveDTOToTorneoLlave(this)));
-//			fechaPartido = fechaPartido.plusDays(1);
-//		}
-//		setPartidas(partidas);
-//	}
-//	
+    }
+
+    /**
+     * Obtiene la cantidad de fases del torneo.
+     * 
+     * @return Cantidad de fases del torneo.
+     */
     public int getCantidadFase() {
-		return cantidadFase;
-	}
+        return cantidadFase;
+    }
 
-	public void setCantidadFase(int cantidadFase) {
-		this.cantidadFase = cantidadFase;
-	}
+    /**
+     * Establece la cantidad de fases del torneo.
+     * 
+     * @param cantidadFase Cantidad de fases del torneo.
+     */
+    public void setCantidadFase(int cantidadFase) {
+        this.cantidadFase = cantidadFase;
+    }
 
-
-	@Override
+    @Override
     public String toString() {
         return "TorneoLlave{" + super.toString() + "}";
     }
