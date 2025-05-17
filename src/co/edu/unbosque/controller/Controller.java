@@ -79,14 +79,6 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
-		
-		
-		for (Equipo e : mf.getEquipoDAO().getListaEquipos()) {
-			System.out.println(e.getNombre());
-			for (Partida p : e.getPartidosJugados()) {
-				System.out.println(p.getGanador().getNombre());
-			}
-		}
 	}
 
 	public void run() {
@@ -563,6 +555,9 @@ public class Controller implements ActionListener {
 			break;
 		}
 		case "btnAdminT": {
+			vf.getVp().getpAdminT().actualizarInfo(mf.obtenerTodosTorneos());
+			asignarComponentes("TorneoAdmin");
+			
 			vf.getVp().getpAdminT().setVisible(true);
 			vf.getVp().getpAdmin().setVisible(false);
 			break;
@@ -1435,6 +1430,26 @@ public class Controller implements ActionListener {
 							mf.getEquipoDAO().getListaEquipos());
 					vf.getVp().getpAdminE().actualizarInfo();
 					asignarComponentes("EquipoAdmin");
+				});
+			}
+			break;
+		}
+		
+		case "TorneoAdmin": {
+			for (JButton btn : vf.getVp().getpAdminT().getBtnsEliminar()) {
+				btn.setActionCommand(String.valueOf(vf.getVp().getpAdminT().getBtnsEliminar().indexOf(btn)));
+				btn.addActionListener(e -> {
+					int indice = Integer.parseInt(e.getActionCommand());
+					ArrayList<Torneo> tors = mf.obtenerTodosTorneos();
+					if(tors.get(indice) instanceof TorneoLlave) {
+						mf.getTorneoLlaveDAO().delete(DataMapper.torneoLlaveToTorneoLlaveDTO(mf.getTorneoLlaveDAO().getListaTorneos().get(indice)));
+					}else if(tors.get(indice) instanceof TorneoLiga) {
+						mf.getTorneoLigaDAO().delete(DataMapper.torneoLigaToTorneoLigaDTO(mf.getTorneoLigaDAO().getListaTorneos().get(indice)));
+					}
+					
+					
+					vf.getVp().getpAdminT().actualizarInfo(mf.obtenerTodosTorneos());
+					asignarComponentes("TorneoAdmin");
 				});
 			}
 			break;

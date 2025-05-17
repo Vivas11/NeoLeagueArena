@@ -638,14 +638,14 @@ public class PanelTarjeta extends JPanel {
 
 		String ganador = (torneo.getGanador() != null) ? torneo.getGanador().getNombre() : "El torneo sigue en curso";
 		JLabel lblGanador = new JLabel(ganador);
-		lblGanador.setBounds(130, 130, 400, 25);
+		lblGanador.setBounds(130, 133, 400, 25);
 		lblGanador.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblGanador.setForeground(Color.WHITE);
 		add(lblGanador);
 
 		String tipo = (torneo instanceof co.edu.unbosque.model.TorneoLiga) ? "Liga" : "Eliminación directa";
 		JLabel lblTipo = new JLabel(tipo);
-		lblTipo.setBounds(120, 180, 400, 25);
+		lblTipo.setBounds(115, 182, 400, 25);
 		lblTipo.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblTipo.setForeground(Color.WHITE);
 		add(lblTipo);

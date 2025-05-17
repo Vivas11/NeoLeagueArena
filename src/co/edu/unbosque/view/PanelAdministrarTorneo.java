@@ -1,5 +1,6 @@
 package co.edu.unbosque.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +21,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 
+import co.edu.unbosque.model.Partida;
 import co.edu.unbosque.model.Torneo;
 
 public class PanelAdministrarTorneo extends JPanel{
@@ -29,6 +32,7 @@ public class PanelAdministrarTorneo extends JPanel{
 	private JLabel fondo;
 	private Properties prop;
 	private JButton btnVolver, btnCrear;
+	private ArrayList<JButton> btnsEliminar;
 	/** Campo de texto para el nombre de usuario. */
 	private JTextField nombreTorneo;
 	private JTextField nombreJuego;
@@ -38,6 +42,7 @@ public class PanelAdministrarTorneo extends JPanel{
 	private JSpinner numeroEquipo;
 	
 	public PanelAdministrarTorneo(Properties prop) throws IOException {
+		btnsEliminar = new ArrayList<>();
 		this.prop = prop;
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
@@ -83,6 +88,18 @@ public class PanelAdministrarTorneo extends JPanel{
 		
 		//Parte izquierda
 		
+		panelContenido = new JPanel();
+		panelContenido.setBackground(new Color(198, 195, 195));
+		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
+
+		agregarTorneo(-1, new ArrayList<>());
+
+		scrollPane = new JScrollPane(panelContenido);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(0, 200, 660, 360);
+
+		add(scrollPane);
+		
 		fondo = new JLabel();
 		BufferedImage fd = ImageIO.read(new File(prop.getProperty("archivospropiedad.fondo.administrartorneos")));
 		ImageIcon imagenFondo = new ImageIcon(fd);
@@ -104,27 +121,45 @@ public class PanelAdministrarTorneo extends JPanel{
 	}
 	
 	/**
-     * Agrega productos con sus botones correspondientes al panel.
-     * 
-     * @param cantidad   Cantidad de productos a agregar.
-     * @param listaDatos Lista con la información de cada producto.
-     */
-    public void agregarProducto(int cantidad, ArrayList<Torneo> listaDatos) {
-       
-    }
+	 * Agrega productos con sus botones correspondientes al panel.
+	 * 
+	 * @param cantidad   Cantidad de productos a agregar.
+	 * @param listaDatos Lista con la información de cada producto.
+	 */
+	public void agregarTorneo(int cantidad, ArrayList<Torneo> listaDatos) {
+		if (cantidad == -1) {
+			return;
+		}
 
+		btnsEliminar.clear();	
+		panelContenido.removeAll();
 
-    /**
-     * Actualiza la información mostrada en el panel.
-     * 
-     * @param listaDatos Lista con la nueva información de los productos.
-     */
-    public void actualizarInfo(ArrayList<Torneo> listaDatos) {
-        panelContenido.removeAll();
-        agregarProducto(listaDatos.size(), listaDatos);
-        revalidate();
-        repaint();
-    }
+		String rutaFondo = prop.getProperty("archivospropiedad.fondo.tarjetatorneoadmin");
+
+		for (int i = 0; i < cantidad; i++) {
+			PanelTarjeta tarjeta = new PanelTarjeta(listaDatos.get(i), rutaFondo, prop, true);
+			btnsEliminar.add(tarjeta.getEliminar());
+			panelContenido.add(tarjeta);
+		}
+
+		panelContenido.setPreferredSize(new java.awt.Dimension(640, 360 * cantidad));
+
+		panelContenido.revalidate();
+		panelContenido.repaint();
+	}
+
+	/**
+	 * Actualiza la información mostrada en el panel.
+	 * 
+	 * @param listaDatos Lista con la nueva información de las partidas.
+	 */
+	public void actualizarInfo(ArrayList<Torneo> listaDatos) {
+		panelContenido.removeAll();
+		agregarTorneo(listaDatos.size(), listaDatos);
+		revalidate();
+		repaint();
+	}
+	
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
@@ -184,6 +219,12 @@ public class PanelAdministrarTorneo extends JPanel{
 	}
 	public void setNumeroEquipo(JSpinner numeroEquipo) {
 		this.numeroEquipo = numeroEquipo;
+	}
+	public ArrayList<JButton> getBtnsEliminar() {
+		return btnsEliminar;
+	}
+	public void setBtnsEliminar(ArrayList<JButton> btnsEliminar) {
+		this.btnsEliminar = btnsEliminar;
 	}
     
     
