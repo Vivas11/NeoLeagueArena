@@ -742,7 +742,7 @@ public class PanelTarjeta extends JPanel {
      * @param jugador Jugador del que se obtiene la imagen.
      * @return ImageIcon de la imagen asignada.
      */
-    private ImageIcon asignarImagen(Jugador jugador) {
+    public ImageIcon asignarImagen(Jugador jugador) {
         try {
             String ruta = jugador.getImagen();
             ruta = ruta.replace("\\", "/"); // Convertir rutas Windows a formato válido
@@ -760,7 +760,7 @@ public class PanelTarjeta extends JPanel {
      * @param entrenador Entrenador del que se obtiene la imagen.
      * @return ImageIcon de la imagen asignada.
      */
-    private ImageIcon asignarImagen(Entrenador entrenador) {
+    public ImageIcon asignarImagen(Entrenador entrenador) {
         try {
             String ruta = entrenador.getImagen();
             ruta = ruta.replace("\\", "/"); // Convertir rutas Windows a formato válido
@@ -778,7 +778,7 @@ public class PanelTarjeta extends JPanel {
      * @param equipo Equipo del que se obtiene la imagen.
      * @return ImageIcon de la imagen asignada.
      */
-    private ImageIcon asignarImagen(Equipo equipo) {
+    public ImageIcon asignarImagen(Equipo equipo) {
         try {
             String ruta = equipo.getImagen();
             ruta = ruta.replace("\\", "/"); // Convertir rutas Windows a formato válido

@@ -42,7 +42,7 @@ public class VentanaTablaTorneo extends JFrame {
      * 
      * @param liga Torneo de tipo liga.
      */
-    private void mostrarTablaLiga(TorneoLiga liga) {
+    public void mostrarTablaLiga(TorneoLiga liga) {
         Map<Equipo, Integer> puntos = liga.getPuntos();
         List<Map.Entry<Equipo, Integer>> lista = new ArrayList<>(puntos.entrySet());
 
@@ -80,7 +80,7 @@ public class VentanaTablaTorneo extends JFrame {
      * 
      * @param llave Torneo de tipo llave.
      */
-    private void mostrarLlave(TorneoLlave llave) {
+    public void mostrarLlave(TorneoLlave llave) {
         JTextArea area = new JTextArea();
         area.setEditable(false);
 
