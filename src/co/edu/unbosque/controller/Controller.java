@@ -431,9 +431,13 @@ public class Controller implements ActionListener {
 					break;
 				}
 				case "Jugador": {
+					try {
 					ExceptionCheker.checkerCountry(ciudad);
 					ExceptionCheker.checkerCountry(pais);
-
+					}catch (CountryException ce) {
+						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.paiserror"));
+						return;
+					}
 					// SelectorImagen
 					String imagen = "src/archivos/imagenperfil/";
 					File selectedFile = vf.getVemer().seleccionarArchivo();
@@ -477,8 +481,13 @@ public class Controller implements ActionListener {
 					break;
 				}
 				case "Entrenador": {
-					ExceptionCheker.checkerCountry(ciudad);
-					ExceptionCheker.checkerCountry(pais);
+					try {
+						ExceptionCheker.checkerCountry(ciudad);
+						ExceptionCheker.checkerCountry(pais);
+						}catch (CountryException ce) {
+							vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.paiserror"));
+							return;
+						}
 
 					// SelectorImagen
 					String imagen = "src/archivos/imagenperfil/";
@@ -549,9 +558,6 @@ public class Controller implements ActionListener {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.simbolo"));
 			} catch (MailException e1) {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correo"));
-			} catch (CountryException e1) {
-				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.paiserror"));
-				e1.printStackTrace();
 			} catch (ImageException e1) {
 				vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.imagen"));
 			}
