@@ -415,6 +415,10 @@ public class Controller implements ActionListener {
 				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.usuariorepetido"));
 				return;
 			}
+			if (usuario.isEmpty() || usuario.trim().isEmpty()) {
+				vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.caracteres"));
+				return;
+			}
 
 			try {
 				String selected = (String) vf.getVp().getPnlRegistro().getCbxTipoUsuario().getSelectedItem();
