@@ -180,4 +180,53 @@ public class PanelJugador extends JPanel {
     public void setProp(Properties prop) {
         this.prop = prop;
     }
+
+    /**
+     * Obtiene el scroll de la lista de usuarios.
+     * @return JScrollPane de la lista de usuarios.
+     */
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    /**
+     * Establece el scroll de la lista de usuarios.
+     * @param scrollPane JScrollPane a establecer.
+     */
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
+
+    /**
+     * Obtiene el panel que contiene la lista de usuarios.
+     * @return JPanel de contenido.
+     */
+    public JPanel getPanelContenido() {
+        return panelContenido;
+    }
+
+    /**
+     * Establece el panel que contiene la lista de usuarios.
+     * @param panelContenido JPanel a establecer.
+     */
+    public void setPanelContenido(JPanel panelContenido) {
+        this.panelContenido = panelContenido;
+    }
+
+	/**
+     * Obtiene el botón para volver a la pantalla anterior.
+     * @return JButton de volver.
+     */
+    public JButton getBtnVolverJugador() {
+        return btnVolverJugador;
+    }
+
+    /**
+     * Establece el botón para volver a la pantalla anterior.
+     * @param btnVolverJugador JButton a establecer.
+     */
+    public void setBtnVolverJugador(JButton btnVolverJugador) {
+        this.btnVolverJugador = btnVolverJugador;
+    }
+    
 }

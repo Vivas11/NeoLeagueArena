@@ -45,9 +45,22 @@ public class Partida implements Serializable {
      */
     private HashSet<Integer> generatedCodes = new HashSet<>();
 
+    /**
+     * Constructor vacio
+     */
     public Partida() {
     }
 
+    /**
+     * Constructor que inicializa una partida con los equipos, fecha, juego y torneo especificados.
+     * Asigna puntajes iniciales de -1, sin ganador, y genera un identificador único para la partida.
+     *
+     * @param equipoA Equipo A participante en la partida.
+     * @param equipoB Equipo B participante en la partida.
+     * @param fecha   Fecha en la que se juega la partida.
+     * @param juego   Nombre del juego de la partida.
+     * @param tor     Torneo al que pertenece la partida.
+     */
     public Partida(Equipo equipoA, Equipo equipoB, Date fecha, String juego, Torneo tor) {
         this.equipoA = equipoA;
         this.equipoB = equipoB;
@@ -78,92 +91,180 @@ public class Partida implements Serializable {
         return codigo;
     }
 
-    public int getPuntajeEquipoA() {
-        return puntajeEquipoA;
-    }
-
-    public void setPuntajeEquipoA(int puntajeEquipoA) {
-        this.puntajeEquipoA = puntajeEquipoA;
-    }
-
-    public int getPuntajeEquipoB() {
-        return puntajeEquipoB;
-    }
-
-    public void setPuntajeEquipoB(int puntajeEquipoB) {
-        this.puntajeEquipoB = puntajeEquipoB;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    /**
+     * Obtiene el equipo A de la partida.
+     * @return Equipo correspondiente al equipo A.
+     */
     public Equipo getEquipoA() {
         return equipoA;
     }
 
+    /**
+     * Establece el equipo A de la partida.
+     * @param equipoA Equipo a asignar como equipo A.
+     */
     public void setEquipoA(Equipo equipoA) {
         this.equipoA = equipoA;
     }
 
+    /**
+     * Obtiene el equipo B de la partida.
+     * @return Equipo correspondiente al equipo B.
+     */
     public Equipo getEquipoB() {
         return equipoB;
     }
 
+    /**
+     * Establece el equipo B de la partida.
+     * @param equipoB Equipo a asignar como equipo B.
+     */
     public void setEquipoB(Equipo equipoB) {
         this.equipoB = equipoB;
     }
 
+    /**
+     * Obtiene el equipo ganador de la partida.
+     * @return Equipo ganador.
+     */
     public Equipo getGanador() {
         return ganador;
     }
 
+    /**
+     * Establece el equipo ganador de la partida.
+     * @param ganador Equipo a asignar como ganador.
+     */
     public void setGanador(Equipo ganador) {
         this.ganador = ganador;
     }
 
+    /**
+     * Obtiene la fecha de la partida.
+     * @return Fecha de la partida.
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     * Establece la fecha de la partida.
+     * @param fecha Fecha a asignar.
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Obtiene el nombre del juego de la partida.
+     * @return Nombre del juego.
+     */
     public String getJuego() {
         return juego;
     }
 
+    /**
+     * Establece el nombre del juego de la partida.
+     * @param juego Nombre del juego.
+     */
     public void setJuego(String juego) {
         this.juego = juego;
     }
 
+    /**
+     * Obtiene el torneo al que pertenece la partida.
+     * @return Torneo de la partida.
+     */
     public Torneo getTor() {
         return tor;
     }
 
+    /**
+     * Establece el torneo al que pertenece la partida.
+     * @param tor Torneo a asignar.
+     */
     public void setTor(Torneo tor) {
         this.tor = tor;
     }
 
-    public HashSet<Integer> getGeneratedCodes() {
-        return generatedCodes;
+    /**
+     * Obtiene el identificador único de la partida.
+     * @return Identificador de la partida.
+     */
+    public int getId() {
+        return id;
     }
 
-    public void setGeneratedCodes(HashSet<Integer> generatedCodes) {
-        this.generatedCodes = generatedCodes;
+    /**
+     * Establece el identificador único de la partida.
+     * @param id Identificador a asignar.
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
+    /**
+     * Obtiene el puntaje del equipo A.
+     * @return Puntaje del equipo A.
+     */
+    public int getPuntajeEquipoA() {
+        return puntajeEquipoA;
+    }
+
+    /**
+     * Establece el puntaje del equipo A.
+     * @param puntajeEquipoA Puntaje a asignar al equipo A.
+     */
+    public void setPuntajeEquipoA(int puntajeEquipoA) {
+        this.puntajeEquipoA = puntajeEquipoA;
+    }
+
+    /**
+     * Obtiene el puntaje del equipo B.
+     * @return Puntaje del equipo B.
+     */
+    public int getPuntajeEquipoB() {
+        return puntajeEquipoB;
+    }
+
+    /**
+     * Establece el puntaje del equipo B.
+     * @param puntajeEquipoB Puntaje a asignar al equipo B.
+     */
+    public void setPuntajeEquipoB(int puntajeEquipoB) {
+        this.puntajeEquipoB = puntajeEquipoB;
+    }
+
+    /**
+     * Obtiene la fase del torneo en la que se juega la partida.
+     * @return Número de fase.
+     */
     public int getFase() {
         return fase;
     }
 
+    /**
+     * Establece la fase del torneo en la que se juega la partida.
+     * @param fase Número de fase.
+     */
     public void setFase(int fase) {
         this.fase = fase;
+    }
+
+    /**
+     * Obtiene el conjunto de códigos generados para la partida.
+     * @return HashSet de códigos generados.
+     */
+    public HashSet<Integer> getGeneratedCodes() {
+        return generatedCodes;
+    }
+
+    /**
+     * Establece el conjunto de códigos generados para la partida.
+     * @param generatedCodes HashSet de códigos a asignar.
+     */
+    public void setGeneratedCodes(HashSet<Integer> generatedCodes) {
+        this.generatedCodes = generatedCodes;
     }
 
     @Override

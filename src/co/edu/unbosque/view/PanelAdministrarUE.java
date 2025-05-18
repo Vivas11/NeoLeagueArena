@@ -185,7 +185,7 @@ public class PanelAdministrarUE extends JPanel {
      * Actualiza la información mostrada en el panel.
      * Refresca la visualización de los usuarios.
      * 
-     * @param listaDatos Lista con la nueva información de los usuarios.
+     * 
      */
     public void actualizarInfo() {
         panelContenido.revalidate();

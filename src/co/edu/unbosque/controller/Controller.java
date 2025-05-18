@@ -93,6 +93,7 @@ public class Controller implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
 		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
+		
 	}
 	/**
      * Inicia la aplicación mostrando la ventana principal y asignando los listeners.
@@ -1405,7 +1406,7 @@ public class Controller implements ActionListener {
 						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH");
 						String fechaFormateada = sdf.format(ps.get(indice).getFecha());
 
-						for (Jugador j : ps.get(indice).getEquipoA().getJugadores()) {
+						for (Jugador j : mf.getEquipoDAO().find(ps.get(indice).getEquipoA()).getJugadores()) {
 							if (j != null) {
 								ms.createEmail(j.getCorreo(), prop.getProperty("archivospropiedad.mail.asuntohorario"),
 										prop.getProperty("archivospropiedad.mail.mensajehorario")
@@ -1419,10 +1420,9 @@ public class Controller implements ActionListener {
 							}
 						}
 
-						for (Jugador j : ps.get(indice).getEquipoB().getJugadores()) {
+						for (Jugador j : mf.getEquipoDAO().find(ps.get(indice).getEquipoB()).getJugadores()) {
 
 							if (j != null) {
-								System.out.println(j.getCorreo());
 								ms.createEmail(j.getCorreo(), prop.getProperty("archivospropiedad.mail.asuntohorario"),
 										prop.getProperty("archivospropiedad.mail.mensajehorario")
 												+ "\n\nDatos actualizados del partido:\n" + "Equipo A: "
