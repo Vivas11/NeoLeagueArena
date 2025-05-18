@@ -1,7 +1,7 @@
 package co.edu.unbosque.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

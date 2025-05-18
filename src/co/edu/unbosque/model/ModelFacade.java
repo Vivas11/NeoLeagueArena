@@ -57,8 +57,10 @@ public class ModelFacade {
     }
     
     /**
-     * Obtiene una lista con todas las partidas de todos los torneos.
-     * @return Lista de todas las partidas.
+     * Obtiene una lista con todas las partidas de todos los torneos, ordenadas de la fecha más antigua a la más nueva.
+     * Si la fecha de la partida ya pasó, se pone de últimas en la lista.
+     * El ordenamiento se realiza usando el método de inserción.
+     * @return Lista de todas las partidas ordenadas por fecha ascendente, con las ya jugadas al final.
      */
     public ArrayList<Partida> obtenerTodasPartidas() {
         ArrayList<Partida> partidas = new ArrayList<>();
@@ -68,7 +70,29 @@ public class ModelFacade {
         for (Torneo torneo : torneoLlaveDAO.getListaTorneos()) {
             partidas.addAll(torneo.getPartidas());
         }
-        return partidas;
+        // Ordenar por fecha ascendente usando inserción
+        for (int i = 1; i < partidas.size(); i++) {
+            Partida actual = partidas.get(i);
+            int j = i - 1;
+            while (j >= 0 && partidas.get(j).getFecha().after(actual.getFecha())) {
+                partidas.set(j + 1, partidas.get(j));
+                j--;
+            }
+            partidas.set(j + 1, actual);
+        }
+        // Mover partidas cuya fecha ya pasó al final
+        ArrayList<Partida> futuras = new ArrayList<>();
+        ArrayList<Partida> pasadas = new ArrayList<>();
+        java.util.Date ahora = new java.util.Date();
+        for (Partida p : partidas) {
+            if (p.getFecha().after(ahora)) {
+                futuras.add(p);
+            } else {
+                pasadas.add(p);
+            }
+        }
+        futuras.addAll(pasadas);
+        return futuras;
     }
 
     /**
@@ -122,6 +146,51 @@ public class ModelFacade {
             eq=getEquipoDAO().getListaEquipos().getFirst();
         }
         return eq;
+    }
+    
+
+    /**
+     * Calcula el winrate (porcentaje de victorias) de un equipo como entero (0-100).
+     * @param equipo Equipo a consultar.
+     * @return Winrate del equipo (porcentaje entero entre 0 y 100), o 0 si no ha jugado partidas.
+     */
+    public int obtenerWinrateEquipo(Equipo equipo) {
+        int jugados = equipo.getPartidosJugados().size();
+        int ganados = 0;
+        for (Partida p : equipo.getPartidosJugados()) {
+            if (equipo.equals(p.getGanador())) {
+                ganados++;
+            }
+        }
+        if (jugados == 0) return 0;
+        return (int) Math.round(((double) ganados / jugados) * 100);
+    }
+
+    /**
+     * Calcula el winrate (porcentaje de victorias) de un jugador como entero (0-100).
+     * @param jugador Jugador a consultar.
+     * @return Winrate del jugador (porcentaje entero entre 0 y 100), o 0 si no ha jugado partidas.
+     */
+    public int obtenerWinrateJugador(Jugador jugador) {
+        int jugados = jugador.getPartidasJugadas();
+        int ganados = jugador.getPartidasGanadas();
+        if (jugados == 0) return 0;
+        return (int) Math.round(((double) ganados / jugados) * 100);
+    }
+
+    /**
+     * Obtiene la cantidad de victorias de un equipo.
+     * @param equipo Equipo a consultar.
+     * @return Número de partidas ganadas por el equipo.
+     */
+    public int obtenerVictoriasEquipo(Equipo equipo) {
+        int victorias = 0;
+        for (Partida p : equipo.getPartidosJugados()) {
+            if (equipo.equals(p.getGanador())) {
+                victorias++;
+            }
+        }
+        return victorias;
     }
     
     /**

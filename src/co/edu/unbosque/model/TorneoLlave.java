@@ -1,7 +1,7 @@
 package co.edu.unbosque.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -115,15 +115,14 @@ public class TorneoLlave extends Torneo implements Serializable {
      * @param equipos Equipos participantes.
      */
     public void crearFasesPost(ArrayList<Equipo> equipos) {
-
-        ZonedDateTime fechaColombia = ZonedDateTime.now(ZoneId.of("America/Bogota"));
-        ZonedDateTime fechaPartido = fechaColombia.plusDays(1);
+        Date fechaUltima = getPartidas().get(getPartidas().size() - 1).getFecha();
+        
+        ZonedDateTime fechaPartido = fechaUltima.toInstant().atZone(ZoneId.of("America/Bogota")).plusDays(1);
 
         ArrayList<Partida> partidas = new ArrayList<>();
         partidas.addAll(getPartidas());
 
         for (int i = 0; i < equipos.size(); i += 2) {
-
             partidas.add(new Partida(equipos.get(i), equipos.get(i + 1), Date.from(fechaPartido.toInstant()),
                     this.getJuego(), this));
             fechaPartido = fechaPartido.plusDays(1);

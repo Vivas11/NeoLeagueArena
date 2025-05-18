@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -241,11 +242,11 @@ public class Controller implements ActionListener {
 				
 				List<String> parrafos = Arrays.asList(
 			            prop.getProperty("archivospropiedad.informe.titulo"),
-			            prop.getProperty("archivospropiedad.informe.eqwinrate") + mf.equipoMayorWinrate().getNombre(),
-			            prop.getProperty("archivospropiedad.informe.eqvictorias") + mf.obtenerEquipoMasVictorias().getNombre(),
-			            prop.getProperty("archivospropiedad.informe.eqjugadas") + mf.getEquipoDAO().obtenerEquipoMasPartidos().getNombre(),
-			            prop.getProperty("archivospropiedad.informe.jgwinrate") + mf.jugadorMayorWinrate().getNombre(),
-			            prop.getProperty("archivospropiedad.informe.jgvictorias") + mf.obtenerJugadorMasVictorias().getNombre()
+			            prop.getProperty("archivospropiedad.informe.eqjugadas") + mf.getEquipoDAO().obtenerEquipoMasPartidos().getNombre() + "->" + mf.getEquipoDAO().obtenerEquipoMasPartidos().getPartidosJugados().size(),
+			            prop.getProperty("archivospropiedad.informe.eqvictorias") + mf.obtenerEquipoMasVictorias().getNombre()+ "->" + mf.obtenerVictoriasEquipo(mf.obtenerEquipoMasVictorias()),
+			            prop.getProperty("archivospropiedad.informe.eqwinrate") + mf.equipoMayorWinrate().getNombre()+ "->" + mf.obtenerWinrateEquipo(mf.equipoMayorWinrate())+ "%",
+			            prop.getProperty("archivospropiedad.informe.jgvictorias") + mf.obtenerJugadorMasVictorias().getNombre() + "->" + mf.obtenerJugadorMasVictorias().getPartidasGanadas(),
+			            prop.getProperty("archivospropiedad.informe.jgwinrate") + mf.jugadorMayorWinrate().getNombre()+ "->" + mf.obtenerWinrateJugador(mf.jugadorMayorWinrate())+ "%"
 			        );
 				
 				PdfManager.generarPDF(direccion + "/informe.pdf", parrafos);
@@ -787,8 +788,13 @@ public class Controller implements ActionListener {
 						if (mf.getEquipoDAO().add(new EquipoDTO(torneo, pais, imagen))) {
 							vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.correctoequipo"));
 						} else {
-							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.correctoequipo"));
+							vf.getVemer().mostrarError(prop.getProperty("archivospropiedad.emergente.errorequipo"));
 						}
+
+						vf.getVp().getpAdminE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
+								mf.getEquipoDAO().getListaEquipos());
+						vf.getVp().getpAdminE().actualizarInfo();
+						asignarComponentes("EquipoAdmin");
 						break;
 
 					} catch (IOException ex) {
@@ -1017,7 +1023,7 @@ public class Controller implements ActionListener {
 
 						vf.getVp().getPnE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
 								mf.getEquipoDAO().getListaEquipos());
-						vf.getVp().getpAdminUE().actualizarInfo();
+						vf.getVp().getPnE().actualizarInfo();
 						asignarComponentes("Equipo");
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.inscritoequipo"));
 
@@ -1045,7 +1051,7 @@ public class Controller implements ActionListener {
 
 						vf.getVp().getPnE().agregarEquipos(mf.getEquipoDAO().getListaEquipos().size(),
 								mf.getEquipoDAO().getListaEquipos());
-						vf.getVp().getpAdminUE().actualizarInfo();
+						vf.getVp().getPnE().actualizarInfo();
 						asignarComponentes("Equipo");
 						vf.getVemer().mostrar(prop.getProperty("archivospropiedad.emergente.inscritoequipo"));
 					} else {
@@ -1148,12 +1154,12 @@ public class Controller implements ActionListener {
 							if ((int) vf.getVp().getPnH().getSpinnersA().get(indice).getValue() > (int) vf.getVp()
 									.getPnH().getSpinnersB().get(indice).getValue()) {
 								Equipo ganador = ps.get(indice).getEquipoA();
-								for (Jugador j : ganador.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(ganador).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
 								Equipo perdedor = ps.get(indice).getEquipoB();
-								for (Jugador j : perdedor.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(perdedor).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
@@ -1167,12 +1173,12 @@ public class Controller implements ActionListener {
 							} else if ((int) vf.getVp().getPnH().getSpinnersA().get(indice).getValue() < (int) vf
 									.getVp().getPnH().getSpinnersB().get(indice).getValue()) {
 								Equipo ganador = ps.get(indice).getEquipoB();
-								for (Jugador j : ganador.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(ganador).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(ganador).getPartidosJugados().add(ps.get(indice));
 								Equipo perdedor = ps.get(indice).getEquipoA();
-								for (Jugador j : perdedor.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(perdedor).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(perdedor).getPartidosJugados().add(ps.get(indice));
@@ -1185,11 +1191,11 @@ public class Controller implements ActionListener {
 
 							} else {
 								ps.get(indice).setGanador(null);
-								for (Jugador j : ps.get(indice).getEquipoA().getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(ps.get(indice).getEquipoA()).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(ps.get(indice).getEquipoB()).getPartidosJugados().add(ps.get(indice));
-								for (Jugador j : ps.get(indice).getEquipoB().getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(ps.get(indice).getEquipoB()).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								mf.getEquipoDAO().find(ps.get(indice).getEquipoA()).getPartidosJugados().add(ps.get(indice));
@@ -1205,13 +1211,6 @@ public class Controller implements ActionListener {
 							mf.getTorneoLlaveDAO().escribirSerializado();
 							mf.getJugadorDAO().escribirSerializado();
 							mf.getEntrenadorDAO().escribirSerializado();
-							
-							System.out.println();
-							
-							for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
-								System.out.println(j.getPartidasGanadas());
-								System.out.println(j.getPartidasJugadas());
-							}
 							
 							vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 							vf.getVp().getPnH().actualizarInfo();
@@ -1238,13 +1237,6 @@ public class Controller implements ActionListener {
 							mf.getJugadorDAO().escribirSerializado();
 							mf.getEntrenadorDAO().escribirSerializado();
 							mf.getEquipoDAO().escribirSerializado();
-							
-							System.out.println();
-							
-							for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
-								System.out.println(j.getPartidasGanadas());
-								System.out.println(j.getPartidasJugadas());
-							}
 
 						}
 						// TORNEO ELIMINACION DIRECTA
@@ -1264,11 +1256,12 @@ public class Controller implements ActionListener {
 							if ((int) vf.getVp().getPnH().getSpinnersA().get(indice).getValue() > (int) vf.getVp()
 									.getPnH().getSpinnersB().get(indice).getValue()) {
 								ganador = mf.getEquipoDAO().find(ps.get(indice).getEquipoA());
-								for (Jugador j : ganador.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(ganador).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasGanadas(mf.getJugadorDAO().find(j).getPartidasGanadas() + 1);
 								}
 								perdedor = mf.getEquipoDAO().find(ps.get(indice).getEquipoB());
-								for (Jugador j : perdedor.getJugadores()) {
+								for (Jugador j : mf.getEquipoDAO().find(perdedor).getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
 								}
 								ps.get(indice).setGanador(ganador);
@@ -1282,6 +1275,7 @@ public class Controller implements ActionListener {
 								ganador = mf.getEquipoDAO().find(ps.get(indice).getEquipoB());
 								for (Jugador j : ganador.getJugadores()) {
 									mf.getJugadorDAO().find(j).setPartidasJugadas(mf.getJugadorDAO().find(j).getPartidasJugadas() + 1);
+									mf.getJugadorDAO().find(j).setPartidasGanadas(mf.getJugadorDAO().find(j).getPartidasGanadas() + 1);
 								}
 								perdedor = mf.getEquipoDAO().find(ps.get(indice).getEquipoA());
 								for (Jugador j : perdedor.getJugadores()) {
@@ -1318,13 +1312,6 @@ public class Controller implements ActionListener {
 										mf.getEntrenadorDAO().escribirSerializado();
 										mf.getEquipoDAO().escribirSerializado();
 										
-										System.out.println("a");
-										
-										for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
-											System.out.println(j.getPartidasGanadas());
-											System.out.println(j.getPartidasJugadas());
-										}
-										
 										vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 										vf.getVp().getPnH().actualizarInfo();
 										asignarComponentes("Partida");
@@ -1352,13 +1339,6 @@ public class Controller implements ActionListener {
 					mf.getJugadorDAO().escribirSerializado();
 					mf.getEntrenadorDAO().escribirSerializado();
 					mf.getEquipoDAO().escribirSerializado();
-					
-					System.out.println();
-					
-					for (Jugador j : mf.getJugadorDAO().getListaJugadores()) {
-						System.out.println(j.getPartidasGanadas());
-						System.out.println(j.getPartidasJugadas());
-					}
 					
 					vf.getVp().getPnH().agregarPartida(mf.obtenerTodasPartidas().size(), mf.obtenerTodasPartidas());
 					vf.getVp().getPnH().actualizarInfo();
