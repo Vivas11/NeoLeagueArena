@@ -93,7 +93,6 @@ public class Controller implements ActionListener {
 
 		mf = new ModelFacade();
 		vf = new ViewFacade(prop);
-		mf.setUsuarioActual(new Administrador("VivasAdmin", "Lc1234.", "lc.vivascruz@gmail.com"));
 		
 	}
 	/**

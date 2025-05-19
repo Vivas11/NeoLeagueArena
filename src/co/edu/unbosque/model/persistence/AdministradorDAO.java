@@ -54,7 +54,7 @@ public class AdministradorDAO implements OperacionDAO<AdministradorDTO, Administ
     public String showAll() {
         String rta = "";
         if (listaAdministrador.isEmpty()) {
-            return "No hay mascotas en la lista";
+            return "No hay admins en la lista";
         } else {
             for (Administrador administrador : listaAdministrador) {
                 rta += administrador;
